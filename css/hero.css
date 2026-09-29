@@ -1,0 +1,334 @@
+/* =========================================================
+   HERO CONTENT
+========================================================== */
+
+.hero__content {
+    position: relative;
+
+    width: 100%;
+    min-height: 100svh;
+
+    padding:
+        calc(var(--header-height) + 65px)
+        var(--page-padding)
+        60px;
+}
+
+/* =========================================================
+   HERO COPY
+========================================================== */
+
+.hero__copy {
+    position: relative;
+
+    z-index: 20;
+
+    width: min(46vw, 670px);
+}
+
+.hero__eyebrow {
+    display: inline-block;
+
+    margin-bottom: 17px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    letter-spacing: 0.38em;
+
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   TITLE
+========================================================== */
+
+.hero__title {
+    display: flex;
+    flex-direction: column;
+
+    margin: 0;
+
+    font-family: var(--font-display);
+
+    font-size: clamp(88px, 9.1vw, 158px);
+
+    line-height: 0.79;
+
+    letter-spacing: -0.025em;
+
+    text-transform: uppercase;
+}
+
+.hero-word {
+    display: block;
+
+    width: max-content;
+
+    transform-origin: left bottom;
+}
+
+.hero-word--accent {
+    color: var(--color-accent);
+}
+
+/* pseudo-texture sobre as letras */
+
+.hero-word {
+    position: relative;
+}
+
+.hero-word::after {
+    content: "";
+
+    position: absolute;
+    inset: 3% 0;
+
+    pointer-events: none;
+
+    opacity: 0.13;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+
+    mix-blend-mode: screen;
+}
+
+/* =========================================================
+   DESCRIPTION
+========================================================== */
+
+.hero__description {
+    width: min(510px, 100%);
+
+    margin:
+        30px
+        0
+        0;
+
+    font-size: 16px;
+    line-height: 1.55;
+
+    color: #2d2d2d;
+}
+
+.hero__description strong {
+    font-weight: 700;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================== */
+
+.hero__buttons {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 28px;
+}
+
+/* =========================================================
+   MAIN VISUAL
+========================================================== */
+
+.hero__visual {
+    position: absolute;
+
+    z-index: 5;
+
+    top: -3%;
+    right: -2%;
+
+    width: 58vw;
+    height: 97%;
+
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: none;
+}
+
+.hero__circle {
+    position: absolute;
+
+    right: 5%;
+    top: 18%;
+
+    width: min(39vw, 630px);
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    background: var(--color-accent);
+
+    opacity: 0.96;
+}
+
+.hero__pizza {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(56vw, 860px);
+
+    max-width: none;
+    height: auto;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 35px 38px rgba(28, 14, 7, 0.20))
+        drop-shadow(0 12px 14px rgba(28, 14, 7, 0.13));
+
+    transform:
+        translate(9%, -1%)
+        rotate(-5deg);
+}
+
+/* =========================================================
+   SEAL
+========================================================== */
+
+.hero__seal {
+    position: absolute;
+
+    z-index: 25;
+
+    top: 35%;
+    left: 40%;
+
+    display: grid;
+    place-items: center;
+
+    width: 155px;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+
+    transform: rotate(-8deg);
+}
+
+.hero__seal-image {
+    width: 100%;
+    height: auto;
+
+    filter:
+        drop-shadow(0 18px 22px rgba(28, 14, 7, 0.12));
+}
+
+/* =========================================================
+   SOCIAL
+========================================================== */
+
+.social {
+    position: absolute;
+
+    z-index: 30;
+
+    top: 25%;
+    right: 24px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 17px;
+}
+
+.social__link {
+    display: grid;
+    place-items: center;
+
+    width: 49px;
+    height: 49px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(17, 17, 17, 0.28);
+
+    background: rgba(255, 255, 255, 0.58);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        color 200ms ease,
+        background 200ms ease,
+        border-color 200ms ease,
+        transform 200ms var(--ease-out);
+}
+
+.social__link:hover {
+    color: white;
+    background: var(--color-accent);
+
+    border-color: var(--color-accent);
+
+    transform: translateX(-4px);
+}
+
+/* =========================================================
+   SCROLL
+========================================================== */
+
+.scroll-indicator {
+    position: absolute;
+
+    z-index: 30;
+
+    left: var(--page-padding);
+    bottom: 32px;
+
+    display: grid;
+    place-items: center;
+
+    width: 58px;
+    height: 58px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(17, 17, 17, 0.3);
+
+    font-size: 24px;
+
+    transition:
+        background 200ms ease,
+        color 200ms ease,
+        transform 200ms var(--ease-out);
+}
+
+.scroll-indicator:hover {
+    color: white;
+    background: var(--color-text);
+
+    transform: translateY(4px);
+}
+
+/* =========================================================
+   SIGNATURE
+========================================================== */
+
+.hero__signature {
+    position: absolute;
+
+    z-index: 20;
+
+    right: 34px;
+    bottom: 36px;
+
+    max-width: 130px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.16em;
+    line-height: 1.45;
+
+    text-align: right;
+}

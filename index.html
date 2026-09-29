@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Pizzaria Nuclear — pizza artesanal, ingredientes marcantes e muito sabor."
+    >
+
+    <title>Pizzaria Nuclear</title>
+
+    <!-- Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/hero.css">
+    <link rel="stylesheet" href="./css/products.css">
+    <link rel="stylesheet" href="./css/sections.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <a
+            href="#inicio"
+            class="brand"
+            aria-label="Pizzaria Nuclear"
+        >
+            <img
+                class="brand__logo"
+                src="./assets/logo/NuclearLogo.png"
+                width="1448"
+                height="1086"
+                alt=""
+                decoding="async"
+            >
+        </a>
+
+
+        <nav
+            class="nav"
+            aria-label="Navegação principal"
+        >
+
+            <a
+                href="#inicio"
+                class="nav__link nav__link--active"
+            >
+                Início
+            </a>
+
+            <a
+                href="#cardapio"
+                class="nav__link"
+            >
+                Cardápio
+            </a>
+
+            <a
+                href="#sabores"
+                class="nav__link"
+            >
+                Sabores
+            </a>
+
+            <a
+                href="#sobre"
+                class="nav__link"
+            >
+                Sobre
+            </a>
+
+            <a
+                href="#unidades"
+                class="nav__link"
+            >
+                Unidades
+            </a>
+
+            <button
+                class="nav__search"
+                aria-label="Buscar no cardápio"
+                data-search-open
+            >
+                ⌕
+            </button>
+
+        </nav>
+
+
+        <div class="header__actions">
+
+            <button
+                class="header__cart"
+                aria-label="Abrir carrinho"
+                data-cart-open
+            >
+                <span aria-hidden="true">
+                    🛒
+                </span>
+
+                <span
+                    class="cart-count"
+                    data-cart-count
+                >
+                    0
+                </span>
+            </button>
+
+            <button
+                class="header__menu"
+                aria-label="Abrir menu"
+                aria-expanded="false"
+                data-menu-open
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section
+            class="hero"
+            id="inicio"
+        >
+
+            <div class="hero__content">
+
+                <!-- ESQUERDA -->
+
+                <div class="hero__copy">
+
+                    <span class="hero__eyebrow">
+                        MAIS QUE PIZZA
+                    </span>
+
+
+                    <h1
+                        class="hero__title"
+                        aria-label="Pizza Not Boring"
+                    >
+
+                        <span
+                            class="hero-word"
+                            data-word="PIZZA"
+                        >
+                            PIZZA
+                        </span>
+
+                        <span
+                            class="hero-word hero-word--accent"
+                            data-word="NOT"
+                        >
+                            NOT
+                        </span>
+
+                        <span
+                            class="hero-word"
+                            data-word="BORING"
+                        >
+                            BORING
+                        </span>
+
+                    </h1>
+
+
+                    <p class="hero__description">
+
+                        <strong>Pizzaria Nuclear</strong>
+                        transforma cada fatia em uma experiência intensa,
+                        com massa artesanal, ingredientes marcantes
+                        e muito sabor em cada pedaço.
+
+                    </p>
+
+
+                    <div class="hero__buttons">
+
+                        <a
+                            href="#cardapio"
+                            class="button button--primary"
+                        >
+                            <span>
+                                Ver cardápio
+                            </span>
+
+                            <span aria-hidden="true">
+                                →
+                            </span>
+                        </a>
+
+
+                        <button
+                            class="button button--cart"
+                            aria-label="Abrir carrinho"
+                            data-cart-open
+                        >
+                            🛒
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SELO -->
+
+                <div class="hero__seal">
+
+                    <img
+                        class="hero__seal-image"
+                        src="./assets/logo/nuclear-seal.svg"
+                        width="220"
+                        height="220"
+                        alt="Massa artesanal, sabor real"
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                </div>
+
+
+                <!-- PIZZA PRINCIPAL -->
+
+                <figure
+                    class="hero__visual"
+                    aria-label="Pizza principal da Pizzaria Nuclear"
+                >
+
+                    <div class="hero__circle"></div>
+
+                    <img
+                        class="hero__pizza"
+                        src="./assets/pizzas/PizzaHero.png"
+                        width="1254"
+                        height="1254"
+                        alt="Pizza artesanal da Pizzaria Nuclear"
+                        decoding="async"
+                        fetchpriority="high"
+                    >
+
+                </figure>
+
+
+                <!-- SOCIAL -->
+
+                <aside class="social">
+
+                    <a
+                        href="https://instagram.com"
+                        class="social__link"
+                        aria-label="Instagram"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        IG
+                    </a>
+
+                    <a
+                        href="https://facebook.com"
+                        class="social__link"
+                        aria-label="Facebook"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        F
+                    </a>
+
+                    <a
+                        href="https://tiktok.com"
+                        class="social__link"
+                        aria-label="TikTok"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        TK
+                    </a>
+
+                </aside>
+
+
+                <!-- CAROUSEL -->
+
+                <div class="carousel">
+
+                    <div class="carousel__controls">
+
+                        <button
+                            class="carousel__arrow carousel__arrow--prev"
+                            aria-label="Produto anterior"
+                        >
+                            ←
+                        </button>
+
+                        <button
+                            class="carousel__arrow carousel__arrow--next"
+                            aria-label="Próximo produto"
+                        >
+                            →
+                        </button>
+
+                    </div>
+
+
+                    <div class="carousel__track">
+
+                        <!-- CARD 1 -->
+
+                        <article class="pizza-card">
+
+                            <div class="pizza-card__image">
+
+                                <img
+                                    src="./assets/pizzas/margherita.png"
+                                    width="900"
+                                    height="675"
+                                    alt="Pizza Margherita"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                            </div>
+
+                            <div class="pizza-card__content">
+
+                                <h2>
+                                    Margherita
+                                </h2>
+
+                                <p>
+                                    Molho de tomate, mussarela de búfala
+                                    e manjericão fresco.
+                                </p>
+
+                                <footer class="pizza-card__footer">
+
+                                    <strong>
+                                        R$ 42,90
+                                    </strong>
+
+                                    <button
+                                        class="pizza-card__add"
+                                        aria-label="Adicionar Margherita ao carrinho"
+                                        data-add
+                                        data-name="Margherita"
+                                        data-price="42.90"
+                                    >
+                                        +
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- CARD 2 -->
+
+                        <article class="pizza-card">
+
+                            <div class="pizza-card__image">
+
+                                <img
+                                    src="./assets/pizzas/diavola.png"
+                                    width="900"
+                                    height="675"
+                                    alt="Pizza Diavola"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                            </div>
+
+                            <div class="pizza-card__content">
+
+                                <h2>
+                                    Diavola
+                                </h2>
+
+                                <p>
+                                    Molho italiano, mussarela,
+                                    pepperoni artesanal e pimenta.
+                                </p>
+
+                                <footer class="pizza-card__footer">
+
+                                    <strong>
+                                        R$ 48,90
+                                    </strong>
+
+                                    <button
+                                        class="pizza-card__add"
+                                        aria-label="Adicionar Diavola ao carrinho"
+                                        data-add
+                                        data-name="Diavola"
+                                        data-price="48.90"
+                                    >
+                                        +
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- CARD 3 -->
+
+                        <article class="pizza-card">
+
+                            <div class="pizza-card__image">
+
+                                <img
+                                    src="./assets/pizzas/quatro-queijos.png"
+                                    width="900"
+                                    height="675"
+                                    alt="Pizza Quatro Queijos"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                            </div>
+
+                            <div class="pizza-card__content">
+
+                                <h2>
+                                    Quatro Queijos
+                                </h2>
+
+                                <p>
+                                    Mussarela, gorgonzola,
+                                    parmesão e provolone.
+                                </p>
+
+                                <footer class="pizza-card__footer">
+
+                                    <strong>
+                                        R$ 51,90
+                                    </strong>
+
+                                    <button
+                                        class="pizza-card__add"
+                                        aria-label="Adicionar Quatro Queijos ao carrinho"
+                                        data-add
+                                        data-name="Quatro Queijos"
+                                        data-price="51.90"
+                                    >
+                                        +
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- CARD 4 -->
+
+                        <article class="pizza-card">
+
+                            <div class="pizza-card__image">
+
+                                <img
+                                    src="./assets/pizzas/prosciutto.png"
+                                    width="900"
+                                    height="675"
+                                    alt="Pizza Prosciutto"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+
+                            </div>
+
+                            <div class="pizza-card__content">
+
+                                <h2>
+                                    Prosciutto
+                                </h2>
+
+                                <p>
+                                    Presunto cru, rúcula,
+                                    parmesão e mussarela.
+                                </p>
+
+                                <footer class="pizza-card__footer">
+
+                                    <strong>
+                                        R$ 54,90
+                                    </strong>
+
+                                    <button
+                                        class="pizza-card__add"
+                                        aria-label="Adicionar Prosciutto ao carrinho"
+                                        data-add
+                                        data-name="Prosciutto"
+                                        data-price="54.90"
+                                    >
+                                        +
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCROLL -->
+
+                <a
+                    href="#cardapio"
+                    class="scroll-indicator"
+                    aria-label="Ir para o cardápio"
+                >
+                    ↓
+                </a>
+
+
+                <span class="hero__signature">
+                    FATIAS QUE FAZEM SENTIDO.
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- MARQUEE -->
+
+        <div
+            class="marquee"
+            aria-hidden="true"
+        >
+
+            <div class="marquee__track">
+
+                <span class="marquee__group">
+                    <span>MASSA DE 48 HORAS</span>
+                    <span>★</span>
+                    <span>FORNO A LENHA</span>
+                    <span>★</span>
+                    <span>INGREDIENTES REAIS</span>
+                    <span>★</span>
+                    <span>ENTREGA EM 40 MIN</span>
+                    <span>★</span>
+                </span>
+
+                <span class="marquee__group">
+                    <span>MASSA DE 48 HORAS</span>
+                    <span>★</span>
+                    <span>FORNO A LENHA</span>
+                    <span>★</span>
+                    <span>INGREDIENTES REAIS</span>
+                    <span>★</span>
+                    <span>ENTREGA EM 40 MIN</span>
+                    <span>★</span>
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARDÁPIO -->
+
+        <section
+            class="section menu"
+            id="cardapio"
+        >
+
+            <header class="section__head reveal">
+
+                <span class="section__eyebrow">
+                    01 — Cardápio
+                </span>
+
+                <h2 class="section__title">
+                    Escolha sua
+                    <em>explosão</em>
+                </h2>
+
+                <p class="section__lead">
+                    Massa de fermentação natural por 48 horas,
+                    assada em forno a lenha a 450°C.
+                    Todos os sabores saem em tamanho único de 35 cm,
+                    com oito fatias generosas.
+                </p>
+
+            </header>
+
+
+            <div class="menu__toolbar reveal">
+
+                <div
+                    class="menu__filters"
+                    role="group"
+                    aria-label="Filtrar cardápio por categoria"
+                >
+
+                    <button
+                        class="menu__filter menu__filter--active"
+                        data-filter="todas"
+                        aria-pressed="true"
+                    >
+                        Todas
+                    </button>
+
+                    <button
+                        class="menu__filter"
+                        data-filter="tradicionais"
+                        aria-pressed="false"
+                    >
+                        Tradicionais
+                    </button>
+
+                    <button
+                        class="menu__filter"
+                        data-filter="especiais"
+                        aria-pressed="false"
+                    >
+                        Especiais
+                    </button>
+
+                    <button
+                        class="menu__filter"
+                        data-filter="veganas"
+                        aria-pressed="false"
+                    >
+                        Veganas
+                    </button>
+
+                    <button
+                        class="menu__filter"
+                        data-filter="doces"
+                        aria-pressed="false"
+                    >
+                        Doces
+                    </button>
+
+                </div>
+
+
+                <div class="menu__search">
+
+                    <label
+                        class="visually-hidden"
+                        for="menu-search"
+                    >
+                        Buscar sabor
+                    </label>
+
+                    <span
+                        class="menu__search-icon"
+                        aria-hidden="true"
+                    >
+                        ⌕
+                    </span>
+
+                    <input
+                        class="menu__search-input"
+                        id="menu-search"
+                        type="search"
+                        placeholder="Buscar sabor ou ingrediente"
+                        autocomplete="off"
+                        data-menu-search
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="menu__grid"
+                data-menu-grid
+            >
+
+                <!-- TRADICIONAIS -->
+
+                <article
+                    class="menu-item reveal"
+                    data-category="tradicionais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Margherita
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 42,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Molho de tomate San Marzano, mussarela de búfala,
+                        manjericão fresco e azeite extravirgem.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Clássica
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Margherita"
+                            data-price="42.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="tradicionais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Calabresa Nuclear
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 45,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Calabresa artesanal defumada, cebola roxa,
+                        azeitona preta e orégano da casa.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Mais pedida
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Calabresa Nuclear"
+                            data-price="45.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="tradicionais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Portuguesa
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 47,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Presunto, ovo caipira, ervilha fresca,
+                        cebola, azeitona e mussarela.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Clássica
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Portuguesa"
+                            data-price="47.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="tradicionais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Frango com Catupiry
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 46,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Frango desfiado temperado, catupiry original,
+                        milho e cheiro-verde.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Cremosa
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Frango com Catupiry"
+                            data-price="46.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ESPECIAIS -->
+
+                <article
+                    class="menu-item reveal"
+                    data-category="especiais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Diavola
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 48,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Molho italiano, mussarela, pepperoni artesanal,
+                        mel picante e pimenta calabresa.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag menu-item__tag--hot">
+                            Picante
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Diavola"
+                            data-price="48.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="especiais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Quatro Queijos
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 51,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Mussarela, gorgonzola, parmesão curado
+                        e provolone defumado.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Cremosa
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Quatro Queijos"
+                            data-price="51.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="especiais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Prosciutto
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 54,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Presunto cru maturado, rúcula selvagem,
+                        lascas de parmesão e mussarela.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Premium
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Prosciutto"
+                            data-price="54.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="especiais"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Trufada
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 62,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Creme de trufas negras, mix de funghi,
+                        grana padano e fio de azeite trufado.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Premium
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Trufada"
+                            data-price="62.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- VEGANAS -->
+
+                <article
+                    class="menu-item reveal"
+                    data-category="veganas"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Horta Nuclear
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 44,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Abobrinha, berinjela, pimentão assado
+                        e pesto vegano de manjericão.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag menu-item__tag--veg">
+                            Vegana
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Horta Nuclear"
+                            data-price="44.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="veganas"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Cogumelos
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 49,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Shitake, shimeji, alho-poró caramelizado
+                        e queijo vegetal de castanha.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag menu-item__tag--veg">
+                            Vegana
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Cogumelos"
+                            data-price="49.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="veganas"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Caprese Vegana
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 46,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Tomate confit, mussarela vegetal,
+                        manjericão fresco e azeite de ervas.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag menu-item__tag--veg">
+                            Vegana
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Caprese Vegana"
+                            data-price="46.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- DOCES -->
+
+                <article
+                    class="menu-item reveal"
+                    data-category="doces"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Nutella com Morango
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 39,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Creme de avelã, morangos frescos
+                        e açúcar de confeiteiro.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Doce
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Nutella com Morango"
+                            data-price="39.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="doces"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Banana Nuclear
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 36,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Banana caramelizada no maçarico, canela
+                        e doce de leite argentino.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Doce
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Banana Nuclear"
+                            data-price="36.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <article
+                    class="menu-item reveal"
+                    data-category="doces"
+                >
+
+                    <div class="menu-item__head">
+
+                        <h3 class="menu-item__name">
+                            Romeu e Julieta
+                        </h3>
+
+                        <span
+                            class="menu-item__dots"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="menu-item__price">
+                            R$ 37,90
+                        </span>
+
+                    </div>
+
+                    <p class="menu-item__description">
+                        Goiabada cascão derretida
+                        com queijo minas meia cura.
+                    </p>
+
+                    <div class="menu-item__footer">
+
+                        <span class="menu-item__tag">
+                            Doce
+                        </span>
+
+                        <button
+                            class="menu-item__add"
+                            data-add
+                            data-name="Romeu e Julieta"
+                            data-price="37.90"
+                        >
+                            Adicionar
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <p
+                class="menu__empty"
+                data-menu-empty
+                hidden
+            >
+                Nenhum sabor encontrado. Tente outra busca.
+            </p>
+
+        </section>
+
+
+        <!-- SABORES -->
+
+        <section
+            class="section flavors"
+            id="sabores"
+        >
+
+            <header class="section__head reveal">
+
+                <span class="section__eyebrow">
+                    02 — Sabores
+                </span>
+
+                <h2 class="section__title">
+                    Os três que
+                    <em>marcam</em>
+                </h2>
+
+                <p class="section__lead">
+                    Todo mês a casa elege os sabores que mais
+                    saíram do forno. Estes são os campeões da temporada.
+                </p>
+
+            </header>
+
+
+            <div class="flavors__grid">
+
+                <article class="flavor reveal">
+
+                    <span class="flavor__index">
+                        01
+                    </span>
+
+                    <div class="flavor__media">
+
+                        <img
+                            src="./assets/pizzas/diavola.png"
+                            width="900"
+                            height="675"
+                            alt="Pizza Diavola"
+                            loading="lazy"
+                            decoding="async"
+                        >
+
+                    </div>
+
+                    <h3 class="flavor__name">
+                        Diavola
+                    </h3>
+
+                    <p class="flavor__text">
+                        Pepperoni curado na casa, mel picante
+                        e pimenta calabresa. A fatia que dá nome à pizzaria.
+                    </p>
+
+                    <ul class="flavor__tags">
+                        <li>Pepperoni</li>
+                        <li>Mel picante</li>
+                        <li>Calabresa</li>
+                    </ul>
+
+                    <div class="flavor__meter">
+
+                        <span class="flavor__meter-label">
+                            Intensidade
+                        </span>
+
+                        <span
+                            class="flavor__meter-bar"
+                            role="img"
+                            aria-label="Intensidade 5 de 5"
+                        >
+                            <span
+                                class="flavor__meter-fill"
+                                style="width: 100%"
+                            ></span>
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <article class="flavor reveal">
+
+                    <span class="flavor__index">
+                        02
+                    </span>
+
+                    <div class="flavor__media">
+
+                        <img
+                            src="./assets/pizzas/quatro-queijos.png"
+                            width="900"
+                            height="675"
+                            alt="Pizza Quatro Queijos"
+                            loading="lazy"
+                            decoding="async"
+                        >
+
+                    </div>
+
+                    <h3 class="flavor__name">
+                        Quatro Queijos
+                    </h3>
+
+                    <p class="flavor__text">
+                        Quatro queijos maturados em proporções calculadas
+                        para derreter junto e não brigar no paladar.
+                    </p>
+
+                    <ul class="flavor__tags">
+                        <li>Gorgonzola</li>
+                        <li>Parmesão</li>
+                        <li>Provolone</li>
+                    </ul>
+
+                    <div class="flavor__meter">
+
+                        <span class="flavor__meter-label">
+                            Intensidade
+                        </span>
+
+                        <span
+                            class="flavor__meter-bar"
+                            role="img"
+                            aria-label="Intensidade 4 de 5"
+                        >
+                            <span
+                                class="flavor__meter-fill"
+                                style="width: 80%"
+                            ></span>
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <article class="flavor reveal">
+
+                    <span class="flavor__index">
+                        03
+                    </span>
+
+                    <div class="flavor__media">
+
+                        <img
+                            src="./assets/pizzas/prosciutto.png"
+                            width="900"
+                            height="675"
+                            alt="Pizza Prosciutto"
+                            loading="lazy"
+                            decoding="async"
+                        >
+
+                    </div>
+
+                    <h3 class="flavor__name">
+                        Prosciutto
+                    </h3>
+
+                    <p class="flavor__text">
+                        Presunto cru maturado por 18 meses, colocado
+                        depois do forno para preservar o sabor.
+                    </p>
+
+                    <ul class="flavor__tags">
+                        <li>Presunto cru</li>
+                        <li>Rúcula</li>
+                        <li>Parmesão</li>
+                    </ul>
+
+                    <div class="flavor__meter">
+
+                        <span class="flavor__meter-label">
+                            Intensidade
+                        </span>
+
+                        <span
+                            class="flavor__meter-bar"
+                            role="img"
+                            aria-label="Intensidade 3 de 5"
+                        >
+                            <span
+                                class="flavor__meter-fill"
+                                style="width: 60%"
+                            ></span>
+                        </span>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOBRE -->
+
+        <section
+            class="section about"
+            id="sobre"
+        >
+
+            <div class="about__media reveal">
+
+                <div class="about__circle"></div>
+
+                <img
+                    class="about__image"
+                    src="./assets/pizzas/hero-pizza.png"
+                    width="1254"
+                    height="1254"
+                    alt="Pizza saindo do forno a lenha"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <img
+                    class="about__seal"
+                    src="./assets/logo/nuclear-seal.svg"
+                    width="220"
+                    height="220"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                >
+
+            </div>
+
+
+            <div class="about__copy reveal">
+
+                <span class="section__eyebrow">
+                    03 — Sobre
+                </span>
+
+                <h2 class="section__title">
+                    Massa lenta,
+                    <em>sabor rápido</em>
+                </h2>
+
+                <p class="about__text">
+                    A Nuclear nasceu em 2016 numa garagem no centro,
+                    com um forno a lenha emprestado e uma ideia teimosa:
+                    pizza não precisa ser previsível.
+                </p>
+
+                <p class="about__text">
+                    Hoje são três unidades, a mesma massa de fermentação
+                    natural de 48 horas e ingredientes comprados
+                    direto de pequenos produtores da região.
+                    Nada de atalho, nada de sabor morno.
+                </p>
+
+
+                <dl class="about__stats">
+
+                    <div class="stat">
+                        <dt class="stat__label">Anos de forno</dt>
+                        <dd class="stat__value">09</dd>
+                    </div>
+
+                    <div class="stat">
+                        <dt class="stat__label">Pizzas assadas</dt>
+                        <dd class="stat__value">480k</dd>
+                    </div>
+
+                    <div class="stat">
+                        <dt class="stat__label">Sabores na casa</dt>
+                        <dd class="stat__value">14</dd>
+                    </div>
+
+                    <div class="stat">
+                        <dt class="stat__label">Unidades</dt>
+                        <dd class="stat__value">03</dd>
+                    </div>
+
+                </dl>
+
+
+                <a
+                    href="#unidades"
+                    class="button button--primary"
+                >
+                    <span>
+                        Conhecer as unidades
+                    </span>
+
+                    <span aria-hidden="true">
+                        →
+                    </span>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- UNIDADES -->
+
+        <section
+            class="section stores"
+            id="unidades"
+        >
+
+            <header class="section__head reveal">
+
+                <span class="section__eyebrow">
+                    04 — Unidades
+                </span>
+
+                <h2 class="section__title">
+                    Onde a gente
+                    <em>acende o forno</em>
+                </h2>
+
+                <p class="section__lead">
+                    Entrega em até 40 minutos para bairros vizinhos.
+                    Retirada no balcão sai sempre 10% mais barata.
+                </p>
+
+            </header>
+
+
+            <div class="stores__grid">
+
+                <article class="store reveal">
+
+                    <header class="store__head">
+
+                        <h3 class="store__name">
+                            Nuclear Centro
+                        </h3>
+
+                        <span class="store__status">
+                            Matriz
+                        </span>
+
+                    </header>
+
+                    <p class="store__address">
+                        Rua das Oliveiras, 214<br>
+                        Centro — Belo Horizonte / MG
+                    </p>
+
+                    <dl class="store__info">
+
+                        <div>
+                            <dt>Horário</dt>
+                            <dd>Ter a dom, 18h às 23h30</dd>
+                        </div>
+
+                        <div>
+                            <dt>Telefone</dt>
+                            <dd>(31) 3222-0101</dd>
+                        </div>
+
+                    </dl>
+
+                    <div class="store__actions">
+
+                        <a
+                            href="tel:+553132220101"
+                            class="store__action store__action--primary"
+                        >
+                            Ligar
+                        </a>
+
+                        <a
+                            href="https://maps.google.com/?q=Rua+das+Oliveiras+214+Belo+Horizonte"
+                            class="store__action"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Ver no mapa
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="store reveal">
+
+                    <header class="store__head">
+
+                        <h3 class="store__name">
+                            Nuclear Savassi
+                        </h3>
+
+                        <span class="store__status">
+                            Delivery 24h sex e sáb
+                        </span>
+
+                    </header>
+
+                    <p class="store__address">
+                        Av. Getúlio Vargas, 1.480<br>
+                        Savassi — Belo Horizonte / MG
+                    </p>
+
+                    <dl class="store__info">
+
+                        <div>
+                            <dt>Horário</dt>
+                            <dd>Seg a dom, 18h às 01h</dd>
+                        </div>
+
+                        <div>
+                            <dt>Telefone</dt>
+                            <dd>(31) 3222-0202</dd>
+                        </div>
+
+                    </dl>
+
+                    <div class="store__actions">
+
+                        <a
+                            href="tel:+553132220202"
+                            class="store__action store__action--primary"
+                        >
+                            Ligar
+                        </a>
+
+                        <a
+                            href="https://maps.google.com/?q=Avenida+Getulio+Vargas+1480+Belo+Horizonte"
+                            class="store__action"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Ver no mapa
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <article class="store reveal">
+
+                    <header class="store__head">
+
+                        <h3 class="store__name">
+                            Nuclear Pampulha
+                        </h3>
+
+                        <span class="store__status">
+                            Espaço kids
+                        </span>
+
+                    </header>
+
+                    <p class="store__address">
+                        Rua Fernão Dias, 77<br>
+                        Pampulha — Belo Horizonte / MG
+                    </p>
+
+                    <dl class="store__info">
+
+                        <div>
+                            <dt>Horário</dt>
+                            <dd>Qua a dom, 18h às 23h</dd>
+                        </div>
+
+                        <div>
+                            <dt>Telefone</dt>
+                            <dd>(31) 3222-0303</dd>
+                        </div>
+
+                    </dl>
+
+                    <div class="store__actions">
+
+                        <a
+                            href="tel:+553132220303"
+                            class="store__action store__action--primary"
+                        >
+                            Ligar
+                        </a>
+
+                        <a
+                            href="https://maps.google.com/?q=Rua+Fernao+Dias+77+Pampulha+Belo+Horizonte"
+                            class="store__action"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            Ver no mapa
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer__top">
+
+            <div class="footer__brand">
+
+                <img
+                    class="footer__logo"
+                    src="./assets/logo/NuclearLogo.png"
+                    width="1448"
+                    height="1086"
+                    alt="Pizzaria Nuclear"
+                    loading="lazy"
+                    decoding="async"
+                >
+
+                <p class="footer__tagline">
+                    Fatias que fazem sentido desde 2016.
+                    Massa artesanal, forno a lenha e
+                    ingredientes que você reconhece.
+                </p>
+
+                <div class="footer__social">
+
+                    <a
+                        href="https://instagram.com"
+                        class="social__link"
+                        aria-label="Instagram"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        IG
+                    </a>
+
+                    <a
+                        href="https://facebook.com"
+                        class="social__link"
+                        aria-label="Facebook"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        F
+                    </a>
+
+                    <a
+                        href="https://tiktok.com"
+                        class="social__link"
+                        aria-label="TikTok"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        TK
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <nav
+                class="footer__nav"
+                aria-label="Rodapé"
+            >
+
+                <div class="footer__column">
+
+                    <h2 class="footer__heading">
+                        Navegar
+                    </h2>
+
+                    <a href="#inicio">Início</a>
+                    <a href="#cardapio">Cardápio</a>
+                    <a href="#sabores">Sabores</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#unidades">Unidades</a>
+
+                </div>
+
+                <div class="footer__column">
+
+                    <h2 class="footer__heading">
+                        Atendimento
+                    </h2>
+
+                    <a href="tel:+553132220101">(31) 3222-0101</a>
+                    <a href="mailto:oi@pizzarianuclear.com.br">oi@pizzarianuclear.com.br</a>
+                    <a
+                        href="https://wa.me/553132220101"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        WhatsApp
+                    </a>
+                    <span>Ter a dom, 18h às 23h30</span>
+
+                </div>
+
+            </nav>
+
+
+            <form
+                class="newsletter"
+                data-newsletter
+                novalidate
+            >
+
+                <h2 class="footer__heading">
+                    Promoções no e-mail
+                </h2>
+
+                <p class="newsletter__text">
+                    Uma mensagem por semana com o sabor da vez
+                    e cupom de desconto. Sem spam.
+                </p>
+
+                <div class="newsletter__field">
+
+                    <label
+                        class="visually-hidden"
+                        for="newsletter-email"
+                    >
+                        Seu e-mail
+                    </label>
+
+                    <input
+                        class="newsletter__input"
+                        id="newsletter-email"
+                        type="email"
+                        name="email"
+                        placeholder="seu@email.com"
+                        required
+                    >
+
+                    <button
+                        class="newsletter__submit"
+                        type="submit"
+                        aria-label="Assinar newsletter"
+                    >
+                        →
+                    </button>
+
+                </div>
+
+                <p
+                    class="newsletter__feedback"
+                    data-newsletter-feedback
+                    role="status"
+                ></p>
+
+            </form>
+
+        </div>
+
+
+        <div class="footer__bottom">
+
+            <p>
+                © <span data-year>2026</span> Pizzaria Nuclear.
+                Todos os direitos reservados.
+            </p>
+
+            <p>
+                CNPJ 00.000.000/0001-00 ·
+                Projeto fictício para portfólio.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- CARRINHO -->
+
+    <div
+        class="drawer"
+        id="cart"
+        data-cart
+        hidden
+    >
+
+        <div
+            class="drawer__backdrop"
+            data-cart-close
+        ></div>
+
+        <aside
+            class="drawer__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cart-title"
+        >
+
+            <header class="drawer__head">
+
+                <h2
+                    class="drawer__title"
+                    id="cart-title"
+                >
+                    Seu pedido
+                </h2>
+
+                <button
+                    class="drawer__close"
+                    aria-label="Fechar carrinho"
+                    data-cart-close
+                >
+                    ✕
+                </button>
+
+            </header>
+
+
+            <ul
+                class="cart-list"
+                data-cart-list
+            ></ul>
+
+
+            <p
+                class="cart-empty"
+                data-cart-empty
+            >
+                Seu carrinho está vazio.
+                Que tal começar pela Diavola?
+            </p>
+
+
+            <footer class="drawer__foot">
+
+                <div class="cart-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong data-cart-total>
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <p class="cart-note">
+                    Entrega calculada na finalização do pedido.
+                </p>
+
+                <button
+                    class="button button--primary cart-checkout"
+                    data-cart-checkout
+                >
+                    <span>
+                        Finalizar no WhatsApp
+                    </span>
+
+                    <span aria-hidden="true">
+                        →
+                    </span>
+                </button>
+
+            </footer>
+
+        </aside>
+
+    </div>
+
+
+    <!-- MENU MOBILE -->
+
+    <div
+        class="mobile-menu"
+        id="mobile-menu"
+        data-menu
+        hidden
+    >
+
+        <div
+            class="mobile-menu__backdrop"
+            data-menu-close
+        ></div>
+
+        <nav
+            class="mobile-menu__panel"
+            aria-label="Navegação mobile"
+        >
+
+            <button
+                class="mobile-menu__close"
+                aria-label="Fechar menu"
+                data-menu-close
+            >
+                ✕
+            </button>
+
+            <a
+                href="#inicio"
+                class="mobile-menu__link"
+            >
+                Início
+            </a>
+
+            <a
+                href="#cardapio"
+                class="mobile-menu__link"
+            >
+                Cardápio
+            </a>
+
+            <a
+                href="#sabores"
+                class="mobile-menu__link"
+            >
+                Sabores
+            </a>
+
+            <a
+                href="#sobre"
+                class="mobile-menu__link"
+            >
+                Sobre
+            </a>
+
+            <a
+                href="#unidades"
+                class="mobile-menu__link"
+            >
+                Unidades
+            </a>
+
+            <button
+                class="button button--primary mobile-menu__cart"
+                data-cart-open
+            >
+                <span>
+                    Ver carrinho
+                </span>
+
+                <span aria-hidden="true">
+                    →
+                </span>
+            </button>
+
+        </nav>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        class="toast"
+        data-toast
+        role="status"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- GSAP -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"
+    ></script>
+
+    <!-- JS -->
+
+    <script src="./js/main.js"></script>
+    <script src="./js/hero-animations.js"></script>
+    <script src="./js/carousel.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/ui.js"></script>
+
+</body>
+
+</html>

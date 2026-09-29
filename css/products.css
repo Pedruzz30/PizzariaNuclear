@@ -1,0 +1,245 @@
+/* =========================================================
+   CAROUSEL
+========================================================== */
+
+.carousel {
+    position: absolute;
+
+    z-index: 35;
+
+    right: 4.5%;
+    bottom: 7%;
+
+    width: min(49vw, 760px);
+}
+
+.carousel__track {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 14px;
+
+    overflow: visible;
+}
+
+/* =========================================================
+   CARD
+========================================================== */
+
+.pizza-card {
+    position: relative;
+
+    flex: 0 0 215px;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    box-shadow:
+        0 22px 60px rgba(0, 0, 0, 0.1);
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 300ms var(--ease-out),
+        box-shadow 300ms ease;
+}
+
+.pizza-card:hover {
+    transform: translateY(-10px);
+
+    box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.16);
+}
+
+/* Card depth staggering */
+
+.pizza-card:nth-child(1) {
+    transform: translateY(0);
+}
+
+.pizza-card:nth-child(2) {
+    transform: translateY(18px);
+}
+
+.pizza-card:nth-child(3) {
+    transform: translateY(34px);
+}
+
+.pizza-card:nth-child(4) {
+    transform: translateY(18px);
+}
+
+.pizza-card:nth-child(1):hover,
+.pizza-card:nth-child(2):hover,
+.pizza-card:nth-child(3):hover,
+.pizza-card:nth-child(4):hover {
+    transform: translateY(-10px);
+}
+
+/* =========================================================
+   IMAGE
+========================================================== */
+
+.pizza-card__image {
+    position: relative;
+
+    height: 135px;
+
+    margin: 5px;
+
+    overflow: hidden;
+
+    border-radius: 21px;
+
+    background: #eee6dc;
+}
+
+.pizza-card__image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 700ms var(--ease-soft);
+}
+
+.pizza-card:hover .pizza-card__image img {
+    transform: scale(1.07);
+}
+
+/* =========================================================
+   BODY
+========================================================== */
+
+.pizza-card__content {
+    padding:
+        13px
+        16px
+        15px;
+}
+
+.pizza-card h2 {
+    margin: 0 0 6px;
+
+    font-size: 17px;
+    line-height: 1;
+
+    letter-spacing: -0.025em;
+}
+
+.pizza-card p {
+    min-height: 42px;
+
+    margin: 0;
+
+    color: var(--color-muted);
+
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   FOOTER
+========================================================== */
+
+.pizza-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 15px;
+}
+
+.pizza-card__footer strong {
+    color: var(--color-accent);
+
+    font-size: 17px;
+}
+
+.pizza-card__add {
+    display: grid;
+    place-items: center;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--color-text);
+
+    color: var(--color-text);
+    background: transparent;
+
+    font-size: 20px;
+    line-height: 1;
+
+    transition:
+        color 200ms ease,
+        background 200ms ease,
+        transform 200ms var(--ease-out);
+}
+
+.pizza-card__add:hover {
+    color: white;
+    background: var(--color-text);
+
+    transform: rotate(90deg);
+}
+
+/* =========================================================
+   CAROUSEL CONTROLS
+========================================================== */
+
+.carousel__controls {
+    position: absolute;
+
+    right: 0;
+    top: -68px;
+
+    display: flex;
+
+    gap: 9px;
+}
+
+.carousel__arrow {
+    display: grid;
+    place-items: center;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.82);
+
+    border: 1px solid rgba(17, 17, 17, 0.12);
+
+    font-size: 18px;
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 200ms var(--ease-out),
+        background 200ms ease;
+}
+
+.carousel__arrow:hover {
+    color: white;
+    background: var(--color-text);
+}
+
+.carousel__arrow--prev:hover {
+    transform: translateX(-4px);
+}
+
+.carousel__arrow--next:hover {
+    transform: translateX(4px);
+}

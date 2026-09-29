@@ -1,0 +1,249 @@
+/* =========================================================
+   FOOTER
+========================================================== */
+
+.footer {
+    color: var(--color-white);
+    background: var(--color-text);
+
+    padding:
+        clamp(60px, 7vw, 100px)
+        var(--page-padding)
+        34px;
+}
+
+.footer__top {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(0, 1.1fr)
+        minmax(0, 1fr);
+
+    gap: clamp(34px, 5vw, 70px);
+
+    padding-bottom: 54px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* =========================================================
+   BRAND
+========================================================== */
+
+.footer__logo {
+    width: 190px;
+    height: auto;
+
+    margin-bottom: 22px;
+}
+
+.footer__tagline {
+    max-width: 380px;
+
+    margin: 0 0 26px;
+
+    font-size: 14px;
+    line-height: 1.65;
+
+    color: rgba(255, 255, 255, 0.66);
+}
+
+.footer__social {
+    display: flex;
+
+    gap: 10px;
+}
+
+.footer__social .social__link {
+    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.06);
+
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.footer__social .social__link:hover {
+    background: var(--color-accent);
+
+    border-color: var(--color-accent);
+
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   NAV COLUMNS
+========================================================== */
+
+.footer__nav {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 30px;
+}
+
+.footer__column {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 12px;
+}
+
+.footer__heading {
+    margin: 0 0 8px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.2em;
+
+    text-transform: uppercase;
+
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer__column a,
+.footer__column span {
+    font-size: 14px;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    transition:
+        color 200ms ease,
+        transform 200ms var(--ease-out);
+}
+
+.footer__column a:hover {
+    color: var(--color-accent);
+
+    transform: translateX(4px);
+}
+
+/* =========================================================
+   NEWSLETTER
+========================================================== */
+
+.newsletter__text {
+    max-width: 320px;
+
+    margin: 0 0 20px;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.66);
+}
+
+.newsletter__field {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    max-width: 360px;
+}
+
+.newsletter__input {
+    width: 100%;
+    min-height: 58px;
+
+    padding: 0 66px 0 24px;
+
+    border-radius: var(--radius-pill);
+
+    color: var(--color-white);
+    background: rgba(255, 255, 255, 0.07);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    font-size: 14px;
+
+    transition:
+        border-color 200ms ease,
+        background 200ms ease;
+}
+
+.newsletter__input::placeholder {
+    color: rgba(255, 255, 255, 0.42);
+}
+
+.newsletter__input:focus {
+    outline: none;
+
+    background: rgba(255, 255, 255, 0.11);
+
+    border-color: var(--color-accent);
+}
+
+.newsletter__submit {
+    position: absolute;
+
+    right: 6px;
+
+    display: grid;
+    place-items: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    color: var(--color-white);
+    background: var(--color-accent);
+
+    font-size: 18px;
+
+    transition:
+        background 200ms ease,
+        transform 200ms var(--ease-out);
+}
+
+.newsletter__submit:hover {
+    background: var(--color-accent-dark);
+
+    transform: translateX(3px);
+}
+
+.newsletter__feedback {
+    min-height: 20px;
+
+    margin: 12px 0 0;
+
+    font-size: 13px;
+
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.newsletter__feedback--error {
+    color: #ff9c92;
+}
+
+.newsletter__feedback--success {
+    color: #8fe0a4;
+}
+
+/* =========================================================
+   BOTTOM
+========================================================== */
+
+.footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding-top: 28px;
+}
+
+.footer__bottom p {
+    margin: 0;
+
+    font-size: 12px;
+
+    color: rgba(255, 255, 255, 0.45);
+}
