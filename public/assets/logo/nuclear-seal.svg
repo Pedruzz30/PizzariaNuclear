@@ -1,0 +1,21 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Massa artesanal, sabor real</title>
+  <desc id="desc">Selo circular vermelho da Pizzaria Nuclear com chama central.</desc>
+  <circle cx="110" cy="110" r="102" fill="#FFF7EC"/>
+  <circle cx="110" cy="110" r="99" stroke="#EF3826" stroke-width="4"/>
+  <circle cx="110" cy="110" r="82" stroke="#EF3826" stroke-width="2"/>
+  <path id="top-arc" d="M45 111a65 65 0 0 1 130 0" />
+  <path id="bottom-arc" d="M175 112a65 65 0 0 1-130 0" />
+  <text fill="#EF3826" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" letter-spacing="2.2">
+    <textPath href="#top-arc" startOffset="50%" text-anchor="middle">MASSA ARTESANAL</textPath>
+  </text>
+  <text fill="#EF3826" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="900" letter-spacing="2.2">
+    <textPath href="#bottom-arc" startOffset="50%" text-anchor="middle">SABOR REAL</textPath>
+  </text>
+  <circle cx="43" cy="110" r="4" fill="#EF3826"/>
+  <circle cx="177" cy="110" r="4" fill="#EF3826"/>
+  <g transform="translate(78 54)">
+    <path fill="#EF3826" d="M31.4 94C13.9 94 .9 81.5.9 65.1c0-13.1 7.5-21.8 15.7-30.4 1.5 10 6.5 15.7 13.1 20.3C26.6 40.1 35.1 29 46.5 18.9c-.5 15.2 11.9 20.8 16.5 34.2C68 67.3 57.8 94 31.4 94Z"/>
+    <path fill="#FFF7EC" d="M32.5 85.5c-8.2 0-14.4-6-14.4-13.6 0-6.2 3.6-10.2 7.4-14.2.8 4.7 3.1 7.4 6.2 9.5-1.5-6.9 2.6-12.2 8-17 0 7.2 5.6 9.8 7.7 16 2.3 6.7-2.4 19.3-14.9 19.3Z"/>
+  </g>
+</svg>
