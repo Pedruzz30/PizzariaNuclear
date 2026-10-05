@@ -1,17 +1,25 @@
 "use client";
 import { useState } from "react";
 import { useCart } from "@/components/cart/cart-provider";
-import { formatPrice, type Catalog } from "@/lib/catalog-schema";
+import {
+  formatPrice,
+  getStartingPrice,
+  type Catalog,
+} from "@/lib/catalog-schema";
 const normalize = (text: string) =>
   text
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase();
 
-export function Menu({ categories, products }: Catalog) {
+export function Menu({
+  categories,
+  products,
+  sizes,
+}: Pick<Catalog, "categories" | "products" | "sizes">) {
   const [category, setCategory] = useState("all");
   const [search, setSearch] = useState("");
-  const { add } = useCart();
+  const { configure } = useCart();
   const visible = products.filter(
     (product) =>
       (category === "all" || product.category_id === category) &&
@@ -27,8 +35,8 @@ export function Menu({ categories, products }: Catalog) {
           Escolha sua <em>explosão</em>
         </h2>
         <p className="section__lead">
-          Massa de fermentação natural por 48 horas, assada em forno a lenha.
-          Sabores do nosso cardápio.
+          Escolha uma pizza inteira ou meio a meio, um kalzone ou uma bebida.
+          Tamanhos, bordas e adicionais aparecem antes de adicionar ao carrinho.
         </p>
       </header>
       <div className="menu__toolbar">
@@ -72,7 +80,10 @@ export function Menu({ categories, products }: Catalog) {
               <h3 className="menu-item__name">{product.name}</h3>
               <span className="menu-item__dots" aria-hidden="true" />
               <span className="menu-item__price">
-                {formatPrice(product.base_price_cents)}
+                {getStartingPrice(product, sizes).hasSizes ? (
+                  <small>A partir de</small>
+                ) : null}
+                {formatPrice(getStartingPrice(product, sizes).cents)}
               </span>
             </header>
             <p className="menu-item__description">{product.description}</p>
@@ -81,10 +92,10 @@ export function Menu({ categories, products }: Catalog) {
               <button
                 className="menu-item__add"
                 disabled={!product.available}
-                aria-label={`Adicionar ${product.name}`}
-                onClick={() => add(product)}
+                aria-label={`Personalizar ${product.name}`}
+                onClick={() => configure(product)}
               >
-                {product.available ? "Adicionar" : "Indisponível"}
+                {product.available ? "Personalizar" : "Indisponível"}
               </button>
             </footer>
           </article>

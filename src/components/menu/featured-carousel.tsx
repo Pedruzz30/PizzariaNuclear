@@ -2,11 +2,22 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { useCart } from "@/components/cart/cart-provider";
-import { formatPrice, type Product } from "@/lib/catalog-schema";
+import {
+  formatPrice,
+  getStartingPrice,
+  type Product,
+  type ProductSize,
+} from "@/lib/catalog-schema";
 
-export function FeaturedCarousel({ products }: { products: Product[] }) {
+export function FeaturedCarousel({
+  products,
+  sizes,
+}: {
+  products: Product[];
+  sizes: ProductSize[];
+}) {
   const track = useRef<HTMLDivElement>(null);
-  const { add } = useCart();
+  const { configure } = useCart();
   function move(direction: number) {
     const node = track.current;
     const card = node?.firstElementChild;
@@ -54,12 +65,17 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
               <h2>{product.name}</h2>
               <p>{product.description}</p>
               <footer className="pizza-card__footer">
-                <strong>{formatPrice(product.base_price_cents)}</strong>
+                <strong>
+                  {getStartingPrice(product, sizes).hasSizes ? (
+                    <small>A partir de </small>
+                  ) : null}
+                  {formatPrice(getStartingPrice(product, sizes).cents)}
+                </strong>
                 <button
                   className="pizza-card__add"
                   disabled={!product.available}
-                  aria-label={`Adicionar ${product.name} ao carrinho`}
-                  onClick={() => add(product)}
+                  aria-label={`Personalizar ${product.name}`}
+                  onClick={() => configure(product)}
                 >
                   {product.available ? "+" : "×"}
                 </button>

@@ -1,160 +1,99 @@
 import Image from "next/image";
-export function Story() {
+import type { Catalog } from "@/lib/catalog-schema";
+import { brazilianWhatsAppNumber } from "@/lib/contact";
+
+const featuredSlugs = ["margherita", "4-queijos", "calabresa"];
+
+export function Story({ catalog }: { catalog: Catalog }) {
+  const featured = featuredSlugs
+    .map((slug) => catalog.products.find((product) => product.slug === slug))
+    .filter((product) => product !== undefined);
+  const pizzaCategory = catalog.categories.find(
+    (category) => category.slug === "pizzas",
+  );
+  const pizzaCount = catalog.products.filter(
+    (product) => product.category_id === pizzaCategory?.id,
+  ).length;
+  const sizeCount = new Set(catalog.sizes.map((size) => size.name)).size;
+  const borderCount = catalog.options.filter((option) =>
+    catalog.optionGroups.some(
+      (group) => group.id === option.option_group_id && group.kind === "crust",
+    ),
+  ).length;
+  const extraCount = catalog.options.filter((option) =>
+    catalog.optionGroups.some(
+      (group) => group.id === option.option_group_id && group.kind === "extra",
+    ),
+  ).length;
+  const whatsappNumber = brazilianWhatsAppNumber(
+    catalog.storeContact?.whatsapp,
+  );
+  const dailyHours =
+    catalog.storeHours.length === 7 &&
+    catalog.storeHours.every(
+      (hours) =>
+        hours.opens_at === catalog.storeHours[0].opens_at &&
+        hours.closes_at === catalog.storeHours[0].closes_at &&
+        !hours.closes_next_day,
+    )
+      ? catalog.storeHours[0]
+      : null;
+
   return (
     <>
       <section className="section flavors" id="sabores">
-        {" "}
         <header className="section__head">
-          {" "}
-          <span className="section__eyebrow"> 02 — Sabores </span>{" "}
+          <span className="section__eyebrow">02 — Sabores</span>
           <h2 className="section__title">
-            {" "}
-            Os três que <em>marcam</em>{" "}
-          </h2>{" "}
+            Escolha seu <em>favorito</em>
+          </h2>
           <p className="section__lead">
-            {" "}
-            Todo mês a casa elege os sabores que mais saíram do forno. Estes são
-            os campeões da temporada.{" "}
-          </p>{" "}
-        </header>{" "}
+            Conheça alguns sabores do cardápio. Você pode pedir sua pizza
+            inteira ou meio a meio.
+          </p>
+        </header>
         <div className="flavors__grid">
-          {" "}
-          <article className="flavor">
-            {" "}
-            <span className="flavor__index"> 01 </span>{" "}
-            <div className="flavor__media">
-              {" "}
-              <Image
-                src="/assets/pizzas/diavola.png"
-                width={900}
-                height={675}
-                alt="Pizza Diavola"
-                loading="lazy"
-                sizes="(max-width: 600px) 90vw, (max-width: 1100px) 50vw, 600px"
-              />{" "}
-            </div>{" "}
-            <h3 className="flavor__name"> Diavola </h3>{" "}
-            <p className="flavor__text">
-              {" "}
-              Pepperoni curado na casa, mel picante e pimenta calabresa. A fatia
-              que dá nome à pizzaria.{" "}
-            </p>{" "}
-            <ul className="flavor__tags">
-              {" "}
-              <li>Pepperoni</li> <li>Mel picante</li> <li>Calabresa</li>{" "}
-            </ul>{" "}
-            <div className="flavor__meter">
-              {" "}
-              <span className="flavor__meter-label"> Intensidade </span>{" "}
-              <span
-                className="flavor__meter-bar"
-                role="img"
-                aria-label="Intensidade 5 de 5"
-              >
-                {" "}
-                <span
-                  className="flavor__meter-fill"
-                  style={{ width: "100%" }}
-                ></span>{" "}
-              </span>{" "}
-            </div>{" "}
-          </article>{" "}
-          <article className="flavor">
-            {" "}
-            <span className="flavor__index"> 02 </span>{" "}
-            <div className="flavor__media">
-              {" "}
-              <Image
-                src="/assets/pizzas/quatro-queijos.png"
-                width={900}
-                height={675}
-                alt="Pizza Quatro Queijos"
-                loading="lazy"
-                sizes="(max-width: 600px) 90vw, (max-width: 1100px) 50vw, 600px"
-              />{" "}
-            </div>{" "}
-            <h3 className="flavor__name"> Quatro Queijos </h3>{" "}
-            <p className="flavor__text">
-              {" "}
-              Quatro queijos maturados em proporções calculadas para derreter
-              junto e não brigar no paladar.{" "}
-            </p>{" "}
-            <ul className="flavor__tags">
-              {" "}
-              <li>Gorgonzola</li> <li>Parmesão</li> <li>Provolone</li>{" "}
-            </ul>{" "}
-            <div className="flavor__meter">
-              {" "}
-              <span className="flavor__meter-label"> Intensidade </span>{" "}
-              <span
-                className="flavor__meter-bar"
-                role="img"
-                aria-label="Intensidade 4 de 5"
-              >
-                {" "}
-                <span
-                  className="flavor__meter-fill"
-                  style={{ width: "80%" }}
-                ></span>{" "}
-              </span>{" "}
-            </div>{" "}
-          </article>{" "}
-          <article className="flavor">
-            {" "}
-            <span className="flavor__index"> 03 </span>{" "}
-            <div className="flavor__media">
-              {" "}
-              <Image
-                src="/assets/pizzas/prosciutto.png"
-                width={900}
-                height={675}
-                alt="Pizza Prosciutto"
-                loading="lazy"
-                sizes="(max-width: 600px) 90vw, (max-width: 1100px) 50vw, 600px"
-              />{" "}
-            </div>{" "}
-            <h3 className="flavor__name"> Prosciutto </h3>{" "}
-            <p className="flavor__text">
-              {" "}
-              Presunto cru maturado por 18 meses, colocado depois do forno para
-              preservar o sabor.{" "}
-            </p>{" "}
-            <ul className="flavor__tags">
-              {" "}
-              <li>Presunto cru</li> <li>Rúcula</li> <li>Parmesão</li>{" "}
-            </ul>{" "}
-            <div className="flavor__meter">
-              {" "}
-              <span className="flavor__meter-label"> Intensidade </span>{" "}
-              <span
-                className="flavor__meter-bar"
-                role="img"
-                aria-label="Intensidade 3 de 5"
-              >
-                {" "}
-                <span
-                  className="flavor__meter-fill"
-                  style={{ width: "60%" }}
-                ></span>{" "}
-              </span>{" "}
-            </div>{" "}
-          </article>{" "}
-        </div>{" "}
+          {featured.map((product, index) => (
+            <article className="flavor" key={product.id}>
+              <span className="flavor__index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="flavor__media">
+                <Image
+                  src={product.image_url ?? "/assets/pizzas/hero-pizza.png"}
+                  width={900}
+                  height={675}
+                  alt={
+                    product.image_url
+                      ? `Pizza ${product.name}`
+                      : "Imagem ilustrativa de pizza"
+                  }
+                  loading="lazy"
+                  sizes="(max-width: 600px) 90vw, (max-width: 1100px) 50vw, 600px"
+                />
+              </div>
+              <h3 className="flavor__name">{product.name}</h3>
+              <p className="flavor__text">{product.description}</p>
+              <ul className="flavor__tags">
+                <li>Inteira</li>
+                <li>Meio a meio</li>
+              </ul>
+            </article>
+          ))}
+        </div>
       </section>
       <section className="section about" id="sobre">
-        {" "}
         <div className="about__media">
-          {" "}
-          <div className="about__circle"></div>{" "}
+          <div className="about__circle" />
           <Image
             className="about__image"
             src="/assets/pizzas/hero-pizza.png"
             width={1254}
             height={1254}
-            alt="Pizza saindo do forno a lenha"
+            alt="Imagem ilustrativa de pizza"
             loading="lazy"
             sizes="(max-width: 600px) 90vw, (max-width: 1100px) 50vw, 600px"
-          />{" "}
+          />
           <Image
             className="about__seal"
             src="/assets/logo/nuclear-seal.svg"
@@ -163,207 +102,93 @@ export function Story() {
             alt=""
             loading="lazy"
             sizes="(max-width: 600px) 90vw, (max-width: 1100px) 50vw, 600px"
-          />{" "}
-        </div>{" "}
+          />
+        </div>
         <div className="about__copy">
-          {" "}
-          <span className="section__eyebrow"> 03 — Sobre </span>{" "}
+          <span className="section__eyebrow">03 — Seu pedido</span>
           <h2 className="section__title">
-            {" "}
-            Massa lenta, <em>sabor rápido</em>{" "}
-          </h2>{" "}
+            Seu tamanho, <em>seu sabor</em>
+          </h2>
           <p className="about__text">
-            {" "}
-            A Nuclear nasceu em 2016 numa garagem no centro, com um forno a
-            lenha emprestado e uma ideia teimosa: pizza não precisa ser
-            previsível.{" "}
-          </p>{" "}
+            Escolha entre Pequena, Média, Grande e Maracanã. O meio a meio custa
+            o mesmo que a pizza inteira no tamanho escolhido.
+          </p>
           <p className="about__text">
-            {" "}
-            Hoje são três unidades, a mesma massa de fermentação natural de 48
-            horas e ingredientes comprados direto de pequenos produtores da
-            região. Nada de atalho, nada de sabor morno.{" "}
-          </p>{" "}
+            Bordas e adicionais são opcionais e têm seus valores mostrados antes
+            de adicionar a pizza ao carrinho.
+          </p>
           <dl className="about__stats">
-            {" "}
             <div className="stat">
-              {" "}
-              <dt className="stat__label">Anos de forno</dt>{" "}
-              <dd className="stat__value">09</dd>{" "}
-            </div>{" "}
+              <dt className="stat__label">Sabores de pizza</dt>
+              <dd className="stat__value">{pizzaCount}</dd>
+            </div>
             <div className="stat">
-              {" "}
-              <dt className="stat__label">Pizzas assadas</dt>{" "}
-              <dd className="stat__value">480k</dd>{" "}
-            </div>{" "}
+              <dt className="stat__label">Tamanhos</dt>
+              <dd className="stat__value">{sizeCount}</dd>
+            </div>
             <div className="stat">
-              {" "}
-              <dt className="stat__label">Sabores na casa</dt>{" "}
-              <dd className="stat__value">14</dd>{" "}
-            </div>{" "}
+              <dt className="stat__label">Bordas</dt>
+              <dd className="stat__value">{borderCount}</dd>
+            </div>
             <div className="stat">
-              {" "}
-              <dt className="stat__label">Unidades</dt>{" "}
-              <dd className="stat__value">03</dd>{" "}
-            </div>{" "}
-          </dl>{" "}
-          <a href="#unidades" className="button button--primary">
-            {" "}
-            <span> Conhecer as unidades </span>{" "}
-            <span aria-hidden="true"> → </span>{" "}
-          </a>{" "}
-        </div>{" "}
+              <dt className="stat__label">Adicionais</dt>
+              <dd className="stat__value">{extraCount}</dd>
+            </div>
+          </dl>
+          <a href="#cardapio" className="button button--primary">
+            <span>Ver cardápio</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </section>
-      <section className="section stores" id="unidades">
-        {" "}
+      <section className="section stores" id="atendimento">
         <header className="section__head">
-          {" "}
-          <span className="section__eyebrow"> 04 — Unidades </span>{" "}
+          <span className="section__eyebrow">04 — Atendimento</span>
           <h2 className="section__title">
-            {" "}
-            Onde a gente <em>acende o forno</em>{" "}
-          </h2>{" "}
+            A Nuclear em <em>Lídice</em>
+          </h2>
           <p className="section__lead">
-            {" "}
-            Entrega em até 40 minutos para bairros vizinhos. Retirada no balcão
-            sai sempre 10% mais barata.{" "}
-          </p>{" "}
-        </header>{" "}
+            Confira o endereço e o horário da unidade. Pedidos e pagamentos
+            online ainda estão em preparação.
+          </p>
+        </header>
         <div className="stores__grid">
-          {" "}
           <article className="store">
-            {" "}
             <header className="store__head">
-              {" "}
-              <h3 className="store__name"> Nuclear Centro </h3>{" "}
-              <span className="store__status"> Matriz </span>{" "}
-            </header>{" "}
+              <h3 className="store__name">Nuclear Lídice</h3>
+              <span className="store__status">Todos os dias</span>
+            </header>
             <p className="store__address">
-              {" "}
-              Rua das Oliveiras, 214
-              <br /> Centro — Belo Horizonte / MG{" "}
-            </p>{" "}
+              {catalog.storeContact?.address || "Endereço em confirmação"}
+            </p>
             <dl className="store__info">
-              {" "}
               <div>
-                {" "}
-                <dt>Horário</dt> <dd>Ter a dom, 18h às 23h30</dd>{" "}
-              </div>{" "}
+                <dt>Horário</dt>
+                <dd>
+                  {dailyHours
+                    ? `Todos os dias, das ${dailyHours.opens_at.slice(0, 2)}h às ${dailyHours.closes_at.slice(0, 2)}h`
+                    : "Em confirmação"}
+                </dd>
+              </div>
               <div>
-                {" "}
-                <dt>Telefone</dt> <dd>(31) 3222-0101</dd>{" "}
-              </div>{" "}
-            </dl>{" "}
-            <div className="store__actions">
-              {" "}
-              <a
-                href="tel:+553132220101"
-                className="store__action store__action--primary"
-              >
-                {" "}
-                Ligar{" "}
-              </a>{" "}
-              <a
-                href="https://maps.google.com/?q=Rua+das+Oliveiras+214+Belo+Horizonte"
-                className="store__action"
-                target="_blank"
-                rel="noopener"
-              >
-                {" "}
-                Ver no mapa{" "}
-              </a>{" "}
-            </div>{" "}
-          </article>{" "}
-          <article className="store">
-            {" "}
-            <header className="store__head">
-              {" "}
-              <h3 className="store__name"> Nuclear Savassi </h3>{" "}
-              <span className="store__status">
-                {" "}
-                Delivery 24h sex e sáb{" "}
-              </span>{" "}
-            </header>{" "}
-            <p className="store__address">
-              {" "}
-              Av. Getúlio Vargas, 1.480
-              <br /> Savassi — Belo Horizonte / MG{" "}
-            </p>{" "}
-            <dl className="store__info">
-              {" "}
-              <div>
-                {" "}
-                <dt>Horário</dt> <dd>Seg a dom, 18h às 01h</dd>{" "}
-              </div>{" "}
-              <div>
-                {" "}
-                <dt>Telefone</dt> <dd>(31) 3222-0202</dd>{" "}
-              </div>{" "}
-            </dl>{" "}
-            <div className="store__actions">
-              {" "}
-              <a
-                href="tel:+553132220202"
-                className="store__action store__action--primary"
-              >
-                {" "}
-                Ligar{" "}
-              </a>{" "}
-              <a
-                href="https://maps.google.com/?q=Avenida+Getulio+Vargas+1480+Belo+Horizonte"
-                className="store__action"
-                target="_blank"
-                rel="noopener"
-              >
-                {" "}
-                Ver no mapa{" "}
-              </a>{" "}
-            </div>{" "}
-          </article>{" "}
-          <article className="store">
-            {" "}
-            <header className="store__head">
-              {" "}
-              <h3 className="store__name"> Nuclear Pampulha </h3>{" "}
-              <span className="store__status"> Espaço kids </span>{" "}
-            </header>{" "}
-            <p className="store__address">
-              {" "}
-              Rua Fernão Dias, 77
-              <br /> Pampulha — Belo Horizonte / MG{" "}
-            </p>{" "}
-            <dl className="store__info">
-              {" "}
-              <div>
-                {" "}
-                <dt>Horário</dt> <dd>Qua a dom, 18h às 23h</dd>{" "}
-              </div>{" "}
-              <div>
-                {" "}
-                <dt>Telefone</dt> <dd>(31) 3222-0303</dd>{" "}
-              </div>{" "}
-            </dl>{" "}
-            <div className="store__actions">
-              {" "}
-              <a
-                href="tel:+553132220303"
-                className="store__action store__action--primary"
-              >
-                {" "}
-                Ligar{" "}
-              </a>{" "}
-              <a
-                href="https://maps.google.com/?q=Rua+Fernao+Dias+77+Pampulha+Belo+Horizonte"
-                className="store__action"
-                target="_blank"
-                rel="noopener"
-              >
-                {" "}
-                Ver no mapa{" "}
-              </a>{" "}
-            </div>{" "}
-          </article>{" "}
-        </div>{" "}
+                <dt>Telefone</dt>
+                <dd>{catalog.storeContact?.phone || "Em confirmação"}</dd>
+              </div>
+            </dl>
+            {whatsappNumber ? (
+              <div className="store__actions">
+                <a
+                  className="store__action store__action--primary"
+                  href={`https://wa.me/${whatsappNumber}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp
+                </a>
+              </div>
+            ) : null}
+          </article>
+        </div>
       </section>
     </>
   );

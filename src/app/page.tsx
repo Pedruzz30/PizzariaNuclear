@@ -6,28 +6,35 @@ import { Footer } from "@/components/landing/footer";
 import { CartProvider } from "@/components/cart/cart-provider";
 import { Menu } from "@/components/menu/menu";
 import { getCatalog } from "@/server/catalog";
+import { getCheckoutAvailability } from "@/server/checkout-availability";
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
-  const catalog = await getCatalog();
+  const [catalog, checkoutAvailability] = await Promise.all([
+    getCatalog(),
+    getCheckoutAvailability(),
+  ]);
   return (
-    <CartProvider products={catalog.products}>
+    <CartProvider catalog={catalog} checkoutAvailability={checkoutAvailability}>
       <Header />
       <main id="conteudo">
         <Hero
           featured={catalog.products.filter((product) => product.featured)}
+          sizes={catalog.sizes}
         />
         <Marquee />
-        {catalog.source === "demo" ? (
-          <p className="environment-note" role="status">
-            Cardápio de demonstração — pedidos e pagamentos online ainda não
-            estão habilitados.
-          </p>
-        ) : null}
-        <Menu categories={catalog.categories} products={catalog.products} />
-        <Story />
+        <p className="environment-note" role="status">
+          Cardápio em homologação — pagamento online disponível somente após
+          validar o ambiente de teste.
+        </p>
+        <Menu
+          categories={catalog.categories}
+          products={catalog.products}
+          sizes={catalog.sizes}
+        />
+        <Story catalog={catalog} />
       </main>
-      <Footer />
+      <Footer contact={catalog.storeContact} />
     </CartProvider>
   );
 }

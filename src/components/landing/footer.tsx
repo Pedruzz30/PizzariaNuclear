@@ -1,5 +1,8 @@
 import Image from "next/image";
-export function Footer() {
+import { brazilianWhatsAppNumber } from "@/lib/contact";
+import type { StoreContact } from "@/lib/catalog-schema";
+export function Footer({ contact }: { contact: StoreContact | null }) {
+  const whatsappNumber = brazilianWhatsAppNumber(contact?.whatsapp);
   return (
     <footer className="footer">
       <div className="footer__top">
@@ -10,27 +13,33 @@ export function Footer() {
             height={135}
             alt="Pizzaria Nuclear"
           />
-          <p>
-            Massa artesanal, forno a lenha e ingredientes que você reconhece.
-          </p>
+          <p>21 sabores de pizza, quatro tamanhos e opção de meio a meio.</p>
         </div>
         <nav className="footer__nav" aria-label="Rodapé">
           <div>
             <h2>Navegar</h2>
             <a href="#cardapio">Cardápio</a>
             <a href="#sobre">Sobre</a>
-            <a href="#unidades">Unidades</a>
+            <a href="#atendimento">Atendimento</a>
           </div>
           <div>
             <h2>Atendimento</h2>
-            <a
-              href="https://wa.me/553132220101"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp
-            </a>
-            <a href="tel:+553132220101">(31) 3222-0101</a>
+            {whatsappNumber ? (
+              <a
+                href={`https://wa.me/${whatsappNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp
+              </a>
+            ) : (
+              <p>Contato em confirmação</p>
+            )}
+            {contact?.phone ? (
+              <a href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`}>
+                {contact.phone}
+              </a>
+            ) : null}
           </div>
         </nav>
         <div className="newsletter">

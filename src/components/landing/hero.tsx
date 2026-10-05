@@ -1,8 +1,14 @@
 import Image from "next/image";
-import type { Product } from "@/lib/catalog-schema";
+import type { Product, ProductSize } from "@/lib/catalog-schema";
 import { CartOpenButton } from "@/components/cart/cart-provider";
 import { FeaturedCarousel } from "@/components/menu/featured-carousel";
-export function Hero({ featured }: { featured: Product[] }) {
+export function Hero({
+  featured,
+  sizes,
+}: {
+  featured: Product[];
+  sizes: ProductSize[];
+}) {
   return (
     <section className="hero" id="inicio">
       {" "}
@@ -19,9 +25,9 @@ export function Hero({ featured }: { featured: Product[] }) {
           </h1>{" "}
           <p className="hero__description">
             {" "}
-            <strong>Pizzaria Nuclear</strong> transforma cada fatia em uma
-            experiência intensa, com massa artesanal, ingredientes marcantes e
-            muito sabor em cada pedaço.{" "}
+            <strong>Pizzaria Nuclear</strong> tem 21 sabores de pizza em quatro
+            tamanhos. Escolha sua favorita inteira ou meio a meio pelo mesmo
+            preço.{" "}
           </p>{" "}
           <div className="hero__buttons">
             {" "}
@@ -62,40 +68,7 @@ export function Hero({ featured }: { featured: Product[] }) {
             sizes="(max-width: 600px) 90vw, (max-width: 1100px) 50vw, 600px"
           />{" "}
         </figure>{" "}
-        <aside className="social">
-          {" "}
-          <a
-            href="https://instagram.com"
-            className="social__link"
-            aria-label="Instagram"
-            target="_blank"
-            rel="noopener"
-          >
-            {" "}
-            IG{" "}
-          </a>{" "}
-          <a
-            href="https://facebook.com"
-            className="social__link"
-            aria-label="Facebook"
-            target="_blank"
-            rel="noopener"
-          >
-            {" "}
-            F{" "}
-          </a>{" "}
-          <a
-            href="https://tiktok.com"
-            className="social__link"
-            aria-label="TikTok"
-            target="_blank"
-            rel="noopener"
-          >
-            {" "}
-            TK{" "}
-          </a>{" "}
-        </aside>{" "}
-        <FeaturedCarousel products={featured} />{" "}
+        <FeaturedCarousel products={featured} sizes={sizes} />{" "}
         <a
           href="#cardapio"
           className="scroll-indicator"

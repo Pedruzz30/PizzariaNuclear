@@ -84,11 +84,94 @@ button:disabled {
   width: 100%;
   height: 100%;
   transform: none;
+  overflow-y: auto;
+}
+.cart-dialog .cart-list {
+  flex: none;
+  overflow: visible;
 }
 .cart-dialog .drawer__footer {
-  flex-shrink: 0;
   padding: 24px;
   border-top: 1px solid var(--color-border);
+}
+.checkout-form {
+  display: grid;
+  gap: 13px;
+  padding: 22px 0;
+  border-top: 1px solid var(--color-border);
+}
+.checkout-form h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  text-transform: uppercase;
+}
+.checkout-form p,
+.checkout-form small {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.checkout-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  padding: 10px 12px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 400;
+}
+.checkout-form__methods {
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+}
+.checkout-form .checkout-form__error {
+  color: #b3261e;
+  font-weight: 700;
+}
+.order-page {
+  width: min(760px, 100% - 40px);
+  margin: 0 auto;
+  padding: 50px 0 100px;
+}
+.order-page h1 {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 8vw, 88px);
+  text-transform: uppercase;
+}
+.order-page__status {
+  font-size: 22px;
+  font-weight: 800;
+}
+.order-page dl {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+}
+.order-page dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.order-page dt {
+  color: var(--color-muted);
+}
+.order-page__options {
+  display: block;
+  color: var(--color-muted);
 }
 .cart-dialog .cart-note,
 .cart-notice {
@@ -108,6 +191,196 @@ button:disabled {
 }
 .cart-checkout {
   width: 100%;
+}
+.menu-item__price small {
+  display: block;
+  font-size: 10px;
+  line-height: 1;
+  text-align: right;
+}
+.pizza-card__footer strong small {
+  font-size: 10px;
+  font-weight: 500;
+}
+.cart-item__summary {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.cart-item__summary span:not(.cart-item__name),
+.cart-item__summary small {
+  color: var(--color-muted);
+  font-size: 12px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.product-dialog {
+  width: min(600px, calc(100vw - 32px));
+  max-height: min(760px, calc(100dvh - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 0.25);
+}
+.product-dialog::backdrop {
+  background: rgb(17 17 17 / 0.6);
+  backdrop-filter: blur(4px);
+}
+.product-dialog__form {
+  display: flex;
+  flex-direction: column;
+  max-height: inherit;
+}
+.product-dialog__header,
+.product-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+}
+.product-dialog__header {
+  border-bottom: 1px solid var(--color-border);
+}
+.product-dialog__header h2 {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 40px);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.product-dialog__eyebrow {
+  color: var(--color-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.product-dialog__close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+.product-dialog__description {
+  margin: 0;
+  padding: 20px 24px 0;
+  color: var(--color-muted);
+  line-height: 1.5;
+}
+.product-dialog__choices {
+  min-height: 0;
+  padding: 20px 24px 24px;
+  overflow-y: auto;
+}
+.product-dialog__group {
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+}
+.product-dialog__group legend,
+.product-dialog__notes {
+  font-size: 15px;
+  font-weight: 700;
+}
+.product-dialog__group p {
+  margin: 4px 0 10px;
+  color: var(--color-muted);
+  font-size: 12px;
+}
+.product-dialog__option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.product-dialog__option + .product-dialog__option {
+  margin-top: 8px;
+}
+.product-dialog__option:has(input:checked) {
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+}
+.product-dialog__option input {
+  flex: none;
+  accent-color: var(--color-accent);
+}
+.product-dialog__option span {
+  flex: 1;
+}
+.product-dialog__option strong {
+  white-space: nowrap;
+  font-size: 13px;
+}
+.product-dialog__select {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.product-dialog__select select {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 400;
+}
+.product-dialog__standard {
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+.product-dialog__notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.product-dialog__notes textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 400;
+  resize: vertical;
+}
+.product-dialog__notes small {
+  align-self: flex-end;
+  color: var(--color-muted);
+  font-size: 11px;
+}
+.product-dialog__footer {
+  border-top: 1px solid var(--color-border);
+}
+.product-dialog__footer span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.product-dialog__footer small {
+  color: var(--color-muted);
+  font-size: 11px;
+}
+.product-dialog__footer strong {
+  font-family: var(--font-display);
+  font-size: 26px;
 }
 .mobile-dialog {
   border: 0;

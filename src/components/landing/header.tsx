@@ -7,7 +7,7 @@ const links = [
   ["cardapio", "Cardápio"],
   ["sabores", "Sabores"],
   ["sobre", "Sobre"],
-  ["unidades", "Unidades"],
+  ["atendimento", "Atendimento"],
 ];
 export function Header() {
   const menu = useRef<HTMLDialogElement>(null);

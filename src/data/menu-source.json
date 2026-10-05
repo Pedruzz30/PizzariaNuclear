@@ -1,0 +1,163 @@
+{
+  "storeId": "10000000-0000-4000-8000-000000000001",
+  "storeContact": {
+    "phone": "(24) 99919-2282",
+    "whatsapp": "5524999192282",
+    "address": "Rod. Saturnino Braga, 1051 - Centro, Lídice, Rio Claro - RJ"
+  },
+  "dailyHours": { "opens_at": "17:00:00", "closes_at": "23:00:00" },
+  "sizePrices": [
+    { "name": "Pequena", "price_cents": 5000 },
+    { "name": "Média", "price_cents": 5500 },
+    { "name": "Grande", "price_cents": 6500 },
+    { "name": "Maracanã", "price_cents": 7000 }
+  ],
+  "crustOptions": [
+    { "name": "Borda de Catupiry", "additional_price_cents": 300 },
+    { "name": "Borda de Cheddar", "additional_price_cents": 300 }
+  ],
+  "extraOptions": [
+    { "name": "Milho", "additional_price_cents": 200 },
+    { "name": "Queijo mussarela", "additional_price_cents": 300 },
+    { "name": "Calabresa", "additional_price_cents": 400 },
+    { "name": "Catupiry", "additional_price_cents": 400 },
+    { "name": "Cheddar", "additional_price_cents": 300 },
+    { "name": "Bacon", "additional_price_cents": 400 }
+  ],
+  "pizzas": [
+    {
+      "name": "Mussarela",
+      "slug": "mussarela",
+      "description": "Mussarela e orégano."
+    },
+    {
+      "name": "Calabresa",
+      "slug": "calabresa",
+      "description": "Mussarela, calabresa e orégano."
+    },
+    {
+      "name": "Mista",
+      "slug": "mista",
+      "description": "Mussarela, calabresa, presunto, ovo, tomate, milho, ervilha, cebola e orégano."
+    },
+    {
+      "name": "Americana",
+      "slug": "americana",
+      "description": "Mussarela, ovo, bacon e orégano."
+    },
+    {
+      "name": "Sicilina",
+      "slug": "sicilina",
+      "description": "Mussarela, bacon, champignon, azeitona, catupiry e orégano."
+    },
+    {
+      "name": "Corn e Bacon",
+      "slug": "corn-e-bacon",
+      "description": "Mussarela, bacon, milho, azeitona, catupiry e orégano."
+    },
+    {
+      "name": "Portuguesa",
+      "slug": "portuguesa",
+      "description": "Mussarela, calabresa, presunto, ovo, tomate, milho, ervilha, ovo de codorna, azeitona, champignon, cebola, pimentão e orégano."
+    },
+    {
+      "name": "4 Queijos",
+      "slug": "4-queijos",
+      "description": "Mussarela, parmesão, provolone, catupiry e orégano.",
+      "image_url": "/assets/pizzas/quatro-queijos.png",
+      "featured": true
+    },
+    {
+      "name": "5 Queijos",
+      "slug": "5-queijos",
+      "description": "Mussarela, parmesão, provolone, catupiry, cheddar e orégano."
+    },
+    {
+      "name": "6 Queijos",
+      "slug": "6-queijos",
+      "description": "Mussarela, parmesão, provolone, catupiry, cheddar, queijo prato e orégano."
+    },
+    {
+      "name": "Frango com Catupiry",
+      "slug": "frango-com-catupiry",
+      "description": "Mussarela, catupiry, frango e orégano."
+    },
+    {
+      "name": "Caipira",
+      "slug": "caipira",
+      "description": "Mussarela, catupiry, frango, milho, ervilha e orégano."
+    },
+    {
+      "name": "Margherita",
+      "slug": "margherita",
+      "description": "Mussarela, tomate, parmesão, manjericão e orégano.",
+      "image_url": "/assets/pizzas/margherita.png",
+      "featured": true
+    },
+    {
+      "name": "Palmito",
+      "slug": "palmito",
+      "description": "Mussarela, palmito, champignon e orégano."
+    },
+    {
+      "name": "Tropical",
+      "slug": "tropical",
+      "description": "Mussarela, calabresa, palmito e orégano."
+    },
+    {
+      "name": "Moda da Casa",
+      "slug": "moda-da-casa",
+      "description": "Mussarela, presunto, ovo, parmesão e orégano."
+    },
+    {
+      "name": "Romana",
+      "slug": "romana",
+      "description": "Mussarela, presunto, tomate, parmesão e orégano."
+    },
+    {
+      "name": "Napolitana",
+      "slug": "napolitana",
+      "description": "Mussarela, tomate, alho, cebola, azeitona e orégano."
+    },
+    {
+      "name": "Gaúcha",
+      "slug": "gaucha",
+      "description": "Mussarela, tomate, milho, ervilha, parmesão e orégano."
+    },
+    {
+      "name": "Texana",
+      "slug": "texana",
+      "description": "Mussarela, calabresa, ovo, cebola, cheddar e orégano."
+    },
+    {
+      "name": "Atum",
+      "slug": "atum",
+      "description": "Mussarela, catupiry, atum e orégano."
+    }
+  ],
+  "kalzones": [
+    {
+      "name": "Kalzone de Pizza",
+      "slug": "kalzone-de-pizza",
+      "description": "Queijo, presunto, milho, ervilha, calabresa e orégano.",
+      "price_cents": 2500
+    },
+    {
+      "name": "Kalzone de Frango",
+      "slug": "kalzone-de-frango",
+      "description": "Queijo, peito de frango desfiado, catupiry e orégano.",
+      "price_cents": 3000
+    }
+  ],
+  "drinks": [
+    { "name": "Coca-Cola 2 L", "slug": "coca-cola-2l", "price_cents": 1400 },
+    {
+      "name": "Mantiqueira 2 L",
+      "slug": "mantiqueira-2l",
+      "price_cents": 1000
+    },
+    { "name": "Fanta 2 L", "slug": "fanta-2l", "price_cents": 1200 },
+    { "name": "Água 300 ml", "slug": "agua-300ml", "price_cents": 500 },
+    { "name": "Guaravita", "slug": "guaravita", "price_cents": 400 }
+  ]
+}

@@ -11,17 +11,23 @@ import {
 } from "react";
 import {
   CART_KEY,
+  LEGACY_CART_KEY,
   MAX_QUANTITY,
   cartReducer,
   parseCart,
   resolveCart,
   type CartLine,
   type CartAction,
+  type CartSelection,
 } from "@/lib/cart";
-import { formatPrice, type Product } from "@/lib/catalog-schema";
+import { formatPrice, type Catalog, type Product } from "@/lib/catalog-schema";
+import { brazilianWhatsAppNumber } from "@/lib/contact";
+import { ProductConfigurator } from "./product-configurator";
+import { CheckoutForm } from "./checkout-form";
+import type { CheckoutAvailability } from "@/server/checkout-availability";
 
 const CartContext = createContext<{
-  add: (product: Product) => void;
+  configure: (product: Product) => void;
   open: () => void;
   count: number;
 } | null>(null);
@@ -32,10 +38,12 @@ export function useCart() {
 }
 
 export function CartProvider({
-  products,
+  catalog,
+  checkoutAvailability,
   children,
 }: {
-  products: Product[];
+  catalog: Catalog;
+  checkoutAvailability: CheckoutAvailability;
   children: ReactNode;
 }) {
   const [state, dispatch] = useReducer(
@@ -47,19 +55,23 @@ export function CartProvider({
   );
   const items = state.items;
   const [message, setMessage] = useState("");
+  const [configuring, setConfiguring] = useState<Product | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
-  const lines = resolveCart(items, products);
+  const lines = resolveCart(items, catalog);
   const count = lines.reduce((sum, line) => sum + line.quantity, 0);
-  const total = lines.reduce(
-    (sum, line) => sum + line.product.base_price_cents * line.quantity,
-    0,
+  const total = lines.reduce((sum, line) => sum + line.lineTotalCents, 0);
+  const whatsappNumber = brazilianWhatsAppNumber(
+    catalog.storeContact?.whatsapp,
   );
 
   useEffect(() => {
     try {
       dispatch({
         type: "hydrate",
-        items: parseCart(localStorage.getItem(CART_KEY)),
+        items: parseCart(
+          localStorage.getItem(CART_KEY) ??
+            localStorage.getItem(LEGACY_CART_KEY),
+        ),
       });
     } catch {
       dispatch({ type: "hydrate", items: [] });
@@ -68,7 +80,7 @@ export function CartProvider({
   useEffect(() => {
     if (!state.ready) return;
     try {
-      localStorage.setItem(CART_KEY, JSON.stringify({ version: 2, items }));
+      localStorage.setItem(CART_KEY, JSON.stringify({ version: 3, items }));
     } catch {
       /* Armazenamento indisponível. */
     }
@@ -79,10 +91,13 @@ export function CartProvider({
     return () => clearTimeout(timer);
   }, [message]);
 
-  function add(product: Product) {
-    if (!product.active || !product.available) return;
-    dispatch({ type: "add", productId: product.id });
-    setMessage(`${product.name} adicionada ao pedido`);
+  function add(selection: CartSelection) {
+    if (!resolveCart([{ ...selection, quantity: 1 }], catalog).length) return;
+    dispatch({ type: "add", line: selection });
+    const product = catalog.products.find(
+      (item) => item.id === selection.productId,
+    );
+    if (product) setMessage(`${product.name} adicionado ao pedido`);
   }
   function close() {
     dialog.current?.close();
@@ -90,7 +105,11 @@ export function CartProvider({
 
   return (
     <CartContext
-      value={{ add, count, open: () => dialog.current?.showModal() }}
+      value={{
+        configure: (product) => setConfiguring(product),
+        count,
+        open: () => dialog.current?.showModal(),
+      }}
     >
       {children}
       <dialog
@@ -115,7 +134,8 @@ export function CartProvider({
           </header>
           {lines.length === 0 ? (
             <p className="cart-empty">
-              Seu carrinho está vazio. Que tal começar pela Diavola?
+              Seu carrinho está vazio. Escolha uma pizza, kalzone ou bebida no
+              cardápio.
             </p>
           ) : null}
           {items.length !== lines.length ? (
@@ -125,10 +145,15 @@ export function CartProvider({
                 onClick={() =>
                   dispatch({
                     type: "hydrate",
-                    items: lines.map(({ productId, quantity }) => ({
-                      productId,
-                      quantity,
-                    })),
+                    items: lines.map(
+                      ({ productId, sizeId, optionIds, notes, quantity }) => ({
+                        productId,
+                        sizeId,
+                        optionIds,
+                        notes,
+                        quantity,
+                      }),
+                    ),
                   })
                 }
               >
@@ -137,53 +162,81 @@ export function CartProvider({
             </p>
           ) : null}
           <ul className="cart-list">
-            {lines.map(({ product, quantity }) => (
-              <li className="cart-item" key={product.id}>
-                <span className="cart-item__name">{product.name}</span>
-                <span className="cart-item__price">
-                  {formatPrice(product.base_price_cents * quantity)}
-                </span>
-                <div className="cart-item__controls">
+            {lines.map(
+              ({
+                product,
+                size,
+                options,
+                flavorOption,
+                notes,
+                quantity,
+                key,
+                lineTotalCents,
+                unitPriceCents,
+              }) => (
+                <li className="cart-item" key={key}>
+                  <div className="cart-item__summary">
+                    <span className="cart-item__name">{product.name}</span>
+                    {size ? <span>{size.name}</span> : null}
+                    {flavorOption ? (
+                      <span>Meio a meio com {flavorOption.name}</span>
+                    ) : null}
+                    {options.some(
+                      (option) => option.id !== flavorOption?.id,
+                    ) ? (
+                      <span>
+                        {options
+                          .filter((option) => option.id !== flavorOption?.id)
+                          .map((option) => option.name)
+                          .join(", ")}
+                      </span>
+                    ) : null}
+                    {notes ? <span>Obs.: {notes}</span> : null}
+                    <small>{formatPrice(unitPriceCents)} por unidade</small>
+                  </div>
+                  <span className="cart-item__price">
+                    {formatPrice(lineTotalCents)}
+                  </span>
+                  <div className="cart-item__controls">
+                    <button
+                      className="cart-item__button"
+                      aria-label={`Diminuir quantidade de ${product.name}`}
+                      onClick={() =>
+                        dispatch({
+                          type: "quantity",
+                          key,
+                          quantity: quantity - 1,
+                        })
+                      }
+                    >
+                      −
+                    </button>
+                    <span className="cart-item__quantity">{quantity}</span>
+                    <button
+                      className="cart-item__button"
+                      disabled={quantity >= MAX_QUANTITY}
+                      aria-label={`Aumentar quantidade de ${product.name}`}
+                      onClick={() =>
+                        dispatch({
+                          type: "quantity",
+                          key,
+                          quantity: quantity + 1,
+                        })
+                      }
+                    >
+                      +
+                    </button>
+                  </div>
                   <button
-                    className="cart-item__button"
-                    aria-label={`Diminuir quantidade de ${product.name}`}
-                    onClick={() =>
-                      dispatch({
-                        type: "quantity",
-                        productId: product.id,
-                        quantity: quantity - 1,
-                      })
-                    }
+                    className="cart-item__remove"
+                    aria-label={`Remover ${product.name} do carrinho`}
+                    onClick={() => dispatch({ type: "remove", key })}
                   >
-                    −
+                    Remover
                   </button>
-                  <span className="cart-item__quantity">{quantity}</span>
-                  <button
-                    className="cart-item__button"
-                    disabled={quantity >= MAX_QUANTITY}
-                    aria-label={`Aumentar quantidade de ${product.name}`}
-                    onClick={() =>
-                      dispatch({
-                        type: "quantity",
-                        productId: product.id,
-                        quantity: quantity + 1,
-                      })
-                    }
-                  >
-                    +
-                  </button>
-                </div>
-                <button
-                  className="cart-item__remove"
-                  aria-label={`Remover ${product.name} do carrinho`}
-                  onClick={() =>
-                    dispatch({ type: "remove", productId: product.id })
-                  }
-                >
-                  Remover
-                </button>
-              </li>
-            ))}
+                </li>
+              ),
+            )}
           </ul>
           <footer className="drawer__footer">
             <div className="cart-total">
@@ -191,30 +244,65 @@ export function CartProvider({
               <strong>{formatPrice(total)}</strong>
             </div>
             <p className="cart-note">
-              Entrega e disponibilidade serão confirmadas pelo atendimento.
-              Pagamento pelo site será habilitado em uma próxima etapa.
+              Os valores exibidos no carrinho são estimativas. O checkout de
+              teste confere tudo novamente no banco antes de iniciar o
+              pagamento.
             </p>
+            <CheckoutForm
+              items={lines.map(
+                ({ productId, sizeId, optionIds, notes, quantity }) => ({
+                  productId,
+                  sizeId,
+                  optionIds,
+                  notes,
+                  quantity,
+                }),
+              )}
+              availability={checkoutAvailability}
+            />
             <button
               className="button button--primary cart-checkout"
-              disabled={!lines.length}
+              disabled={!lines.length || !whatsappNumber}
               onClick={() => {
+                if (!whatsappNumber) return;
                 const text =
                   "Olá! Gostaria de consultar este pedido na Nuclear:\n\n" +
                   lines
                     .map(
-                      ({ product, quantity }) =>
-                        `${quantity}x ${product.name} — ${formatPrice(product.base_price_cents * quantity)}`,
+                      ({
+                        product,
+                        size,
+                        options,
+                        flavorOption,
+                        notes,
+                        quantity,
+                        lineTotalCents,
+                      }) =>
+                        `${quantity}x ${product.name}${flavorOption ? ` / ${flavorOption.name} (meio a meio)` : ""}${size ? ` (${size.name})` : ""}${
+                          options.some(
+                            (option) => option.id !== flavorOption?.id,
+                          )
+                            ? ` + ${options
+                                .filter(
+                                  (option) => option.id !== flavorOption?.id,
+                                )
+                                .map((option) => option.name)
+                                .join(", ")}`
+                            : ""
+                        }${notes ? ` | Obs.: ${notes}` : ""} — ${formatPrice(lineTotalCents)}`,
                     )
                     .join("\n") +
                   `\n\nSubtotal estimado: ${formatPrice(total)}`;
                 window.open(
-                  `https://wa.me/553132220101?text=${encodeURIComponent(text)}`,
+                  `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`,
                   "_blank",
                   "noopener,noreferrer",
                 );
               }}
             >
-              Consultar pelo WhatsApp
+              {whatsappNumber
+                ? "Consultar pelo WhatsApp"
+                : "WhatsApp em configuração"}
             </button>
             {items.length ? (
               <button
@@ -227,6 +315,15 @@ export function CartProvider({
           </footer>
         </div>
       </dialog>
+      {configuring ? (
+        <ProductConfigurator
+          key={configuring.id}
+          catalog={catalog}
+          product={configuring}
+          onAdd={add}
+          onClose={() => setConfiguring(null)}
+        />
+      ) : null}
       <div
         className={`toast ${message ? "is-visible" : ""}`}
         role="status"
