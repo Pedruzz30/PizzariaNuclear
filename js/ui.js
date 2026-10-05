@@ -32,8 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         }
 
+        // o backdrop também tem data-menu-close, mas não recebe foco
         const closeButton =
-            mobileMenu.querySelector("[data-menu-close]");
+            mobileMenu.querySelector("button[data-menu-close]");
 
         if (closeButton) {
             closeButton.focus();

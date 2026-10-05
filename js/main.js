@@ -1,4 +1,22 @@
 // =========================================================
+// ICON
+// Returns the markup for a sprite icon (see index.html).
+// Used by cart.js when rendering controls dynamically.
+// =========================================================
+
+window.icon = function icon(name, extraClass = "") {
+    const className = extraClass
+        ? `icon ${extraClass}`
+        : "icon";
+
+    return (
+        `<svg class="${className}" aria-hidden="true">` +
+        `<use href="#icon-${name}"/>` +
+        `</svg>`
+    );
+};
+
+// =========================================================
 // TOAST
 // Exposto globalmente para o carrinho e o restante da UI.
 // =========================================================
@@ -65,14 +83,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // =========================================================
     // CARD TILT LEVE
+    // Só no modo desktop editorial (>= 1200px) e com mouse.
     // =========================================================
 
+    const desktopPointer =
+        window.matchMedia(
+            "(min-width: 1200px) and (pointer: fine)"
+        );
+
     const cards =
-        document.querySelectorAll(".pizza-card");
+        document.querySelectorAll(".carousel .product");
 
     cards.forEach((card) => {
         card.addEventListener("mousemove", (event) => {
-            if (window.innerWidth <= 820) return;
+            if (!desktopPointer.matches) return;
 
             const rect = card.getBoundingClientRect();
 

@@ -1,66 +1,98 @@
 /* =========================================================
-   HERO CONTENT
+   HERO
+   Structure first: a 12-column grid places copy (1–6), the
+   visual stage (6–12) and the carousel (6–12, bottom).
+   Absolute positioning is reserved for art: circle, pizza,
+   seal and the social rail.
 ========================================================== */
 
-.hero__content {
+.hero {
     position: relative;
 
     width: 100%;
     min-height: 100svh;
 
-    padding:
-        calc(var(--header-height) + 65px)
-        var(--page-padding)
-        60px;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.08),
+            transparent 45%
+        );
+}
+
+/* subtle grain */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+    opacity: 0.04;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+
+    mix-blend-mode: multiply;
+}
+
+.hero__content {
+    grid-template-rows: minmax(0, 1fr);
+
+    min-height: 100svh;
+
+    padding-top: calc(var(--header-height) + var(--space-6));
+    padding-bottom: var(--space-7);
 }
 
 /* =========================================================
-   HERO COPY
+   COPY — columns 1 to 6
 ========================================================== */
 
 .hero__copy {
-    position: relative;
+    grid-column: 1 / 7;
+    grid-row: 1;
 
     z-index: 20;
 
-    width: min(46vw, 670px);
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+.hero__copy-main {
+    margin-block: auto;
+
+    padding-block: var(--space-6) var(--space-7);
 }
 
 .hero__eyebrow {
-    display: inline-block;
+    margin-bottom: var(--space-4);
 
-    margin-bottom: 17px;
-
-    font-size: 12px;
-    font-weight: 500;
-
-    letter-spacing: 0.38em;
-
-    text-transform: uppercase;
+    color: var(--text-primary);
 }
-
-/* =========================================================
-   TITLE
-========================================================== */
 
 .hero__title {
     display: flex;
     flex-direction: column;
 
-    margin: 0;
-
-    font-family: var(--font-display);
-
-    font-size: clamp(88px, 9.1vw, 158px);
+    font-size: var(--type-display-xl);
 
     line-height: 0.79;
 
-    letter-spacing: -0.025em;
-
-    text-transform: uppercase;
+    letter-spacing: var(--tracking-display);
 }
 
 .hero-word {
+    position: relative;
+
     display: block;
 
     width: max-content;
@@ -72,11 +104,7 @@
     color: var(--color-accent);
 }
 
-/* pseudo-texture sobre as letras */
-
-.hero-word {
-    position: relative;
-}
+/* pseudo-texture over the letters */
 
 .hero-word::after {
     content: "";
@@ -94,61 +122,70 @@
     mix-blend-mode: screen;
 }
 
-/* =========================================================
-   DESCRIPTION
-========================================================== */
-
 .hero__description {
-    width: min(510px, 100%);
+    max-width: 30ch;
 
-    margin:
-        30px
-        0
-        0;
+    margin-top: var(--space-6);
 
-    font-size: 16px;
-    line-height: 1.55;
+    font-size: var(--type-body-lg);
+    line-height: var(--leading-body);
 
-    color: #2d2d2d;
+    color: var(--text-secondary);
 }
 
 .hero__description strong {
     font-weight: 700;
-}
 
-/* =========================================================
-   BUTTONS
-========================================================== */
+    color: var(--text-primary);
+}
 
 .hero__buttons {
     display: flex;
     align-items: center;
 
-    gap: 15px;
+    gap: var(--space-4);
 
-    margin-top: 28px;
+    margin-top: var(--space-6);
+}
+
+/* Bottom of the copy column: scroll cue + signature */
+
+.hero__foot {
+    display: flex;
+    align-items: center;
+
+    gap: var(--space-4);
+}
+
+.scroll-indicator {
+    --control-height: 56px;
+}
+
+.hero__signature {
+    max-width: 16ch;
+
+    font-size: var(--type-label);
+    font-weight: 700;
+
+    letter-spacing: var(--tracking-label);
+    line-height: 1.45;
+
+    text-transform: uppercase;
 }
 
 /* =========================================================
-   MAIN VISUAL
+   STAGE — columns 6 to 12 (art lives here)
 ========================================================== */
 
-.hero__visual {
-    position: absolute;
+.hero__stage {
+    grid-column: 6 / 13;
+    grid-row: 1;
+
+    position: relative;
 
     z-index: 5;
 
-    top: -3%;
-    right: -2%;
-
-    width: 58vw;
-    height: 97%;
-
-    margin: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    min-height: 100%;
 
     pointer-events: none;
 }
@@ -156,10 +193,10 @@
 .hero__circle {
     position: absolute;
 
-    right: 5%;
-    top: 18%;
+    top: 6%;
+    right: 2%;
 
-    width: min(39vw, 630px);
+    width: min(40vw, 640px);
     aspect-ratio: 1;
 
     border-radius: 50%;
@@ -169,46 +206,40 @@
     opacity: 0.96;
 }
 
+/* Vertical placement uses top/bottom + auto margins on purpose:
+   GSAP (entrance, idle, parallax) owns the transform, so layout
+   must never depend on translate(). */
+
 .hero__pizza {
-    position: relative;
+    position: absolute;
+
+    top: -14%;
+    right: -9%;
+    bottom: 0;
 
     z-index: 2;
 
-    width: min(56vw, 860px);
-
+    width: min(56vw, 880px);
     max-width: none;
     height: auto;
 
-    object-fit: contain;
+    margin-block: auto;
 
-    filter:
-        drop-shadow(0 35px 38px rgba(28, 14, 7, 0.20))
-        drop-shadow(0 12px 14px rgba(28, 14, 7, 0.13));
+    filter: var(--shadow-drop);
 
-    transform:
-        translate(9%, -1%)
-        rotate(-5deg);
+    transform: rotate(-5deg);
 }
-
-/* =========================================================
-   SEAL
-========================================================== */
 
 .hero__seal {
     position: absolute;
 
+    top: 28%;
+    left: -6%;
+
     z-index: 25;
 
-    top: 35%;
-    left: 40%;
-
-    display: grid;
-    place-items: center;
-
-    width: 155px;
+    width: clamp(120px, 10.5vw, 160px);
     aspect-ratio: 1;
-
-    border-radius: 50%;
 
     transform: rotate(-8deg);
 }
@@ -217,118 +248,49 @@
     width: 100%;
     height: auto;
 
-    filter:
-        drop-shadow(0 18px 22px rgba(28, 14, 7, 0.12));
+    filter: var(--shadow-drop-sm);
 }
 
 /* =========================================================
-   SOCIAL
+   CAROUSEL — columns 6 to 12, bottom of the row
 ========================================================== */
 
-.social {
+.hero .carousel {
+    grid-column: 6 / 13;
+    grid-row: 1;
+
+    align-self: end;
+    justify-self: end;
+
+    z-index: 35;
+
+    width: min(100%, 780px);
+}
+
+/* =========================================================
+   SOCIAL RAIL — viewport edge
+========================================================== */
+
+.hero .social {
     position: absolute;
+
+    top: 34%;
+    right: var(--space-5);
 
     z-index: 30;
 
-    top: 25%;
-    right: 24px;
-
-    display: flex;
     flex-direction: column;
 
-    gap: 17px;
+    transform: translateY(-50%);
 }
 
-.social__link {
-    display: grid;
-    place-items: center;
-
-    width: 49px;
-    height: 49px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(17, 17, 17, 0.28);
-
+.hero .social__link {
     background: rgba(255, 255, 255, 0.58);
 
-    font-size: 11px;
-    font-weight: 700;
-
-    backdrop-filter: blur(12px);
-
-    transition:
-        color 200ms ease,
-        background 200ms ease,
-        border-color 200ms ease,
-        transform 200ms var(--ease-out);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
-.social__link:hover {
-    color: white;
-    background: var(--color-accent);
-
-    border-color: var(--color-accent);
-
+.hero .social__link:hover {
     transform: translateX(-4px);
-}
-
-/* =========================================================
-   SCROLL
-========================================================== */
-
-.scroll-indicator {
-    position: absolute;
-
-    z-index: 30;
-
-    left: var(--page-padding);
-    bottom: 32px;
-
-    display: grid;
-    place-items: center;
-
-    width: 58px;
-    height: 58px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(17, 17, 17, 0.3);
-
-    font-size: 24px;
-
-    transition:
-        background 200ms ease,
-        color 200ms ease,
-        transform 200ms var(--ease-out);
-}
-
-.scroll-indicator:hover {
-    color: white;
-    background: var(--color-text);
-
-    transform: translateY(4px);
-}
-
-/* =========================================================
-   SIGNATURE
-========================================================== */
-
-.hero__signature {
-    position: absolute;
-
-    z-index: 20;
-
-    right: 34px;
-    bottom: 36px;
-
-    max-width: 130px;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 0.16em;
-    line-height: 1.45;
-
-    text-align: right;
 }

@@ -1,48 +1,218 @@
+/* =========================================================
+   NUCLEAR DESIGN FOUNDATION
+   Tokens, reset, layout primitives and global helpers.
+   Every component file builds on what is declared here.
+========================================================== */
+
 :root {
-    /* =========================================================
-       COLORS
-       Trocaremos a direção de arte depois sem mexer no layout.
-    ========================================================== */
+    /* -------------------------------------------------------
+       BRAND PALETTE
+       --nuclear-red      graphic red: circle, headline accent,
+                          marquee, large display text.
+       --nuclear-red-dark interactive red: fills that carry
+                          text and small red text on cream.
+                          (white on it 5.3:1, on cream 4.6:1)
+    -------------------------------------------------------- */
 
-    --color-bg: #f4efe7;
-    --color-surface: #ffffff;
-    --color-text: #111111;
-    --color-muted: #686868;
+    --nuclear-red: #ef3826;
+    --nuclear-red-dark: #d02718;
+    --nuclear-black: #111111;
+    --nuclear-cream: #f4efe7;
+    --nuclear-sand: #eee6dc;
+    --nuclear-warm: #f7ddb2;
+    --nuclear-white: #ffffff;
+    --nuclear-green: #2f7a43;
 
-    --color-accent: #ef3826;
-    --color-accent-dark: #c92618;
+    /* -------------------------------------------------------
+       SEMANTIC COLORS
+       Redefined by theme scopes further down.
+    -------------------------------------------------------- */
 
-    --color-border: rgba(17, 17, 17, 0.12);
-    --color-shadow: rgba(17, 17, 17, 0.12);
+    --color-bg: var(--nuclear-cream);
+    --color-surface: var(--nuclear-white);
+    --color-surface-alt: var(--nuclear-sand);
+    --color-accent: var(--nuclear-red);
+    --color-action: var(--nuclear-red-dark);
+    --color-on-action: var(--nuclear-white);
+    --color-ink: var(--nuclear-black);
+    --color-on-ink: var(--nuclear-cream);
 
-    --color-white: #ffffff;
-    --color-black: #111111;
+    --text-primary: var(--nuclear-black);
+    --text-secondary: #3a3632;
+    --text-muted: #6b665f;
+    --text-accent: var(--nuclear-red-dark);
 
-    /* =========================================================
-       FONT
-    ========================================================== */
+    --line: rgba(17, 17, 17, 0.12);
+    --line-strong: rgba(17, 17, 17, 0.32);
+    --tint: rgba(17, 17, 17, 0.06);
+    --tint-accent: rgba(239, 56, 38, 0.12);
+    --tint-green: rgba(47, 122, 67, 0.12);
 
-    --font-display: "Anton", sans-serif;
-    --font-body: "Inter", sans-serif;
+    /* -------------------------------------------------------
+       TYPOGRAPHY
+    -------------------------------------------------------- */
 
-    /* =========================================================
+    --font-display: "Anton", "Impact", sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+
+    /* Display: Anton. Reserved for headlines, numbers, prices. */
+    --type-display-xl: clamp(72px, 9.2vw, 168px);
+    --type-display-lg: clamp(48px, 6vw, 104px);
+    --type-display-md: clamp(32px, 3.6vw, 56px);
+    --type-display-sm: clamp(22px, 1.8vw, 28px);
+
+    /* Headings: Inter. Cards, components, small titles. */
+    --type-heading-lg: clamp(20px, 1.6vw, 24px);
+    --type-heading-md: 18px;
+    --type-heading-sm: 15px;
+
+    /* Body */
+    --type-body-lg: clamp(16px, 1.15vw, 18px);
+    --type-body: 15px;
+    --type-body-sm: 13px;
+
+    /* Labels: uppercase, tracked */
+    --type-label: 11px;
+    --type-eyebrow: 12px;
+
+    --tracking-tight: -0.02em;
+    --tracking-display: -0.025em;
+    --tracking-label: 0.16em;
+    --tracking-eyebrow: 0.32em;
+
+    --leading-display: 0.9;
+    --leading-tight: 1.15;
+    --leading-body: 1.55;
+    --leading-relaxed: 1.65;
+
+    /* -------------------------------------------------------
+       SPACING
+    -------------------------------------------------------- */
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+    --space-10: 128px;
+
+    /* Section rhythm */
+    --section-space: clamp(var(--space-8), 9vw, var(--space-10));
+
+    /* -------------------------------------------------------
        LAYOUT
-    ========================================================== */
+    -------------------------------------------------------- */
 
-    --page-padding: clamp(24px, 4vw, 70px);
+    --container: 1560px;
+    --gutter: clamp(20px, 4vw, 72px);
+    --grid-gap: clamp(16px, 2vw, 32px);
     --header-height: 90px;
 
-    --radius-sm: 14px;
-    --radius-md: 22px;
-    --radius-lg: 32px;
-    --radius-pill: 999px;
+    /* -------------------------------------------------------
+       RADIUS
+       Pills for controls. Editorial surfaces stay tighter.
+    -------------------------------------------------------- */
 
-    /* =========================================================
+    --radius-s: 12px;
+    --radius-m: 20px;
+    --radius-l: 28px;
+    --radius-xl: 40px;
+    --radius-round: 999px;
+
+    /* -------------------------------------------------------
+       SHADOW
+       Used sparingly: identity comes from contrast, not depth.
+    -------------------------------------------------------- */
+
+    --shadow-sm: 0 2px 6px rgba(17, 17, 17, 0.06);
+    --shadow-md: 0 12px 28px rgba(17, 17, 17, 0.08);
+    --shadow-lg: 0 24px 56px rgba(17, 17, 17, 0.12);
+    --shadow-float: 0 32px 72px rgba(17, 17, 17, 0.16);
+
+    /* Cut-out photography */
+    --shadow-drop:
+        drop-shadow(0 32px 36px rgba(28, 14, 7, 0.2))
+        drop-shadow(0 12px 14px rgba(28, 14, 7, 0.12));
+    --shadow-drop-sm:
+        drop-shadow(0 16px 20px rgba(28, 14, 7, 0.14));
+
+    /* -------------------------------------------------------
        MOTION
-    ========================================================== */
+       fast      hover, feedback, buttons
+       normal    cards, menus, overlays
+       editorial large images, headlines, section entrances
+    -------------------------------------------------------- */
+
+    --duration-fast: 180ms;
+    --duration-normal: 360ms;
+    --duration-editorial: 900ms;
 
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+    /* -------------------------------------------------------
+       CONTROLS
+    -------------------------------------------------------- */
+
+    --control-height: 56px;
+    --control-height-sm: 44px;
+    --icon-size: 20px;
+}
+
+/* =========================================================
+   THEME SCOPES
+   Sections switch palette by scope; components stay the same.
+========================================================== */
+
+.theme-dark {
+    --color-bg: var(--nuclear-black);
+    --color-surface: #1a1918;
+    --color-surface-alt: #232120;
+    --color-ink: var(--nuclear-cream);
+    --color-on-ink: var(--nuclear-black);
+
+    --text-primary: var(--nuclear-cream);
+    --text-secondary: rgba(244, 239, 231, 0.78);
+    --text-muted: rgba(244, 239, 231, 0.56);
+    --text-accent: var(--nuclear-red);
+
+    --line: rgba(244, 239, 231, 0.14);
+    --line-strong: rgba(244, 239, 231, 0.38);
+    --tint: rgba(244, 239, 231, 0.07);
+
+    color: var(--text-primary);
+    background: var(--color-bg);
+}
+
+.theme-red {
+    --color-bg: var(--nuclear-red);
+    --color-surface: var(--nuclear-red-dark);
+    --color-ink: var(--nuclear-black);
+    --color-on-ink: var(--nuclear-cream);
+    --color-action: var(--nuclear-cream);
+    --color-on-action: var(--nuclear-black);
+
+    --text-primary: var(--nuclear-black);
+    --text-secondary: rgba(17, 17, 17, 0.82);
+    --text-muted: rgba(17, 17, 17, 0.66);
+    --text-accent: var(--nuclear-cream);
+
+    --line: rgba(17, 17, 17, 0.2);
+    --line-strong: rgba(17, 17, 17, 0.5);
+    --tint: rgba(17, 17, 17, 0.08);
+
+    color: var(--text-primary);
+    background: var(--color-bg);
+}
+
+.section--sand {
+    --color-bg: var(--nuclear-sand);
+
+    background: var(--color-bg);
 }
 
 /* =========================================================
@@ -57,6 +227,7 @@
 
 html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -64,17 +235,14 @@ body {
     min-width: 320px;
 
     font-family: var(--font-body);
-    color: var(--color-text);
+    font-size: var(--type-body);
+    line-height: var(--leading-body);
 
-    background:
-        radial-gradient(
-            circle at 75% 15%,
-            rgba(255, 255, 255, 0.7),
-            transparent 28%
-        ),
-        var(--color-bg);
+    color: var(--text-primary);
+    background: var(--color-bg);
 
     overflow-x: hidden;
+    overflow-x: clip;
 }
 
 body,
@@ -85,7 +253,8 @@ select {
     font-family: var(--font-body);
 }
 
-img {
+img,
+svg {
     display: block;
     max-width: 100%;
 }
@@ -96,13 +265,46 @@ a {
 }
 
 button {
+    margin: 0;
+    padding: 0;
     border: 0;
+
+    color: inherit;
+    background: none;
+
+    font: inherit;
+
     cursor: pointer;
 }
 
 a {
     color: inherit;
     text-decoration: none;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+dl,
+dd,
+figure,
+address {
+    margin: 0;
+
+    font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin: 0;
 }
 
 /* =========================================================
@@ -114,98 +316,168 @@ a {
     outline-offset: 4px;
 }
 
-/* =========================================================
-   HERO ROOT
-========================================================== */
+.theme-red :focus-visible {
+    outline-color: var(--nuclear-black);
+}
 
-.hero {
-    position: relative;
+.visually-hidden {
+    position: absolute;
 
-    width: 100%;
-    min-height: 100svh;
+    width: 1px;
+    height: 1px;
+
+    margin: -1px;
+    padding: 0;
 
     overflow: hidden;
 
-    background:
-        linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.08),
-            transparent 45%
-        );
+    clip-path: inset(50%);
+
+    white-space: nowrap;
 }
 
-/* subtle grain */
-
-.hero::after {
-    content: "";
-
-    position: absolute;
-    inset: 0;
-
-    pointer-events: none;
-    z-index: 100;
-
-    opacity: 0.04;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
-
-    mix-blend-mode: multiply;
+body.is-locked {
+    overflow: hidden;
 }
 
 /* =========================================================
-   GLOBAL BUTTON
+   LAYOUT PRIMITIVES
 ========================================================== */
 
-.button {
+.container {
+    width: min(
+        calc(100% - (var(--gutter) * 2)),
+        var(--container)
+    );
+
+    margin-inline: auto;
+}
+
+.grid {
+    display: grid;
+
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+
+    column-gap: var(--grid-gap);
+}
+
+.section {
+    position: relative;
+
+    padding-block: var(--section-space);
+}
+
+section[id] {
+    scroll-margin-top: calc(var(--header-height) + var(--space-4));
+}
+
+/* =========================================================
+   TYPOGRAPHY ROLES
+========================================================== */
+
+.eyebrow {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
 
-    gap: 30px;
+    gap: var(--space-3);
 
-    min-height: 68px;
+    font-size: var(--type-eyebrow);
+    font-weight: 500;
 
-    padding: 0 30px;
+    letter-spacing: var(--tracking-eyebrow);
+    line-height: 1;
 
-    border-radius: var(--radius-pill);
+    text-transform: uppercase;
 
+    color: var(--text-muted);
+}
+
+.label {
+    font-size: var(--type-label);
     font-weight: 700;
-    font-size: 15px;
+
+    letter-spacing: var(--tracking-label);
+    line-height: 1;
+
+    text-transform: uppercase;
+}
+
+.display {
+    font-family: var(--font-display);
+    font-weight: 400;
+
+    line-height: var(--leading-display);
+
+    letter-spacing: var(--tracking-display);
+
+    text-transform: uppercase;
+}
+
+.display em {
+    font-style: normal;
+
+    color: var(--color-accent);
+}
+
+/* =========================================================
+   ICONS
+   Inline SVG sprite, stroke = currentColor.
+========================================================== */
+
+.icon {
+    flex-shrink: 0;
+
+    width: var(--icon-size);
+    height: var(--icon-size);
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+
+    pointer-events: none;
+}
+
+.icon--sm {
+    --icon-size: 16px;
+}
+
+/* =========================================================
+   REVEAL ON SCROLL
+========================================================== */
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(24px);
 
     transition:
-        transform 250ms var(--ease-out),
-        background 250ms ease,
-        color 250ms ease;
+        opacity var(--duration-editorial) var(--ease-out),
+        transform var(--duration-editorial) var(--ease-out);
 }
 
-.button:hover {
-    transform: translateY(-3px);
+.reveal.is-visible {
+    opacity: 1;
+
+    transform: none;
 }
 
-.button:active {
-    transform: translateY(0) scale(0.98);
-}
+/* =========================================================
+   REDUCED MOTION
+========================================================== */
 
-.button--primary {
-    min-width: 220px;
+@media (prefers-reduced-motion: reduce) {
 
-    color: var(--color-white);
-    background: var(--color-accent);
-}
+    html {
+        scroll-behavior: auto;
+    }
 
-.button--primary:hover {
-    background: var(--color-accent-dark);
-}
-
-.button--cart {
-    width: 68px;
-    min-width: 68px;
-
-    padding: 0;
-
-    color: var(--color-text);
-    background: var(--color-white);
-
-    border: 1px solid var(--color-border);
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }

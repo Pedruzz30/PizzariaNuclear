@@ -1,118 +1,144 @@
 /* =========================================================
    FOOTER
+   Black chapter. A giant NUCLEAR wordmark opens it, then
+   brand / navigation / contact / newsletter on the grid.
 ========================================================== */
 
 .footer {
-    color: var(--color-white);
-    background: var(--color-text);
+    padding-top: clamp(var(--space-7), 6vw, var(--space-8));
+    padding-bottom: var(--space-6);
 
-    padding:
-        clamp(60px, 7vw, 100px)
-        var(--page-padding)
-        34px;
+    overflow: hidden;
 }
 
+/* =========================================================
+   BIG WORD
+========================================================== */
+
+.footer__word {
+    display: block;
+
+    margin-bottom: clamp(var(--space-7), 6vw, var(--space-9));
+
+    font-family: var(--font-display);
+    font-size: clamp(80px, 17.6vw, 330px);
+
+    line-height: 0.78;
+
+    letter-spacing: -0.03em;
+
+    text-transform: uppercase;
+
+    color: var(--text-primary);
+
+    white-space: nowrap;
+}
+
+.footer__word em {
+    font-style: normal;
+
+    color: var(--color-accent);
+}
+
+/* =========================================================
+   TOP GRID
+========================================================== */
+
 .footer__top {
-    display: grid;
+    row-gap: var(--space-7);
 
-    grid-template-columns:
-        minmax(0, 1.2fr)
-        minmax(0, 1.1fr)
-        minmax(0, 1fr);
+    padding-bottom: var(--space-7);
 
-    gap: clamp(34px, 5vw, 70px);
+    border-bottom: 1px solid var(--line);
+}
 
-    padding-bottom: 54px;
+.footer__brand {
+    grid-column: 1 / 5;
+}
 
-    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+.footer__nav {
+    grid-column: 6 / 8;
+}
+
+.footer__contact {
+    grid-column: 8 / 10;
+}
+
+.footer__newsletter {
+    grid-column: 10 / 13;
 }
 
 /* =========================================================
    BRAND
+   The PNG logo is black; on black it is used as a mask so
+   the wordmark renders in cream.
 ========================================================== */
 
 .footer__logo {
-    width: 190px;
-    height: auto;
+    width: 180px;
+    aspect-ratio: 1448 / 1086;
 
-    margin-bottom: 22px;
+    background: var(--text-primary);
+
+    -webkit-mask: url("../assets/logo/NuclearLogo.png") center / contain no-repeat;
+    mask: url("../assets/logo/NuclearLogo.png") center / contain no-repeat;
 }
 
 .footer__tagline {
-    max-width: 380px;
+    max-width: 34ch;
 
-    margin: 0 0 26px;
+    margin-top: var(--space-4);
 
-    font-size: 14px;
-    line-height: 1.65;
+    font-size: var(--type-body-sm);
+    line-height: var(--leading-relaxed);
 
-    color: rgba(255, 255, 255, 0.66);
+    color: var(--text-muted);
 }
 
 .footer__social {
-    display: flex;
-
-    gap: 10px;
-}
-
-.footer__social .social__link {
-    color: var(--color-white);
-    background: rgba(255, 255, 255, 0.06);
-
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.footer__social .social__link:hover {
-    background: var(--color-accent);
-
-    border-color: var(--color-accent);
-
-    transform: translateY(-3px);
+    margin-top: var(--space-5);
 }
 
 /* =========================================================
-   NAV COLUMNS
+   COLUMNS
 ========================================================== */
 
-.footer__nav {
-    display: grid;
+.footer__heading {
+    margin-bottom: var(--space-4);
 
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 30px;
+    color: var(--text-muted);
 }
 
 .footer__column {
     display: flex;
     flex-direction: column;
-
     align-items: flex-start;
 
-    gap: 12px;
-}
-
-.footer__heading {
-    margin: 0 0 8px;
-
-    font-size: 11px;
-    font-weight: 700;
-
-    letter-spacing: 0.2em;
-
-    text-transform: uppercase;
-
-    color: rgba(255, 255, 255, 0.5);
+    gap: var(--space-1);
 }
 
 .footer__column a,
 .footer__column span {
-    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
 
-    color: rgba(255, 255, 255, 0.82);
+    gap: var(--space-2);
+
+    min-height: 36px;
+
+    font-size: var(--type-body-sm);
+
+    color: var(--text-secondary);
 
     transition:
-        color 200ms ease,
-        transform 200ms var(--ease-out);
+        color var(--duration-fast) ease,
+        transform var(--duration-fast) var(--ease-out);
+}
+
+.footer__column .icon {
+    --icon-size: 16px;
+
+    color: var(--text-muted);
 }
 
 .footer__column a:hover {
@@ -126,94 +152,44 @@
 ========================================================== */
 
 .newsletter__text {
-    max-width: 320px;
+    max-width: 30ch;
 
-    margin: 0 0 20px;
+    margin-bottom: var(--space-4);
 
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: var(--type-body-sm);
+    line-height: var(--leading-relaxed);
 
-    color: rgba(255, 255, 255, 0.66);
+    color: var(--text-muted);
 }
 
-.newsletter__field {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
+.newsletter .field {
     max-width: 360px;
 }
 
-.newsletter__input {
-    width: 100%;
-    min-height: 58px;
+.newsletter .field__submit {
+    --control-height-sm: 44px;
 
-    padding: 0 66px 0 24px;
+    color: var(--nuclear-white);
+    background: var(--nuclear-red-dark);
 
-    border-radius: var(--radius-pill);
-
-    color: var(--color-white);
-    background: rgba(255, 255, 255, 0.07);
-
-    border: 1px solid rgba(255, 255, 255, 0.18);
-
-    font-size: 14px;
-
-    transition:
-        border-color 200ms ease,
-        background 200ms ease;
+    border-color: var(--nuclear-red-dark);
 }
 
-.newsletter__input::placeholder {
-    color: rgba(255, 255, 255, 0.42);
-}
+.newsletter .field__submit:hover {
+    background: var(--nuclear-cream);
+    color: var(--nuclear-black);
 
-.newsletter__input:focus {
-    outline: none;
-
-    background: rgba(255, 255, 255, 0.11);
-
-    border-color: var(--color-accent);
-}
-
-.newsletter__submit {
-    position: absolute;
-
-    right: 6px;
-
-    display: grid;
-    place-items: center;
-
-    width: 46px;
-    height: 46px;
-
-    border-radius: 50%;
-
-    color: var(--color-white);
-    background: var(--color-accent);
-
-    font-size: 18px;
-
-    transition:
-        background 200ms ease,
-        transform 200ms var(--ease-out);
-}
-
-.newsletter__submit:hover {
-    background: var(--color-accent-dark);
-
-    transform: translateX(3px);
+    border-color: var(--nuclear-cream);
 }
 
 .newsletter__feedback {
     min-height: 20px;
 
-    margin: 12px 0 0;
+    margin-top: var(--space-3);
 
-    font-size: 13px;
+    font-size: var(--type-body-sm);
 
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--text-secondary);
 }
 
 .newsletter__feedback--error {
@@ -235,15 +211,13 @@
 
     flex-wrap: wrap;
 
-    gap: 10px;
+    gap: var(--space-2) var(--space-5);
 
-    padding-top: 28px;
+    padding-top: var(--space-5);
 }
 
 .footer__bottom p {
-    margin: 0;
-
     font-size: 12px;
 
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--text-muted);
 }

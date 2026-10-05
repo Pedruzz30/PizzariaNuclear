@@ -1,0 +1,422 @@
+/* =========================================================
+   COMPONENTS
+   Shared UI pieces: buttons, tags, section heads, fields.
+   Every variant reads from the tokens in main.css so the
+   same component works on cream, black and red scopes.
+========================================================== */
+
+/* =========================================================
+   BUTTON
+   primary   red fill (brand action)
+   secondary ink fill (black on cream, cream on black)
+   outline   1px ink border
+   icon      circular, icon only
+========================================================== */
+
+.button {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: var(--space-3);
+
+    min-height: var(--control-height);
+
+    padding: 0 var(--space-6);
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-round);
+
+    font-size: var(--type-body);
+    font-weight: 700;
+    line-height: 1;
+
+    letter-spacing: var(--tracking-tight);
+
+    white-space: nowrap;
+
+    transition:
+        transform var(--duration-fast) var(--ease-out),
+        background var(--duration-fast) ease,
+        color var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.button .icon {
+    transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.button:hover .icon--arrow {
+    transform: translateX(4px);
+}
+
+/* Variants */
+
+.button--primary {
+    color: var(--color-on-action);
+    background: var(--color-action);
+}
+
+.button--primary:hover {
+    background: var(--color-ink);
+    color: var(--color-on-ink);
+}
+
+.button--secondary {
+    color: var(--color-on-ink);
+    background: var(--color-ink);
+}
+
+.button--secondary:hover {
+    background: var(--color-action);
+    color: var(--color-on-action);
+}
+
+.button--outline {
+    color: var(--text-primary);
+    background: transparent;
+
+    border-color: var(--text-primary);
+}
+
+.button--outline:hover {
+    color: var(--color-on-ink);
+    background: var(--color-ink);
+}
+
+/* Icon-only circle */
+
+.button--icon {
+    width: var(--control-height);
+    min-width: var(--control-height);
+
+    padding: 0;
+
+    color: var(--text-primary);
+    background: var(--color-surface);
+
+    border-color: var(--line);
+}
+
+.button--icon:hover {
+    color: var(--color-on-ink);
+    background: var(--color-ink);
+
+    border-color: var(--color-ink);
+}
+
+.button--icon.button--ghost {
+    background: transparent;
+
+    border-color: var(--line-strong);
+}
+
+/* Sizes */
+
+.button--sm {
+    min-height: var(--control-height-sm);
+
+    padding: 0 var(--space-5);
+
+    font-size: var(--type-body-sm);
+}
+
+.button--sm.button--icon {
+    width: var(--control-height-sm);
+    min-width: var(--control-height-sm);
+
+    padding: 0;
+}
+
+.button--block {
+    width: 100%;
+}
+
+/* States */
+
+.button[disabled] {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+.button.is-added {
+    color: var(--color-on-action);
+    background: var(--color-action);
+
+    border-color: var(--color-action);
+}
+
+/* =========================================================
+   TAG / BADGE
+   Small uppercase chips: categories, status, badges.
+========================================================== */
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+
+    gap: var(--space-2);
+
+    min-height: 26px;
+
+    padding: 0 var(--space-3);
+
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-round);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.14em;
+    line-height: 1;
+
+    text-transform: uppercase;
+
+    color: var(--text-primary);
+
+    white-space: nowrap;
+}
+
+.tag--hot {
+    color: var(--text-accent);
+
+    border-color: currentColor;
+}
+
+.tag--veg {
+    color: var(--nuclear-green);
+
+    border-color: currentColor;
+}
+
+.tag--fill {
+    color: var(--color-on-ink);
+    background: var(--color-ink);
+
+    border-color: var(--color-ink);
+}
+
+.tag--accent {
+    color: var(--nuclear-white);
+    background: var(--nuclear-red-dark);
+
+    border-color: var(--nuclear-red-dark);
+}
+
+/* =========================================================
+   SECTION HEAD
+   Editorial split: title on the left 8 columns, lead on the
+   right 4 columns, aligned to the same baseline.
+========================================================== */
+
+.section__head {
+    display: grid;
+
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gap);
+    row-gap: var(--space-5);
+
+    align-items: end;
+
+    margin-bottom: clamp(var(--space-7), 5vw, var(--space-8));
+}
+
+.section__eyebrow {
+    grid-column: 1 / -1;
+}
+
+.section__eyebrow::before {
+    content: "";
+
+    width: 22px;
+    height: 1px;
+
+    background: var(--color-accent);
+}
+
+.section__title {
+    grid-column: 1 / 9;
+
+    font-size: var(--type-display-lg);
+}
+
+.section__lead {
+    grid-column: 9 / 13;
+
+    max-width: 44ch;
+
+    padding-bottom: 0.4em;
+
+    font-size: var(--type-body-lg);
+    line-height: var(--leading-body);
+
+    color: var(--text-secondary);
+}
+
+/* =========================================================
+   FIELDS
+========================================================== */
+
+.field {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+.field__icon {
+    position: absolute;
+
+    left: var(--space-1);
+
+    color: var(--text-muted);
+
+    pointer-events: none;
+}
+
+.field__input {
+    width: 100%;
+    min-height: var(--control-height);
+
+    padding: 0 var(--space-2) 0 calc(var(--icon-size) + var(--space-4));
+
+    border: 0;
+    border-bottom: 1px solid var(--line-strong);
+    border-radius: 0;
+
+    color: var(--text-primary);
+    background: transparent;
+
+    font-size: var(--type-body);
+
+    transition: border-color var(--duration-fast) ease;
+}
+
+.field__input::placeholder {
+    color: var(--text-muted);
+}
+
+.field__input:focus {
+    outline: none;
+
+    border-color: var(--color-accent);
+}
+
+.field__input::-webkit-search-cancel-button {
+    cursor: pointer;
+}
+
+/* Pill field: newsletter and dark surfaces */
+
+.field--pill .field__input {
+    padding: 0 calc(var(--control-height) + var(--space-2)) 0 var(--space-5);
+
+    border: 1px solid var(--line);
+    border-radius: var(--radius-round);
+
+    background: var(--tint);
+}
+
+.field--pill .field__input:focus {
+    border-color: var(--color-accent);
+}
+
+.field--pill .field__submit {
+    position: absolute;
+
+    right: 6px;
+}
+
+/* =========================================================
+   SOCIAL LINKS
+========================================================== */
+
+.social {
+    display: flex;
+
+    gap: var(--space-3);
+}
+
+.social__link {
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+
+    color: var(--text-primary);
+
+    transition:
+        color var(--duration-fast) ease,
+        background var(--duration-fast) ease,
+        border-color var(--duration-fast) ease,
+        transform var(--duration-fast) var(--ease-out);
+}
+
+.social__link:hover {
+    color: var(--nuclear-white);
+    background: var(--nuclear-red-dark);
+
+    border-color: var(--nuclear-red-dark);
+
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   TOAST
+========================================================== */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: var(--space-6);
+
+    z-index: 300;
+
+    max-width: calc(100vw - (var(--space-5) * 2));
+
+    padding: var(--space-4) var(--space-5);
+
+    border-radius: var(--radius-round);
+
+    color: var(--nuclear-cream);
+    background: var(--nuclear-black);
+
+    font-size: var(--type-body-sm);
+    font-weight: 600;
+
+    box-shadow: var(--shadow-lg);
+
+    opacity: 0;
+
+    transform: translate(-50%, 16px);
+
+    pointer-events: none;
+
+    transition:
+        opacity var(--duration-normal) ease,
+        transform var(--duration-normal) var(--ease-out);
+}
+
+.toast.is-visible {
+    opacity: 1;
+
+    transform: translate(-50%, 0);
+}
