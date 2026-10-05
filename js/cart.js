@@ -92,16 +92,16 @@ document.addEventListener("DOMContentLoaded", () => {
         items.forEach((item, index) => {
             const row = document.createElement("li");
 
-            row.className = "cart-item";
+            row.className = "product product--cart";
 
             const name = document.createElement("span");
 
-            name.className = "cart-item__name";
+            name.className = "product__name";
             name.textContent = item.name;
 
             const price = document.createElement("span");
 
-            price.className = "cart-item__price";
+            price.className = "product__price";
 
             price.textContent =
                 window.formatPrice(
@@ -111,19 +111,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const controls =
                 document.createElement("div");
 
-            controls.className = "cart-item__controls";
+            controls.className = "product__controls";
 
             const minus =
-                createControl("−", "Diminuir quantidade");
+                createControl("minus", "Diminuir quantidade");
 
             const quantity =
                 document.createElement("span");
 
-            quantity.className = "cart-item__quantity";
+            quantity.className = "product__quantity";
             quantity.textContent = item.quantity;
 
             const plus =
-                createControl("+", "Aumentar quantidade");
+                createControl("plus", "Aumentar quantidade");
 
             minus.addEventListener("click", () => {
                 changeQuantity(index, -1);
@@ -139,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.createElement("button");
 
             remove.type = "button";
-            remove.className = "cart-item__remove";
+            remove.className = "product__remove";
             remove.textContent = "Remover";
 
             remove.setAttribute(
@@ -174,13 +174,13 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCount();
     }
 
-    function createControl(label, ariaLabel) {
+    function createControl(iconName, ariaLabel) {
         const button =
             document.createElement("button");
 
         button.type = "button";
-        button.className = "cart-item__button";
-        button.textContent = label;
+        button.className = "product__step";
+        button.innerHTML = window.icon(iconName, "icon--sm");
 
         button.setAttribute("aria-label", ariaLabel);
 
@@ -279,8 +279,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.body.classList.add("is-locked");
 
+        // o backdrop também tem data-cart-close, mas não recebe foco
         const closeButton =
-            drawer.querySelector("[data-cart-close]");
+            drawer.querySelector("button[data-cart-close]");
 
         if (closeButton) {
             closeButton.focus();
@@ -341,19 +342,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 addItem(name, price);
 
-                const originalText =
-                    button.textContent;
+                // feedback visual: guarda o markup para restaurar
+                // (os botões carregam ícones SVG, não só texto)
+                if (button.dataset.restoring) return;
 
+                const originalHTML = button.innerHTML;
+
+                button.dataset.restoring = "true";
                 button.classList.add("is-added");
 
-                button.textContent =
-                    button.classList.contains("pizza-card__add")
-                        ? "✓"
-                        : "Adicionada ✓";
+                button.innerHTML =
+                    button.classList.contains("product__add--circle")
+                        ? window.icon("check")
+                        : `<span>Adicionada</span>${window.icon("check", "icon--sm")}`;
 
                 setTimeout(() => {
                     button.classList.remove("is-added");
-                    button.textContent = originalText;
+                    button.innerHTML = originalHTML;
+
+                    delete button.dataset.restoring;
                 }, 900);
             });
         });

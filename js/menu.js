@@ -13,14 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const emptyMessage =
         document.querySelector("[data-menu-empty]");
 
+    const resetButton =
+        document.querySelector("[data-menu-reset]");
+
     // guarda o texto pesquisável (nome, descrição e etiqueta)
     // para não varrer também o rótulo do botão a cada digitação
     const items =
-        [...grid.querySelectorAll(".menu-item")].map((element) => {
+        [...grid.querySelectorAll(".product--menu")].map((element) => {
             const parts = [
-                ".menu-item__name",
-                ".menu-item__description",
-                ".menu-item__tag"
+                ".product__name",
+                ".product__ingredients",
+                ".tag"
             ]
                 .map((selector) => {
                     const node =
@@ -92,27 +95,50 @@ document.addEventListener("DOMContentLoaded", () => {
     // CATEGORIAS
     // =========================================================
 
+    function setCategory(category) {
+        activeCategory = category;
+
+        filters.forEach((item) => {
+            const isActive =
+                item.dataset.filter === category;
+
+            item.classList.toggle(
+                "menu__filter--active",
+                isActive
+            );
+
+            item.setAttribute(
+                "aria-pressed",
+                isActive ? "true" : "false"
+            );
+        });
+
+        applyFilters();
+    }
+
     filters.forEach((filter) => {
         filter.addEventListener("click", () => {
-            activeCategory = filter.dataset.filter;
-
-            filters.forEach((item) => {
-                const isActive = item === filter;
-
-                item.classList.toggle(
-                    "menu__filter--active",
-                    isActive
-                );
-
-                item.setAttribute(
-                    "aria-pressed",
-                    isActive ? "true" : "false"
-                );
-            });
-
-            applyFilters();
+            setCategory(filter.dataset.filter);
         });
     });
+
+    // =========================================================
+    // LIMPAR (estado vazio)
+    // =========================================================
+
+    if (resetButton) {
+        resetButton.addEventListener("click", () => {
+            if (searchInput) {
+                searchInput.value = "";
+            }
+
+            setCategory("todas");
+
+            if (searchInput) {
+                searchInput.focus({ preventScroll: true });
+            }
+        });
+    }
 
     // =========================================================
     // BUSCA

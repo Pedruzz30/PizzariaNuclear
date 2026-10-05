@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     const cards =
-        [...carousel.querySelectorAll(".pizza-card")];
+        [...carousel.querySelectorAll(".product")];
 
     if (
         !track ||
@@ -35,8 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // HELPERS
     // =========================================================
 
+    // Abaixo do modo desktop editorial o track vira scroll nativo
+    // (ver responsive.css); as setas passam a usar scrollBy.
+    const scrollMode =
+        window.matchMedia("(max-width: 1199px)");
+
     function isMobile() {
-        return window.innerWidth <= 820;
+        return scrollMode.matches;
     }
 
     function getCardStep() {

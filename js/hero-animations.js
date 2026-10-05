@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         x: 45
     });
 
-    gsap.set(".pizza-card", {
+    gsap.set(".carousel .product", {
         opacity: 0,
         y: 130,
         scale: 0.88
@@ -429,7 +429,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // =========================================================
 
     timeline.to(
-        ".pizza-card",
+        ".carousel .product",
         {
             opacity: 1,
 

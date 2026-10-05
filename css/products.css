@@ -1,245 +1,438 @@
 /* =========================================================
-   CAROUSEL
+   PRODUCT SYSTEM
+   One product vocabulary, three presentations:
+
+   .product--featured   hero carousel card
+   .product--menu       cardápio list row
+   .product--cart       drawer line item (rendered by cart.js)
+
+   Elements: __media __badge __name __ingredients __price __add
+========================================================== */
+
+.product {
+    position: relative;
+
+    color: var(--text-primary);
+}
+
+.product__name {
+    font-size: var(--type-heading-md);
+    font-weight: 700;
+
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+}
+
+.product__ingredients {
+    font-size: var(--type-body-sm);
+    line-height: 1.45;
+
+    color: var(--text-muted);
+}
+
+.product__price {
+    font-family: var(--font-display);
+    font-size: var(--type-display-sm);
+
+    letter-spacing: -0.01em;
+    line-height: 1;
+
+    white-space: nowrap;
+}
+
+.product__badge {
+    position: absolute;
+
+    top: var(--space-3);
+    left: var(--space-3);
+
+    z-index: 2;
+}
+
+/* Icon-only add button (circle) */
+
+.product__add--circle {
+    display: grid;
+    place-items: center;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--text-primary);
+    border-radius: 50%;
+
+    color: var(--text-primary);
+
+    transition:
+        color var(--duration-fast) ease,
+        background var(--duration-fast) ease,
+        border-color var(--duration-fast) ease,
+        transform var(--duration-fast) var(--ease-out);
+}
+
+.product__add--circle:hover {
+    color: var(--color-on-ink);
+    background: var(--color-ink);
+
+    transform: rotate(90deg);
+}
+
+.product__add--circle.is-added {
+    color: var(--color-on-action);
+    background: var(--color-action);
+
+    border-color: var(--color-action);
+
+    transform: none;
+}
+
+/* =========================================================
+   FEATURED (HERO CAROUSEL)
+========================================================== */
+
+.product--featured {
+    flex: 0 0 var(--product-featured-width, 224px);
+
+    overflow: hidden;
+
+    border-radius: var(--radius-m);
+
+    background: var(--nuclear-white);
+
+    box-shadow: var(--shadow-lg);
+
+    transition:
+        transform var(--duration-normal) var(--ease-out),
+        box-shadow var(--duration-normal) ease;
+}
+
+.product--featured:hover {
+    transform: translateY(-8px);
+
+    box-shadow: var(--shadow-float);
+}
+
+/* Depth stagger — part of the hero composition */
+
+.carousel .product--featured:nth-child(2) {
+    transform: translateY(16px);
+}
+
+.carousel .product--featured:nth-child(3) {
+    transform: translateY(32px);
+}
+
+.carousel .product--featured:nth-child(4) {
+    transform: translateY(16px);
+}
+
+.carousel .product--featured:hover {
+    transform: translateY(-8px);
+}
+
+.product--featured .product__media {
+    position: relative;
+
+    height: 140px;
+
+    margin: var(--space-1);
+
+    overflow: hidden;
+
+    border-radius: calc(var(--radius-m) - var(--space-1));
+
+    background: var(--nuclear-sand);
+}
+
+.product--featured .product__media img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform var(--duration-editorial) var(--ease-out);
+}
+
+.product--featured:hover .product__media img {
+    transform: scale(1.06);
+}
+
+.product--featured .product__body {
+    padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+.product--featured .product__name {
+    font-size: 16px;
+}
+
+.product--featured .product__ingredients {
+    min-height: 2.9em;
+
+    margin-top: var(--space-1);
+
+    font-size: 12px;
+}
+
+.product--featured .product__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: var(--space-3);
+
+    margin-top: var(--space-4);
+}
+
+.product--featured .product__price {
+    font-size: 22px;
+}
+
+/* =========================================================
+   MENU ROW (CARDÁPIO)
+========================================================== */
+
+.product--menu {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "head  price"
+        "desc  desc"
+        "foot  foot";
+
+    column-gap: var(--space-4);
+
+    padding: var(--space-5) 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.product--menu[hidden] {
+    display: none;
+}
+
+.product--menu .product__head {
+    grid-area: head;
+
+    display: flex;
+    align-items: baseline;
+
+    gap: var(--space-3);
+
+    min-width: 0;
+}
+
+.product--menu .product__name {
+    font-size: 19px;
+}
+
+.product__dots {
+    flex: 1;
+
+    min-width: 24px;
+    height: 1px;
+
+    background-image:
+        radial-gradient(
+            circle,
+            var(--line-strong) 1px,
+            transparent 1px
+        );
+
+    background-size: 6px 2px;
+    background-repeat: repeat-x;
+
+    transform: translateY(-4px);
+
+    transition: opacity var(--duration-fast) ease;
+}
+
+.product--menu .product__price {
+    grid-area: price;
+
+    align-self: baseline;
+
+    font-size: 24px;
+}
+
+.product--menu .product__ingredients {
+    grid-area: desc;
+
+    max-width: 52ch;
+
+    margin-top: var(--space-2);
+
+    font-size: 14px;
+}
+
+.product--menu .product__footer {
+    grid-area: foot;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: var(--space-4);
+
+    margin-top: var(--space-4);
+}
+
+.product--menu:hover .product__dots {
+    opacity: 0.35;
+}
+
+/* =========================================================
+   CART LINE (DRAWER)
+========================================================== */
+
+.product--cart {
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+        "name     price"
+        "controls remove";
+
+    align-items: center;
+
+    gap: var(--space-3) var(--space-4);
+
+    padding: var(--space-4) 0;
+
+    border-bottom: 1px solid var(--line);
+}
+
+.product--cart .product__name {
+    grid-area: name;
+
+    font-size: var(--type-heading-sm);
+    font-weight: 600;
+}
+
+.product--cart .product__price {
+    grid-area: price;
+
+    font-size: 20px;
+}
+
+.product__controls {
+    grid-area: controls;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: var(--space-2);
+}
+
+.product__step {
+    display: grid;
+    place-items: center;
+
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+
+    color: var(--text-primary);
+
+    transition:
+        color var(--duration-fast) ease,
+        background var(--duration-fast) ease,
+        border-color var(--duration-fast) ease;
+}
+
+.product__step:hover {
+    color: var(--color-on-ink);
+    background: var(--color-ink);
+
+    border-color: var(--color-ink);
+}
+
+.product__quantity {
+    min-width: 24px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    text-align: center;
+}
+
+.product__remove {
+    grid-area: remove;
+
+    justify-self: end;
+
+    font-size: var(--type-label);
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+
+    color: var(--text-muted);
+
+    transition: color var(--duration-fast) ease;
+}
+
+.product__remove:hover {
+    color: var(--text-accent);
+}
+
+/* =========================================================
+   HERO CAROUSEL
+   Placed by the hero grid (see hero.css). This file only
+   owns the internal layout.
 ========================================================== */
 
 .carousel {
-    position: absolute;
+    --product-featured-width: 224px;
 
-    z-index: 35;
+    position: relative;
 
-    right: 4.5%;
-    bottom: 7%;
+    width: 100%;
+}
 
-    width: min(49vw, 760px);
+.carousel__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: var(--space-4);
+
+    margin-bottom: var(--space-4);
+}
+
+/* sticker-like so it stays legible over the hero photo */
+.carousel__label {
+    padding: var(--space-2) var(--space-3);
+
+    border-radius: var(--radius-round);
+
+    color: var(--text-primary);
+    background: var(--nuclear-cream);
+}
+
+.carousel__controls {
+    display: flex;
+
+    gap: var(--space-2);
+}
+
+.carousel__arrow {
+    --control-height-sm: 44px;
 }
 
 .carousel__track {
     display: flex;
     align-items: flex-end;
 
-    gap: 14px;
+    gap: var(--space-4);
 
     overflow: visible;
+
+    padding-top: var(--space-3);
 }
 
-/* =========================================================
-   CARD
-========================================================== */
-
-.pizza-card {
-    position: relative;
-
-    flex: 0 0 215px;
-
-    overflow: hidden;
-
-    border-radius: 25px;
-
-    color: var(--color-text);
-    background: rgba(255, 255, 255, 0.96);
-
-    border: 1px solid rgba(255, 255, 255, 0.8);
-
-    box-shadow:
-        0 22px 60px rgba(0, 0, 0, 0.1);
-
-    backdrop-filter: blur(10px);
-
-    transition:
-        transform 300ms var(--ease-out),
-        box-shadow 300ms ease;
-}
-
-.pizza-card:hover {
-    transform: translateY(-10px);
-
-    box-shadow:
-        0 30px 70px rgba(0, 0, 0, 0.16);
-}
-
-/* Card depth staggering */
-
-.pizza-card:nth-child(1) {
-    transform: translateY(0);
-}
-
-.pizza-card:nth-child(2) {
-    transform: translateY(18px);
-}
-
-.pizza-card:nth-child(3) {
-    transform: translateY(34px);
-}
-
-.pizza-card:nth-child(4) {
-    transform: translateY(18px);
-}
-
-.pizza-card:nth-child(1):hover,
-.pizza-card:nth-child(2):hover,
-.pizza-card:nth-child(3):hover,
-.pizza-card:nth-child(4):hover {
-    transform: translateY(-10px);
-}
-
-/* =========================================================
-   IMAGE
-========================================================== */
-
-.pizza-card__image {
-    position: relative;
-
-    height: 135px;
-
-    margin: 5px;
-
-    overflow: hidden;
-
-    border-radius: 21px;
-
-    background: #eee6dc;
-}
-
-.pizza-card__image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    transition:
-        transform 700ms var(--ease-soft);
-}
-
-.pizza-card:hover .pizza-card__image img {
-    transform: scale(1.07);
-}
-
-/* =========================================================
-   BODY
-========================================================== */
-
-.pizza-card__content {
-    padding:
-        13px
-        16px
-        15px;
-}
-
-.pizza-card h2 {
-    margin: 0 0 6px;
-
-    font-size: 17px;
-    line-height: 1;
-
-    letter-spacing: -0.025em;
-}
-
-.pizza-card p {
-    min-height: 42px;
-
-    margin: 0;
-
-    color: var(--color-muted);
-
-    font-size: 11px;
-    line-height: 1.4;
-}
-
-/* =========================================================
-   FOOTER
-========================================================== */
-
-.pizza-card__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-top: 15px;
-}
-
-.pizza-card__footer strong {
-    color: var(--color-accent);
-
-    font-size: 17px;
-}
-
-.pizza-card__add {
-    display: grid;
-    place-items: center;
-
-    width: 36px;
-    height: 36px;
-
-    border-radius: 50%;
-
-    border: 1px solid var(--color-text);
-
-    color: var(--color-text);
-    background: transparent;
-
-    font-size: 20px;
-    line-height: 1;
-
-    transition:
-        color 200ms ease,
-        background 200ms ease,
-        transform 200ms var(--ease-out);
-}
-
-.pizza-card__add:hover {
-    color: white;
-    background: var(--color-text);
-
-    transform: rotate(90deg);
-}
-
-/* =========================================================
-   CAROUSEL CONTROLS
-========================================================== */
-
-.carousel__controls {
-    position: absolute;
-
-    right: 0;
-    top: -68px;
-
-    display: flex;
-
-    gap: 9px;
-}
-
-.carousel__arrow {
-    display: grid;
-    place-items: center;
-
-    width: 45px;
-    height: 45px;
-
-    border-radius: 50%;
-
-    color: var(--color-text);
-    background: rgba(255, 255, 255, 0.82);
-
-    border: 1px solid rgba(17, 17, 17, 0.12);
-
-    font-size: 18px;
-
-    backdrop-filter: blur(12px);
-
-    transition:
-        transform 200ms var(--ease-out),
-        background 200ms ease;
-}
-
-.carousel__arrow:hover {
-    color: white;
-    background: var(--color-text);
-}
-
-.carousel__arrow--prev:hover {
-    transform: translateX(-4px);
-}
-
-.carousel__arrow--next:hover {
-    transform: translateX(4px);
-}
+/* Below desktop the track becomes a native horizontal
+   scroller — see responsive.css. */
