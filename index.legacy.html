@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Pizzaria Nuclear — pizza artesanal, ingredientes marcantes e muito sabor."
+    >
+
+    <meta name="theme-color" content="#f4efe7">
+
+    <title>Pizzaria Nuclear</title>
+
+    <!-- Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- LCP image -->
+    <link
+        rel="preload"
+        as="image"
+        href="./assets/pizzas/PizzaHero.webp"
+        type="image/webp"
+        fetchpriority="high"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/hero.css">
+    <link rel="stylesheet" href="./css/products.css">
+    <link rel="stylesheet" href="./css/sections.css">
+    <link rel="stylesheet" href="./css/cart.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+</head>
+
+<body>
+
+    <!-- ICON SPRITE
+         stroke: currentColor · 1.75px · round caps
+         Used everywhere as <svg class="icon"><use href="#icon-name"/></svg> -->
+
+    <svg
+        aria-hidden="true"
+        focusable="false"
+        width="0"
+        height="0"
+        style="position:absolute"
+    >
+        <symbol id="icon-search" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="m20 20-3.5-3.5"/>
+        </symbol>
+
+        <symbol id="icon-cart" viewBox="0 0 24 24">
+            <path d="M3 4h2.2l2.3 11.1a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H6.2"/>
+            <circle cx="9.2" cy="20" r="1.2"/>
+            <circle cx="17.2" cy="20" r="1.2"/>
+        </symbol>
+
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+            <path d="M3 8h18M3 16h18"/>
+        </symbol>
+
+        <symbol id="icon-close" viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6 6 18"/>
+        </symbol>
+
+        <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+            <path d="M4 12h16m-6-6 6 6-6 6"/>
+        </symbol>
+
+        <symbol id="icon-arrow-left" viewBox="0 0 24 24">
+            <path d="M20 12H4m6-6-6 6 6 6"/>
+        </symbol>
+
+        <symbol id="icon-arrow-down" viewBox="0 0 24 24">
+            <path d="M12 4v16m-6-6 6 6 6-6"/>
+        </symbol>
+
+        <symbol id="icon-plus" viewBox="0 0 24 24">
+            <path d="M12 5v14M5 12h14"/>
+        </symbol>
+
+        <symbol id="icon-minus" viewBox="0 0 24 24">
+            <path d="M5 12h14"/>
+        </symbol>
+
+        <symbol id="icon-check" viewBox="0 0 24 24">
+            <path d="m5 12.5 4.5 4.5L19 7"/>
+        </symbol>
+
+        <symbol id="icon-instagram" viewBox="0 0 24 24">
+            <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/>
+            <circle cx="12" cy="12" r="3.8"/>
+            <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/>
+        </symbol>
+
+        <symbol id="icon-facebook" viewBox="0 0 24 24">
+            <path d="M14 8.5V6.8c0-.8.5-1.3 1.3-1.3H17V2.5h-2.6C11.9 2.5 10.5 4 10.5 6.6v1.9H8v3h2.5v10h3.5v-10h2.6l.4-3H14Z" fill="currentColor" stroke="none"/>
+        </symbol>
+
+        <symbol id="icon-tiktok" viewBox="0 0 24 24">
+            <path d="M16.5 2.5c.3 2.4 1.7 3.9 4 4.1v3c-1.5.1-2.8-.4-4-1.3v6.2a5.4 5.4 0 1 1-4.6-5.3v3.1a2.4 2.4 0 1 0 1.6 2.3V2.5h3Z" fill="currentColor" stroke="none"/>
+        </symbol>
+
+        <symbol id="icon-whatsapp" viewBox="0 0 24 24">
+            <path d="M12 2.5a9.5 9.5 0 0 0-8.2 14.3L2.5 21.5l4.9-1.3A9.5 9.5 0 1 0 12 2.5Zm0 1.8a7.7 7.7 0 1 1-4 14.3l-.3-.2-2.8.8.8-2.7-.2-.3A7.7 7.7 0 0 1 12 4.3Zm-3 3.9c-.2 0-.5.1-.7.3-.3.3-1 .9-1 2.2s1 2.6 1.1 2.8c.2.2 2 3.1 4.9 4.2 2.4.9 2.9.8 3.4.7.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.2-.7.1-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.4.1-.6l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.2-.5-.4-.5-.6-.5H9Z" fill="currentColor" stroke="none"/>
+        </symbol>
+
+        <symbol id="icon-location" viewBox="0 0 24 24">
+            <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/>
+            <circle cx="12" cy="10" r="2.4"/>
+        </symbol>
+
+        <symbol id="icon-clock" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="8.5"/>
+            <path d="M12 7.5V12l3 2"/>
+        </symbol>
+
+        <symbol id="icon-phone" viewBox="0 0 24 24">
+            <path d="M5.5 3.5h3l1.6 4-2 1.4a11 11 0 0 0 6 6l1.4-2 4 1.6v3a2 2 0 0 1-2.1 2A16 16 0 0 1 3.5 5.6a2 2 0 0 1 2-2.1Z"/>
+        </symbol>
+
+        <symbol id="icon-mail" viewBox="0 0 24 24">
+            <rect x="3" y="5.5" width="18" height="13" rx="2"/>
+            <path d="m3.5 7 8.5 6 8.5-6"/>
+        </symbol>
+
+        <symbol id="icon-spark" viewBox="0 0 24 24">
+            <path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10Z" fill="currentColor" stroke="none"/>
+        </symbol>
+
+        <symbol id="icon-flame" viewBox="0 0 24 24">
+            <path d="M12 22c-4 0-7-2.9-7-6.7 0-3 1.7-5 3.6-7 .3 2.3 1.5 3.6 3 4.7-.7-3.3 1.2-5.9 3.8-8.2-.1 3.5 2.7 4.8 3.8 7.9C20.4 16.9 18 22 12 22Z" fill="currentColor" stroke="none"/>
+        </symbol>
+    </svg>
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header__inner container">
+
+            <a
+                href="#inicio"
+                class="brand"
+                aria-label="Pizzaria Nuclear"
+            >
+                <picture>
+                    <source srcset="./assets/logo/NuclearLogo.webp" type="image/webp">
+                    <img
+                        class="brand__logo"
+                        src="./assets/logo/NuclearLogo.png"
+                        width="1448"
+                        height="1086"
+                        alt=""
+                        decoding="async"
+                    >
+                </picture>
+            </a>
+
+
+            <nav
+                class="nav"
+                aria-label="Navegação principal"
+            >
+
+                <a
+                    href="#inicio"
+                    class="nav__link nav__link--active"
+                >
+                    Início
+                </a>
+
+                <a
+                    href="#cardapio"
+                    class="nav__link"
+                >
+                    Cardápio
+                </a>
+
+                <a
+                    href="#sabores"
+                    class="nav__link"
+                >
+                    Sabores
+                </a>
+
+                <a
+                    href="#sobre"
+                    class="nav__link"
+                >
+                    Sobre
+                </a>
+
+                <a
+                    href="#unidades"
+                    class="nav__link"
+                >
+                    Unidades
+                </a>
+
+                <button
+                    class="nav__search"
+                    aria-label="Buscar no cardápio"
+                    data-search-open
+                >
+                    <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-search"/></svg>
+                </button>
+
+            </nav>
+
+
+            <div class="header__actions">
+
+                <button
+                    class="button button--icon header__cart"
+                    aria-label="Abrir carrinho"
+                    data-cart-open
+                >
+                    <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
+
+                    <span
+                        class="cart-count"
+                        data-cart-count
+                    >
+                        0
+                    </span>
+                </button>
+
+                <button
+                    class="button button--icon header__menu"
+                    aria-label="Abrir menu"
+                    aria-expanded="false"
+                    aria-controls="mobile-menu"
+                    data-menu-open
+                >
+                    <svg class="icon" aria-hidden="true"><use href="#icon-menu"/></svg>
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO -->
+
+        <section
+            class="hero"
+            id="inicio"
+        >
+
+            <div class="hero__content container grid">
+
+                <!-- COPY · columns 1–6 -->
+
+                <div class="hero__copy">
+
+                    <div class="hero__copy-main">
+
+                        <span class="eyebrow hero__eyebrow">
+                            Mais que pizza
+                        </span>
+
+
+                        <h1
+                            class="display hero__title"
+                            aria-label="Sabor que explode"
+                        >
+
+                            <span
+                                class="hero-word"
+                                data-word="SABOR"
+                            >
+                                SABOR
+                            </span>
+
+                            <span
+                                class="hero-word hero-word--accent"
+                                data-word="QUE"
+                            >
+                                QUE
+                            </span>
+
+                            <span
+                                class="hero-word"
+                                data-word="EXPLODE"
+                            >
+                                EXPLODE
+                            </span>
+
+                        </h1>
+
+
+                        <p class="hero__description">
+
+                            <strong>Pizzaria Nuclear</strong>
+                            transforma cada fatia em uma experiência intensa,
+                            com massa artesanal, ingredientes marcantes
+                            e muito sabor em cada pedaço.
+
+                        </p>
+
+
+                        <div class="hero__buttons">
+
+                            <a
+                                href="#cardapio"
+                                class="button button--primary"
+                            >
+                                <span>Ver cardápio</span>
+                                <svg class="icon icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                            </a>
+
+
+                            <button
+                                class="button button--icon"
+                                aria-label="Abrir carrinho"
+                                data-cart-open
+                            >
+                                <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="hero__foot">
+
+                        <a
+                            href="#cardapio"
+                            class="button button--icon button--ghost scroll-indicator"
+                            aria-label="Ir para o cardápio"
+                        >
+                            <svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"/></svg>
+                        </a>
+
+                        <span class="hero__signature">
+                            Fatias que fazem sentido.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STAGE · columns 6–12 (art) -->
+
+                <figure
+                    class="hero__stage"
+                    aria-label="Pizza principal da Pizzaria Nuclear"
+                >
+
+                    <div class="hero__circle"></div>
+
+                    <picture>
+                        <source srcset="./assets/pizzas/PizzaHero.webp" type="image/webp">
+                        <img
+                            class="hero__pizza"
+                            src="./assets/pizzas/PizzaHero.png"
+                            width="1254"
+                            height="1254"
+                            alt="Pizza artesanal da Pizzaria Nuclear"
+                            decoding="async"
+                            fetchpriority="high"
+                        >
+                    </picture>
+
+                    <div class="hero__seal">
+
+                        <img
+                            class="hero__seal-image"
+                            src="./assets/logo/nuclear-seal.svg"
+                            width="220"
+                            height="220"
+                            alt="Massa artesanal, sabor real"
+                            decoding="async"
+                        >
+
+                    </div>
+
+                </figure>
+
+
+                <!-- CAROUSEL · columns 6–12, bottom -->
+
+                <div class="carousel">
+
+                    <div class="carousel__head">
+
+                        <span class="label carousel__label">
+                            Direto do forno
+                        </span>
+
+                        <div class="carousel__controls">
+
+                            <button
+                                class="button button--icon button--sm carousel__arrow carousel__arrow--prev"
+                                aria-label="Produto anterior"
+                            >
+                                <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-arrow-left"/></svg>
+                            </button>
+
+                            <button
+                                class="button button--icon button--sm carousel__arrow carousel__arrow--next"
+                                aria-label="Próximo produto"
+                            >
+                                <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="carousel__track">
+
+                        <!-- CARD 1 -->
+
+                        <article class="product product--featured">
+
+                            <div class="product__media">
+
+                                <picture>
+                                    <source srcset="./assets/pizzas/margherita.webp" type="image/webp">
+                                    <img
+                                        src="./assets/pizzas/margherita.png"
+                                        width="900"
+                                        height="675"
+                                        alt="Pizza Margherita"
+                                        loading="lazy"
+                                        decoding="async"
+                                    >
+                                </picture>
+
+                            </div>
+
+                            <div class="product__body">
+
+                                <h2 class="product__name">
+                                    Margherita
+                                </h2>
+
+                                <p class="product__ingredients">
+                                    Molho de tomate, mussarela de búfala
+                                    e manjericão fresco.
+                                </p>
+
+                                <footer class="product__footer">
+
+                                    <strong class="product__price">
+                                        R$ 42,90
+                                    </strong>
+
+                                    <button
+                                        class="product__add product__add--circle"
+                                        aria-label="Adicionar Margherita ao carrinho"
+                                        data-add
+                                        data-name="Margherita"
+                                        data-price="42.90"
+                                    >
+                                        <svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- CARD 2 -->
+
+                        <article class="product product--featured">
+
+                            <div class="product__media">
+
+                                <span class="tag tag--accent product__badge">
+                                    Mais pedida
+                                </span>
+
+                                <picture>
+                                    <source srcset="./assets/pizzas/diavola.webp" type="image/webp">
+                                    <img
+                                        src="./assets/pizzas/diavola.png"
+                                        width="900"
+                                        height="675"
+                                        alt="Pizza Diavola"
+                                        loading="lazy"
+                                        decoding="async"
+                                    >
+                                </picture>
+
+                            </div>
+
+                            <div class="product__body">
+
+                                <h2 class="product__name">
+                                    Diavola
+                                </h2>
+
+                                <p class="product__ingredients">
+                                    Molho italiano, mussarela,
+                                    pepperoni artesanal e pimenta.
+                                </p>
+
+                                <footer class="product__footer">
+
+                                    <strong class="product__price">
+                                        R$ 48,90
+                                    </strong>
+
+                                    <button
+                                        class="product__add product__add--circle"
+                                        aria-label="Adicionar Diavola ao carrinho"
+                                        data-add
+                                        data-name="Diavola"
+                                        data-price="48.90"
+                                    >
+                                        <svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- CARD 3 -->
+
+                        <article class="product product--featured">
+
+                            <div class="product__media">
+
+                                <picture>
+                                    <source srcset="./assets/pizzas/quatro-queijos.webp" type="image/webp">
+                                    <img
+                                        src="./assets/pizzas/quatro-queijos.png"
+                                        width="900"
+                                        height="675"
+                                        alt="Pizza Quatro Queijos"
+                                        loading="lazy"
+                                        decoding="async"
+                                    >
+                                </picture>
+
+                            </div>
+
+                            <div class="product__body">
+
+                                <h2 class="product__name">
+                                    Quatro Queijos
+                                </h2>
+
+                                <p class="product__ingredients">
+                                    Mussarela, gorgonzola,
+                                    parmesão e provolone.
+                                </p>
+
+                                <footer class="product__footer">
+
+                                    <strong class="product__price">
+                                        R$ 51,90
+                                    </strong>
+
+                                    <button
+                                        class="product__add product__add--circle"
+                                        aria-label="Adicionar Quatro Queijos ao carrinho"
+                                        data-add
+                                        data-name="Quatro Queijos"
+                                        data-price="51.90"
+                                    >
+                                        <svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- CARD 4 -->
+
+                        <article class="product product--featured">
+
+                            <div class="product__media">
+
+                                <span class="tag tag--fill product__badge">
+                                    Premium
+                                </span>
+
+                                <picture>
+                                    <source srcset="./assets/pizzas/prosciutto.webp" type="image/webp">
+                                    <img
+                                        src="./assets/pizzas/prosciutto.png"
+                                        width="900"
+                                        height="675"
+                                        alt="Pizza Prosciutto"
+                                        loading="lazy"
+                                        decoding="async"
+                                    >
+                                </picture>
+
+                            </div>
+
+                            <div class="product__body">
+
+                                <h2 class="product__name">
+                                    Prosciutto
+                                </h2>
+
+                                <p class="product__ingredients">
+                                    Presunto cru, rúcula,
+                                    parmesão e mussarela.
+                                </p>
+
+                                <footer class="product__footer">
+
+                                    <strong class="product__price">
+                                        R$ 54,90
+                                    </strong>
+
+                                    <button
+                                        class="product__add product__add--circle"
+                                        aria-label="Adicionar Prosciutto ao carrinho"
+                                        data-add
+                                        data-name="Prosciutto"
+                                        data-price="54.90"
+                                    >
+                                        <svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>
+                                    </button>
+
+                                </footer>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SOCIAL RAIL -->
+
+            <aside class="social" aria-label="Redes sociais">
+
+                <a
+                    href="https://instagram.com"
+                    class="social__link"
+                    aria-label="Instagram"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-instagram"/></svg>
+                </a>
+
+                <a
+                    href="https://facebook.com"
+                    class="social__link"
+                    aria-label="Facebook"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-facebook"/></svg>
+                </a>
+
+                <a
+                    href="https://tiktok.com"
+                    class="social__link"
+                    aria-label="TikTok"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-tiktok"/></svg>
+                </a>
+
+            </aside>
+
+        </section>
+
+
+        <!-- MARQUEE -->
+
+        <div
+            class="marquee theme-dark"
+            aria-hidden="true"
+        >
+
+            <div class="marquee__track">
+
+                <span class="marquee__group">
+                    <span>Massa de 48 horas</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                    <span>Forno a lenha</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                    <span>Ingredientes reais</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                    <span>Entrega em 40 min</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                </span>
+
+                <span class="marquee__group">
+                    <span>Massa de 48 horas</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                    <span>Forno a lenha</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                    <span>Ingredientes reais</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                    <span>Entrega em 40 min</span>
+                    <svg class="icon" aria-hidden="true"><use href="#icon-spark"/></svg>
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARDÁPIO -->
+
+        <section
+            class="section menu"
+            id="cardapio"
+        >
+
+            <div class="container">
+
+                <header class="section__head reveal">
+
+                    <span class="eyebrow section__eyebrow">
+                        01 — Cardápio
+                    </span>
+
+                    <h2 class="display section__title">
+                        Escolha sua
+                        <em>explosão</em>
+                    </h2>
+
+                    <p class="section__lead">
+                        Massa de fermentação natural por 48 horas,
+                        assada em forno a lenha a 450°C.
+                        Todos os sabores saem em tamanho único de 35 cm,
+                        com oito fatias generosas.
+                    </p>
+
+                </header>
+
+
+                <div class="menu__toolbar reveal">
+
+                    <div
+                        class="menu__filters"
+                        role="group"
+                        aria-label="Filtrar cardápio por categoria"
+                    >
+
+                        <button
+                            class="menu__filter menu__filter--active"
+                            data-filter="todas"
+                            aria-pressed="true"
+                        >
+                            Todas
+                        </button>
+
+                        <button
+                            class="menu__filter"
+                            data-filter="tradicionais"
+                            aria-pressed="false"
+                        >
+                            Tradicionais
+                        </button>
+
+                        <button
+                            class="menu__filter"
+                            data-filter="especiais"
+                            aria-pressed="false"
+                        >
+                            Especiais
+                        </button>
+
+                        <button
+                            class="menu__filter"
+                            data-filter="veganas"
+                            aria-pressed="false"
+                        >
+                            Veganas
+                        </button>
+
+                        <button
+                            class="menu__filter"
+                            data-filter="doces"
+                            aria-pressed="false"
+                        >
+                            Doces
+                        </button>
+
+                    </div>
+
+
+                    <div class="field menu__search">
+
+                        <label
+                            class="visually-hidden"
+                            for="menu-search"
+                        >
+                            Buscar sabor
+                        </label>
+
+                        <svg class="icon field__icon" aria-hidden="true"><use href="#icon-search"/></svg>
+
+                        <input
+                            class="field__input"
+                            id="menu-search"
+                            type="search"
+                            placeholder="Buscar sabor ou ingrediente"
+                            autocomplete="off"
+                            data-menu-search
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="menu__grid"
+                    data-menu-grid
+                >
+
+                    <!-- TRADICIONAIS -->
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="tradicionais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Margherita
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 42,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Molho de tomate San Marzano, mussarela de búfala,
+                            manjericão fresco e azeite extravirgem.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Clássica
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Margherita"
+                                data-price="42.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="tradicionais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Calabresa Nuclear
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 45,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Calabresa artesanal defumada, cebola roxa,
+                            azeitona preta e orégano da casa.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag tag--hot">
+                                Mais pedida
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Calabresa Nuclear"
+                                data-price="45.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="tradicionais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Portuguesa
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 47,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Presunto, ovo caipira, ervilha fresca,
+                            cebola, azeitona e mussarela.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Clássica
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Portuguesa"
+                                data-price="47.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="tradicionais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Frango com Catupiry
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 46,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Frango desfiado temperado, catupiry original,
+                            milho e cheiro-verde.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Cremosa
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Frango com Catupiry"
+                                data-price="46.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- ESPECIAIS -->
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="especiais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Diavola
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 48,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Molho italiano, mussarela, pepperoni artesanal,
+                            mel picante e pimenta calabresa.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag tag--hot">
+                                Picante
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Diavola"
+                                data-price="48.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="especiais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Quatro Queijos
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 51,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Mussarela, gorgonzola, parmesão curado
+                            e provolone defumado.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Cremosa
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Quatro Queijos"
+                                data-price="51.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="especiais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Prosciutto
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 54,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Presunto cru maturado, rúcula selvagem,
+                            lascas de parmesão e mussarela.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Premium
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Prosciutto"
+                                data-price="54.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="especiais"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Trufada
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 62,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Creme de trufas negras, mix de funghi,
+                            grana padano e fio de azeite trufado.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Premium
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Trufada"
+                                data-price="62.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- VEGANAS -->
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="veganas"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Horta Nuclear
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 44,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Abobrinha, berinjela, pimentão assado
+                            e pesto vegano de manjericão.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag tag--veg">
+                                Vegana
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Horta Nuclear"
+                                data-price="44.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="veganas"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Cogumelos
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 49,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Shitake, shimeji, alho-poró caramelizado
+                            e queijo vegetal de castanha.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag tag--veg">
+                                Vegana
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Cogumelos"
+                                data-price="49.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="veganas"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Caprese Vegana
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 46,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Tomate confit, mussarela vegetal,
+                            manjericão fresco e azeite de ervas.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag tag--veg">
+                                Vegana
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Caprese Vegana"
+                                data-price="46.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- DOCES -->
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="doces"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Nutella com Morango
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 39,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Creme de avelã, morangos frescos
+                            e açúcar de confeiteiro.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Doce
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Nutella com Morango"
+                                data-price="39.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="doces"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Banana Nuclear
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 36,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Banana caramelizada no maçarico, canela
+                            e doce de leite argentino.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Doce
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Banana Nuclear"
+                                data-price="36.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="product product--menu reveal"
+                        data-category="doces"
+                    >
+
+                        <div class="product__head">
+
+                            <h3 class="product__name">
+                                Romeu e Julieta
+                            </h3>
+
+                            <span
+                                class="product__dots"
+                                aria-hidden="true"
+                            ></span>
+
+                        </div>
+
+                        <span class="product__price">
+                            R$ 37,90
+                        </span>
+
+                        <p class="product__ingredients">
+                            Goiabada cascão derretida
+                            com queijo minas meia cura.
+                        </p>
+
+                        <div class="product__footer">
+
+                            <span class="tag">
+                                Doce
+                            </span>
+
+                            <button
+                                class="button button--outline button--sm product__add"
+                                data-add
+                                data-name="Romeu e Julieta"
+                                data-price="37.90"
+                            >
+                                Adicionar
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+
+                <div
+                    class="menu__empty"
+                    data-menu-empty
+                    hidden
+                >
+
+                    <p class="display menu__empty-title">
+                        Nada por aqui
+                    </p>
+
+                    <p class="menu__empty-text">
+                        Nenhum sabor combina com essa busca.
+                        Tenta outro ingrediente ou limpa os filtros.
+                    </p>
+
+                    <button
+                        class="button button--outline button--sm"
+                        type="button"
+                        data-menu-reset
+                    >
+                        Limpar busca
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SABORES -->
+
+        <section
+            class="section flavors theme-dark"
+            id="sabores"
+        >
+
+            <div class="container">
+
+                <header class="section__head reveal">
+
+                    <span class="eyebrow section__eyebrow">
+                        02 — Sabores
+                    </span>
+
+                    <h2 class="display section__title">
+                        Os três que
+                        <em>marcam</em>
+                    </h2>
+
+                    <p class="section__lead">
+                        Todo mês a casa elege os sabores que mais
+                        saíram do forno. Estes são os campeões da temporada.
+                    </p>
+
+                </header>
+
+
+                <ol class="flavors__list">
+
+                    <li class="flavor reveal">
+
+                        <span
+                            class="flavor__index"
+                            aria-hidden="true"
+                        >
+                            01
+                        </span>
+
+                        <div class="flavor__media">
+
+                            <picture>
+                                <source srcset="./assets/pizzas/diavola.webp" type="image/webp">
+                                <img
+                                    src="./assets/pizzas/diavola.png"
+                                    width="900"
+                                    height="675"
+                                    alt="Pizza Diavola"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+                            </picture>
+
+                        </div>
+
+                        <div class="flavor__body">
+
+                            <h3 class="display flavor__name">
+                                Diavola
+                            </h3>
+
+                            <p class="flavor__text">
+                                Pepperoni curado na casa, mel picante
+                                e pimenta calabresa. A fatia que dá nome à pizzaria.
+                            </p>
+
+                            <ul class="flavor__ingredients">
+                                <li>Pepperoni</li>
+                                <li>Mel picante</li>
+                                <li>Calabresa</li>
+                            </ul>
+
+                            <div class="flavor__meta">
+
+                                <div class="flavor__heat">
+
+                                    <span class="label flavor__heat-label">
+                                        Intensidade
+                                    </span>
+
+                                    <span
+                                        class="flavor__heat-scale"
+                                        role="img"
+                                        aria-label="Intensidade 5 de 5"
+                                    >
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                    </span>
+
+                                </div>
+
+                                <button
+                                    class="button button--outline button--sm"
+                                    data-add
+                                    data-name="Diavola"
+                                    data-price="48.90"
+                                >
+                                    <span>Pedir · R$ 48,90</span>
+                                    <svg class="icon icon--sm icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+                    <li class="flavor reveal">
+
+                        <span
+                            class="flavor__index"
+                            aria-hidden="true"
+                        >
+                            02
+                        </span>
+
+                        <div class="flavor__media">
+
+                            <picture>
+                                <source srcset="./assets/pizzas/quatro-queijos.webp" type="image/webp">
+                                <img
+                                    src="./assets/pizzas/quatro-queijos.png"
+                                    width="900"
+                                    height="675"
+                                    alt="Pizza Quatro Queijos"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+                            </picture>
+
+                        </div>
+
+                        <div class="flavor__body">
+
+                            <h3 class="display flavor__name">
+                                Quatro Queijos
+                            </h3>
+
+                            <p class="flavor__text">
+                                Quatro queijos maturados em proporções calculadas
+                                para derreter junto e não brigar no paladar.
+                            </p>
+
+                            <ul class="flavor__ingredients">
+                                <li>Gorgonzola</li>
+                                <li>Parmesão</li>
+                                <li>Provolone</li>
+                            </ul>
+
+                            <div class="flavor__meta">
+
+                                <div class="flavor__heat">
+
+                                    <span class="label flavor__heat-label">
+                                        Intensidade
+                                    </span>
+
+                                    <span
+                                        class="flavor__heat-scale"
+                                        role="img"
+                                        aria-label="Intensidade 4 de 5"
+                                    >
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                    </span>
+
+                                </div>
+
+                                <button
+                                    class="button button--outline button--sm"
+                                    data-add
+                                    data-name="Quatro Queijos"
+                                    data-price="51.90"
+                                >
+                                    <span>Pedir · R$ 51,90</span>
+                                    <svg class="icon icon--sm icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+                    <li class="flavor reveal">
+
+                        <span
+                            class="flavor__index"
+                            aria-hidden="true"
+                        >
+                            03
+                        </span>
+
+                        <div class="flavor__media">
+
+                            <picture>
+                                <source srcset="./assets/pizzas/prosciutto.webp" type="image/webp">
+                                <img
+                                    src="./assets/pizzas/prosciutto.png"
+                                    width="900"
+                                    height="675"
+                                    alt="Pizza Prosciutto"
+                                    loading="lazy"
+                                    decoding="async"
+                                >
+                            </picture>
+
+                        </div>
+
+                        <div class="flavor__body">
+
+                            <h3 class="display flavor__name">
+                                Prosciutto
+                            </h3>
+
+                            <p class="flavor__text">
+                                Presunto cru maturado por 18 meses, colocado
+                                depois do forno para preservar o sabor.
+                            </p>
+
+                            <ul class="flavor__ingredients">
+                                <li>Presunto cru</li>
+                                <li>Rúcula</li>
+                                <li>Parmesão</li>
+                            </ul>
+
+                            <div class="flavor__meta">
+
+                                <div class="flavor__heat">
+
+                                    <span class="label flavor__heat-label">
+                                        Intensidade
+                                    </span>
+
+                                    <span
+                                        class="flavor__heat-scale"
+                                        role="img"
+                                        aria-label="Intensidade 3 de 5"
+                                    >
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon is-on" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                        <svg class="icon" aria-hidden="true"><use href="#icon-flame"/></svg>
+                                    </span>
+
+                                </div>
+
+                                <button
+                                    class="button button--outline button--sm"
+                                    data-add
+                                    data-name="Prosciutto"
+                                    data-price="54.90"
+                                >
+                                    <span>Pedir · R$ 54,90</span>
+                                    <svg class="icon icon--sm icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOBRE -->
+
+        <section
+            class="section about"
+            id="sobre"
+        >
+
+            <div class="container grid about__grid">
+
+                <div class="about__media reveal">
+
+                    <div class="about__circle"></div>
+
+                    <picture>
+                        <source srcset="./assets/pizzas/hero-pizza.webp" type="image/webp">
+                        <img
+                            class="about__image"
+                            src="./assets/pizzas/hero-pizza.png"
+                            width="1536"
+                            height="1024"
+                            alt="Pizza saindo do forno a lenha"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    </picture>
+
+                    <img
+                        class="about__seal"
+                        src="./assets/logo/nuclear-seal.svg"
+                        width="220"
+                        height="220"
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                    >
+
+                </div>
+
+
+                <div class="about__copy reveal">
+
+                    <span class="eyebrow section__eyebrow">
+                        03 — Sobre
+                    </span>
+
+                    <h2 class="display about__title">
+                        Massa lenta,
+                        <em>sabor rápido</em>
+                    </h2>
+
+                    <p class="about__lead">
+                        A Nuclear nasceu em 2016 numa garagem no centro,
+                        com um forno a lenha emprestado e uma ideia teimosa:
+                        pizza não precisa ser previsível.
+                    </p>
+
+                    <p class="display about__manifesto">
+                        Nada de atalho. Nada de sabor morno.
+                    </p>
+
+                    <p class="about__text">
+                        Hoje são três unidades, a mesma massa de fermentação
+                        natural de 48 horas e ingredientes comprados
+                        direto de pequenos produtores da região.
+                    </p>
+
+
+                    <dl class="about__stats">
+
+                        <div class="stat">
+                            <dt class="label stat__label">Anos de forno</dt>
+                            <dd class="stat__value">09</dd>
+                        </div>
+
+                        <div class="stat">
+                            <dt class="label stat__label">Pizzas assadas</dt>
+                            <dd class="stat__value">480k</dd>
+                        </div>
+
+                        <div class="stat">
+                            <dt class="label stat__label">Sabores na casa</dt>
+                            <dd class="stat__value">14</dd>
+                        </div>
+
+                        <div class="stat">
+                            <dt class="label stat__label">Unidades</dt>
+                            <dd class="stat__value">03</dd>
+                        </div>
+
+                    </dl>
+
+
+                    <a
+                        href="#unidades"
+                        class="button button--primary about__action"
+                    >
+                        <span>Conhecer as unidades</span>
+                        <svg class="icon icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- UNIDADES -->
+
+        <section
+            class="section section--sand stores"
+            id="unidades"
+        >
+
+            <div class="container">
+
+                <header class="section__head reveal">
+
+                    <span class="eyebrow section__eyebrow">
+                        04 — Unidades
+                    </span>
+
+                    <h2 class="display section__title">
+                        Onde a gente
+                        <em>acende o forno</em>
+                    </h2>
+
+                    <p class="section__lead">
+                        Entrega em até 40 minutos para bairros vizinhos.
+                        Retirada no balcão sai sempre 10% mais barata.
+                    </p>
+
+                </header>
+
+
+                <div class="stores__grid">
+
+                    <article class="store reveal">
+
+                        <span class="label store__index">
+                            Unidade 01
+                        </span>
+
+                        <header class="store__head">
+
+                            <h3 class="store__name">
+                                Nuclear Centro
+                            </h3>
+
+                            <span class="tag tag--hot">
+                                Matriz
+                            </span>
+
+                        </header>
+
+                        <dl class="store__rows">
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-location"/></svg>
+                                <div>
+                                    <dt class="label">Endereço</dt>
+                                    <dd>
+                                        <address>
+                                            Rua das Oliveiras, 214<br>
+                                            Centro — Belo Horizonte / MG
+                                        </address>
+                                    </dd>
+                                </div>
+                            </div>
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg>
+                                <div>
+                                    <dt class="label">Horário</dt>
+                                    <dd>Ter a dom, 18h às 23h30</dd>
+                                </div>
+                            </div>
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-phone"/></svg>
+                                <div>
+                                    <dt class="label">Telefone</dt>
+                                    <dd>(31) 3222-0101</dd>
+                                </div>
+                            </div>
+
+                        </dl>
+
+                        <div class="store__actions">
+
+                            <a
+                                href="tel:+553132220101"
+                                class="button button--secondary button--sm"
+                            >
+                                <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-phone"/></svg>
+                                <span>Ligar</span>
+                            </a>
+
+                            <a
+                                href="https://maps.google.com/?q=Rua+das+Oliveiras+214+Belo+Horizonte"
+                                class="button button--outline button--sm"
+                                target="_blank"
+                                rel="noopener"
+                            >
+                                <span>Ver no mapa</span>
+                                <svg class="icon icon--sm icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="store reveal">
+
+                        <span class="label store__index">
+                            Unidade 02
+                        </span>
+
+                        <header class="store__head">
+
+                            <h3 class="store__name">
+                                Nuclear Savassi
+                            </h3>
+
+                            <span class="tag">
+                                Delivery 24h sex e sáb
+                            </span>
+
+                        </header>
+
+                        <dl class="store__rows">
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-location"/></svg>
+                                <div>
+                                    <dt class="label">Endereço</dt>
+                                    <dd>
+                                        <address>
+                                            Av. Getúlio Vargas, 1.480<br>
+                                            Savassi — Belo Horizonte / MG
+                                        </address>
+                                    </dd>
+                                </div>
+                            </div>
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg>
+                                <div>
+                                    <dt class="label">Horário</dt>
+                                    <dd>Seg a dom, 18h às 01h</dd>
+                                </div>
+                            </div>
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-phone"/></svg>
+                                <div>
+                                    <dt class="label">Telefone</dt>
+                                    <dd>(31) 3222-0202</dd>
+                                </div>
+                            </div>
+
+                        </dl>
+
+                        <div class="store__actions">
+
+                            <a
+                                href="tel:+553132220202"
+                                class="button button--secondary button--sm"
+                            >
+                                <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-phone"/></svg>
+                                <span>Ligar</span>
+                            </a>
+
+                            <a
+                                href="https://maps.google.com/?q=Avenida+Getulio+Vargas+1480+Belo+Horizonte"
+                                class="button button--outline button--sm"
+                                target="_blank"
+                                rel="noopener"
+                            >
+                                <span>Ver no mapa</span>
+                                <svg class="icon icon--sm icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="store reveal">
+
+                        <span class="label store__index">
+                            Unidade 03
+                        </span>
+
+                        <header class="store__head">
+
+                            <h3 class="store__name">
+                                Nuclear Pampulha
+                            </h3>
+
+                            <span class="tag">
+                                Espaço kids
+                            </span>
+
+                        </header>
+
+                        <dl class="store__rows">
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-location"/></svg>
+                                <div>
+                                    <dt class="label">Endereço</dt>
+                                    <dd>
+                                        <address>
+                                            Rua Fernão Dias, 77<br>
+                                            Pampulha — Belo Horizonte / MG
+                                        </address>
+                                    </dd>
+                                </div>
+                            </div>
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg>
+                                <div>
+                                    <dt class="label">Horário</dt>
+                                    <dd>Qua a dom, 18h às 23h</dd>
+                                </div>
+                            </div>
+
+                            <div class="store__row">
+                                <svg class="icon" aria-hidden="true"><use href="#icon-phone"/></svg>
+                                <div>
+                                    <dt class="label">Telefone</dt>
+                                    <dd>(31) 3222-0303</dd>
+                                </div>
+                            </div>
+
+                        </dl>
+
+                        <div class="store__actions">
+
+                            <a
+                                href="tel:+553132220303"
+                                class="button button--secondary button--sm"
+                            >
+                                <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-phone"/></svg>
+                                <span>Ligar</span>
+                            </a>
+
+                            <a
+                                href="https://maps.google.com/?q=Rua+Fernao+Dias+77+Pampulha+Belo+Horizonte"
+                                class="button button--outline button--sm"
+                                target="_blank"
+                                rel="noopener"
+                            >
+                                <span>Ver no mapa</span>
+                                <svg class="icon icon--sm icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CTA -->
+
+        <section
+            class="section cta theme-red"
+            aria-labelledby="cta-title"
+        >
+
+            <div class="container grid cta__grid">
+
+                <div class="cta__copy reveal">
+
+                    <span class="eyebrow section__eyebrow">
+                        Sem enrolação
+                    </span>
+
+                    <h2
+                        class="display cta__title"
+                        id="cta-title"
+                    >
+                        <span>Tá com fome?</span>
+                        <span class="is-ink">Pede Nuclear.</span>
+                    </h2>
+
+                    <p class="cta__text">
+                        Pedido direto no WhatsApp, sem app e sem cadastro.
+                        Entrega em até 40 minutos ou retirada no balcão
+                        com 10% de desconto.
+                    </p>
+
+                </div>
+
+                <div class="cta__actions reveal">
+
+                    <button
+                        class="button button--secondary"
+                        data-cart-open
+                    >
+                        <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+                        <span>Montar pedido</span>
+                    </button>
+
+                    <a
+                        href="#cardapio"
+                        class="button button--outline"
+                    >
+                        <span>Ver cardápio</span>
+                        <svg class="icon icon--arrow" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                    </a>
+
+                    <p class="cta__phone">
+                        Prefere ligar?
+                        <a href="tel:+553132220101">(31) 3222-0101</a>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer theme-dark">
+
+        <div class="container">
+
+            <span
+                class="footer__word"
+                aria-hidden="true"
+            >
+                Nuclear<em>.</em>
+            </span>
+
+
+            <div class="footer__top grid">
+
+                <div class="footer__brand">
+
+                    <div
+                        class="footer__logo"
+                        role="img"
+                        aria-label="Pizzaria Nuclear"
+                    ></div>
+
+                    <p class="footer__tagline">
+                        Fatias que fazem sentido desde 2016.
+                        Massa artesanal, forno a lenha e
+                        ingredientes que você reconhece.
+                    </p>
+
+                    <div class="social footer__social">
+
+                        <a
+                            href="https://instagram.com"
+                            class="social__link"
+                            aria-label="Instagram"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-instagram"/></svg>
+                        </a>
+
+                        <a
+                            href="https://facebook.com"
+                            class="social__link"
+                            aria-label="Facebook"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-facebook"/></svg>
+                        </a>
+
+                        <a
+                            href="https://tiktok.com"
+                            class="social__link"
+                            aria-label="TikTok"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-tiktok"/></svg>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <nav
+                    class="footer__nav footer__column"
+                    aria-label="Rodapé"
+                >
+
+                    <h2 class="label footer__heading">
+                        Navegar
+                    </h2>
+
+                    <a href="#inicio">Início</a>
+                    <a href="#cardapio">Cardápio</a>
+                    <a href="#sabores">Sabores</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#unidades">Unidades</a>
+
+                </nav>
+
+
+                <div class="footer__contact footer__column">
+
+                    <h2 class="label footer__heading">
+                        Atendimento
+                    </h2>
+
+                    <a href="tel:+553132220101">
+                        <svg class="icon" aria-hidden="true"><use href="#icon-phone"/></svg>
+                        (31) 3222-0101
+                    </a>
+
+                    <a href="mailto:oi@pizzarianuclear.com.br">
+                        <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg>
+                        oi@pizzarianuclear.com.br
+                    </a>
+
+                    <a
+                        href="https://wa.me/553132220101"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+                        WhatsApp
+                    </a>
+
+                    <span>
+                        <svg class="icon" aria-hidden="true"><use href="#icon-clock"/></svg>
+                        Ter a dom, 18h às 23h30
+                    </span>
+
+                </div>
+
+
+                <form
+                    class="footer__newsletter newsletter"
+                    data-newsletter
+                    novalidate
+                >
+
+                    <h2 class="label footer__heading">
+                        Promoções no e-mail
+                    </h2>
+
+                    <p class="newsletter__text">
+                        Uma mensagem por semana com o sabor da vez
+                        e cupom de desconto. Sem spam.
+                    </p>
+
+                    <div class="field field--pill">
+
+                        <label
+                            class="visually-hidden"
+                            for="newsletter-email"
+                        >
+                            Seu e-mail
+                        </label>
+
+                        <input
+                            class="field__input"
+                            id="newsletter-email"
+                            type="email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                        <button
+                            class="button button--icon button--sm field__submit"
+                            type="submit"
+                            aria-label="Assinar newsletter"
+                        >
+                            <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+                        </button>
+
+                    </div>
+
+                    <p
+                        class="newsletter__feedback"
+                        data-newsletter-feedback
+                        role="status"
+                    ></p>
+
+                </form>
+
+            </div>
+
+
+            <div class="footer__bottom">
+
+                <p>
+                    © <span data-year>2026</span> Pizzaria Nuclear.
+                    Todos os direitos reservados.
+                </p>
+
+                <p>
+                    CNPJ 00.000.000/0001-00 ·
+                    Projeto fictício para portfólio.
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- CARRINHO -->
+
+    <div
+        class="drawer"
+        id="cart"
+        data-cart
+        hidden
+    >
+
+        <div
+            class="drawer__backdrop"
+            data-cart-close
+        ></div>
+
+        <aside
+            class="drawer__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cart-title"
+        >
+
+            <header class="drawer__head">
+
+                <h2
+                    class="drawer__title"
+                    id="cart-title"
+                >
+                    Seu pedido
+                </h2>
+
+                <button
+                    class="button button--icon button--sm drawer__close"
+                    aria-label="Fechar carrinho"
+                    data-cart-close
+                >
+                    <svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg>
+                </button>
+
+            </header>
+
+
+            <ul
+                class="cart-list"
+                data-cart-list
+            ></ul>
+
+
+            <div
+                class="cart-empty"
+                data-cart-empty
+            >
+                <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
+
+                <p>
+                    <strong>Seu carrinho está vazio.</strong>
+                    Que tal começar pela Diavola?
+                </p>
+            </div>
+
+
+            <footer class="drawer__foot">
+
+                <div class="cart-total">
+
+                    <span class="label">
+                        Total
+                    </span>
+
+                    <strong data-cart-total>
+                        R$ 0,00
+                    </strong>
+
+                </div>
+
+                <p class="cart-note">
+                    Entrega calculada na finalização do pedido.
+                </p>
+
+                <button
+                    class="button button--primary button--block cart-checkout"
+                    data-cart-checkout
+                >
+                    <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+                    <span>Finalizar no WhatsApp</span>
+                </button>
+
+            </footer>
+
+        </aside>
+
+    </div>
+
+
+    <!-- MENU MOBILE -->
+
+    <div
+        class="mobile-menu"
+        id="mobile-menu"
+        data-menu
+        hidden
+    >
+
+        <div
+            class="mobile-menu__backdrop"
+            data-menu-close
+        ></div>
+
+        <nav
+            class="mobile-menu__panel"
+            aria-label="Navegação mobile"
+        >
+
+            <button
+                class="button button--icon button--sm mobile-menu__close"
+                aria-label="Fechar menu"
+                data-menu-close
+            >
+                <svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg>
+            </button>
+
+            <a
+                href="#inicio"
+                class="mobile-menu__link"
+            >
+                Início
+                <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+
+            <a
+                href="#cardapio"
+                class="mobile-menu__link"
+            >
+                Cardápio
+                <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+
+            <a
+                href="#sabores"
+                class="mobile-menu__link"
+            >
+                Sabores
+                <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+
+            <a
+                href="#sobre"
+                class="mobile-menu__link"
+            >
+                Sobre
+                <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+
+            <a
+                href="#unidades"
+                class="mobile-menu__link"
+            >
+                Unidades
+                <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"/></svg>
+            </a>
+
+            <div class="mobile-menu__foot">
+
+                <div class="social mobile-menu__social">
+
+                    <a
+                        href="https://instagram.com"
+                        class="social__link"
+                        aria-label="Instagram"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-instagram"/></svg>
+                    </a>
+
+                    <a
+                        href="https://facebook.com"
+                        class="social__link"
+                        aria-label="Facebook"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-facebook"/></svg>
+                    </a>
+
+                    <a
+                        href="https://tiktok.com"
+                        class="social__link"
+                        aria-label="TikTok"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <svg class="icon icon--sm" aria-hidden="true"><use href="#icon-tiktok"/></svg>
+                    </a>
+
+                </div>
+
+                <button
+                    class="button button--primary button--block"
+                    data-cart-open
+                >
+                    <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
+                    <span>Ver carrinho</span>
+                </button>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        class="toast"
+        data-toast
+        role="status"
+        aria-live="polite"
+    ></div>
+
+
+    <!-- GSAP -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"
+    ></script>
+
+    <!-- JS -->
+
+    <script src="./js/main.js"></script>
+    <script src="./js/hero-animations.js"></script>
+    <script src="./js/carousel.js"></script>
+    <script src="./js/cart.js"></script>
+    <script src="./js/menu.js"></script>
+    <script src="./js/ui.js"></script>
+
+</body>
+
+</html>
