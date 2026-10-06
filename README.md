@@ -139,6 +139,8 @@ Plano completo e critérios: [auditoria](docs/AUDITORIA-DELIVERY.md).
 
 ## Deploy
 
+Em 05/10/2026, o endereço público `https://pedruzz30.github.io/PizzariaNuclear/` ainda era servido pelo GitHub Pages a partir da raiz da branch `main`. Essa hospedagem entrega o antigo `index.html` estático e não executa as rotas `/api` nem a página dinâmica `/pedido/[id]` do Next.js. A renomeação para `index.legacy.html` está em PR de rascunho; não mesclar antes de existir uma publicação Next.js validada ou um redirecionamento para ela, para evitar deixar o endereço atual sem página inicial.
+
 O diretório raiz da aplicação na Vercel deve apontar para este repositório (`PizzariaNuclear`), com preset Next.js e `npm run build`. Validar primeiro em preview, com Supabase de teste. Não publicar produção nesta fase. Confirmar configuração atual no painel antes de alterar o deploy existente.
 
 Esta fase mantém `noindex` e aviso de homologação. Não retirar até validar dados empresariais, preços e checkout. Não definir secrets usando `next.config.env`; variáveis privilegiadas pertencem somente ao ambiente server-side.
