@@ -139,9 +139,9 @@ Plano completo e critérios: [auditoria](docs/AUDITORIA-DELIVERY.md).
 
 ## Deploy
 
-Em 05/10/2026, o endereço público `https://pedruzz30.github.io/PizzariaNuclear/` ainda era servido pelo GitHub Pages a partir da raiz da branch `main`. Essa hospedagem entrega o antigo `index.html` estático e não executa as rotas `/api` nem a página dinâmica `/pedido/[id]` do Next.js. A renomeação para `index.legacy.html` está em PR de rascunho; não mesclar antes de existir uma publicação Next.js validada ou um redirecionamento para ela, para evitar deixar o endereço atual sem página inicial.
+Em 06/10/2026, o catálogo Next.js foi publicado no projeto Vercel separado `pizzaria-nuclear-site`, em `https://pizzaria-nuclear-site.vercel.app/`. O antigo endereço `https://pedruzz30.github.io/PizzariaNuclear/` usa GitHub Pages a partir da raiz da `main`; o novo `index.html` redireciona para a Vercel e `index.legacy.html` preserva a página estática anterior. O GitHub Pages não executa as rotas `/api` nem a página dinâmica `/pedido/[id]` do Next.js.
 
-O diretório raiz da aplicação na Vercel deve apontar para este repositório (`PizzariaNuclear`), com preset Next.js e `npm run build`. Validar primeiro em preview, com Supabase de teste. Não publicar produção nesta fase. Confirmar configuração atual no painel antes de alterar o deploy existente.
+O novo projeto Vercel usa a raiz deste repositório (`PizzariaNuclear`), preset Next.js, `npm ci` e `npm run build`. Preview e produção usam somente URL/chave pública do Supabase de teste, `STORE_ID` e `CATALOG_SOURCE=supabase`; nenhuma chave privilegiada ou credencial Mercado Pago foi configurada. A URL de produção mostra o catálogo em homologação, com `noindex` e pedidos desativados. Não habilitar pagamentos antes de aplicar a migração pendente, configurar credenciais de teste e validar uma compra.
 
 Esta fase mantém `noindex` e aviso de homologação. Não retirar até validar dados empresariais, preços e checkout. Não definir secrets usando `next.config.env`; variáveis privilegiadas pertencem somente ao ambiente server-side.
 
