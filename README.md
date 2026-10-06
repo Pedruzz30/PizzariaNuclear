@@ -2,10 +2,12 @@
 
 Fundação do delivery em **Next.js 16.3.8 / React 19.3 / TypeScript**, com catálogo preparado para **Supabase/PostgreSQL**. A identidade visual e a edição “SABOR QUE EXPLODE” foram preservadas.
 
+**Entrada atual do site:** execute `npm run dev` nesta pasta e abra `http://localhost:3000`. O arquivo `index.legacy.html` é apenas a versão estática antiga; seus produtos e unidades fictícios não representam o site Next.js. Não abra esse arquivo para conferir o cardápio atual.
+
 ## Estado desta fase
 
 - App Router, renderização de página no servidor e componentes cliente apenas para interações.
-- Cardápio real informado pela Nuclear: 21 sabores de pizza, 2 kalzones e 5 bebidas em 3 categorias, com busca, filtros e destaques.
+- Cardápio transcrito da referência anterior: 21 sabores de pizza, 2 kalzones e 5 bebidas em 3 categorias, com busca, filtros e destaques. A lista de pizzas ainda precisa ser conferida com o cardápio comercial atual.
 - Pizzas nos tamanhos Pequena (R$ 50), Média (R$ 55), Grande (R$ 65) e Maracanã (R$ 70). Inteiras e meio a meio têm o mesmo preço por tamanho; o segundo sabor é obrigatório no meio a meio.
 - Bordas opcionais de Catupiry e Cheddar (R$ 3 cada) e seis adicionais (R$ 2 a R$ 4) somente para pizzas. Kalzones custam R$ 25/R$ 30 e bebidas R$ 4 a R$ 14, sem bordas ou adicionais.
 - Personalização e observações ligadas às tabelas públicas do catálogo. O carrinho separa combinações diferentes, limita quantidades e recalcula os valores pelo catálogo atual; preços não são salvos no localStorage.
@@ -120,7 +122,7 @@ supabase/                Configuração, migrações e seed
 tests/ e scripts/        Validação e manutenção
 ```
 
-`index.html`, `js/` e `assets/` originais foram preservados como referência desta migração; não são a aplicação Next.js e não entram no bundle. Os scripts antigos de manipulação do DOM/GSAP não são carregados. Animações de entrada avançadas ficam para revisão visual futura. Não usar Live Server para validar a aplicação nova.
+`index.legacy.html`, `js/` e `assets/` originais foram preservados como referência desta migração; não são a aplicação Next.js e não entram no bundle. Os scripts antigos de manipulação do DOM/GSAP não são carregados. Animações de entrada avançadas ficam para revisão visual futura. Não usar Live Server para validar a aplicação nova.
 
 Carrinho legado `nuclear-cart` armazenava nomes/preços sem IDs: não é importado como autoridade. A versão atual usa `nuclear-cart-v3` e migra itens válidos de `nuclear-cart-v2`, sem importar preços. Caso um item antigo deixe de ser uma combinação válida após cadastrar tamanhos obrigatórios, ele sai do subtotal e pode ser removido na interface.
 
@@ -140,3 +142,5 @@ Plano completo e critérios: [auditoria](docs/AUDITORIA-DELIVERY.md).
 O diretório raiz da aplicação na Vercel deve apontar para este repositório (`PizzariaNuclear`), com preset Next.js e `npm run build`. Validar primeiro em preview, com Supabase de teste. Não publicar produção nesta fase. Confirmar configuração atual no painel antes de alterar o deploy existente.
 
 Esta fase mantém `noindex` e aviso de homologação. Não retirar até validar dados empresariais, preços e checkout. Não definir secrets usando `next.config.env`; variáveis privilegiadas pertencem somente ao ambiente server-side.
+
+## Todos os direitos reservados -- space underground -- 2026
