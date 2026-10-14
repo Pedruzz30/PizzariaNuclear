@@ -7,15 +7,21 @@ import { CartProvider } from "@/components/cart/cart-provider";
 import { Menu } from "@/components/menu/menu";
 import { getCatalog } from "@/server/catalog";
 import { getCheckoutAvailability } from "@/server/checkout-availability";
+import { getDeliveryZones } from "@/server/delivery-zones";
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
-  const [catalog, checkoutAvailability] = await Promise.all([
+  const [catalog, checkoutAvailability, deliveryZones] = await Promise.all([
     getCatalog(),
     getCheckoutAvailability(),
+    getDeliveryZones(),
   ]);
   return (
-    <CartProvider catalog={catalog} checkoutAvailability={checkoutAvailability}>
+    <CartProvider
+      catalog={catalog}
+      checkoutAvailability={checkoutAvailability}
+      deliveryZones={deliveryZones}
+    >
       <Header />
       <main id="conteudo">
         <Hero
