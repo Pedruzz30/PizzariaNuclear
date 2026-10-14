@@ -25,6 +25,7 @@ import { brazilianWhatsAppNumber } from "@/lib/contact";
 import { ProductConfigurator } from "./product-configurator";
 import { CheckoutForm } from "./checkout-form";
 import type { CheckoutAvailability } from "@/server/checkout-availability";
+import { Icon } from "@/components/icon";
 
 const CartContext = createContext<{
   configure: (product: Product) => void;
@@ -336,9 +337,11 @@ export function CartProvider({
 }
 
 export function CartOpenButton({
-  className = "header__cart",
+  className = "button button--icon header__cart",
+  children,
 }: {
   className?: string;
+  children?: ReactNode;
 }) {
   const cart = useCart();
   return (
@@ -348,10 +351,14 @@ export function CartOpenButton({
       onClick={cart.open}
       aria-label={`Abrir carrinho, ${cart.count} itens`}
     >
-      <span aria-hidden="true">🛒</span>
-      <span className="header__cart-count" aria-hidden="true">
-        {cart.count}
-      </span>
+      {children ?? (
+        <>
+          <Icon name="cart" />
+          <span className="cart-count" aria-hidden="true">
+            {cart.count}
+          </span>
+        </>
+      )}
     </button>
   );
 }

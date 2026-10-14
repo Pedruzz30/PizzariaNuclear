@@ -45,6 +45,12 @@
     white-space: nowrap;
 }
 
+.marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-7);
+}
+
 .marquee__group .icon {
     --icon-size: 14px;
 
@@ -65,7 +71,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
     .marquee__track {
         animation: none;
     }

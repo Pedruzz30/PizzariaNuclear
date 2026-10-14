@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useCart } from "@/components/cart/cart-provider";
+import { Icon } from "@/components/icon";
 import {
   formatPrice,
   getStartingPrice,
@@ -29,83 +30,84 @@ export function Menu({
   );
   return (
     <section className="section menu" id="cardapio">
-      <header className="section__head">
-        <span className="section__eyebrow">01 — Cardápio</span>
-        <h2 className="section__title">
-          Escolha sua <em>explosão</em>
-        </h2>
-        <p className="section__lead">
-          Escolha uma pizza inteira ou meio a meio, um kalzone ou uma bebida.
-          Tamanhos, bordas e adicionais aparecem antes de adicionar ao carrinho.
-        </p>
-      </header>
-      <div className="menu__toolbar">
-        <div
-          className="menu__filters"
-          role="group"
-          aria-label="Filtrar cardápio por categoria"
-        >
-          {[{ id: "all", name: "Todas" }, ...categories].map((item) => (
-            <button
-              key={item.id}
-              className={`menu__filter ${category === item.id ? "menu__filter--active" : ""}`}
-              aria-pressed={category === item.id}
-              onClick={() => setCategory(item.id)}
-            >
-              {item.name}
-            </button>
-          ))}
+      <div className="container">
+        <header className="section__head reveal">
+          <span className="eyebrow section__eyebrow">01 — Cardápio</span>
+          <h2 className="display section__title">
+            Escolha sua <em>explosão</em>
+          </h2>
+          <p className="section__lead">
+            Escolha uma pizza inteira ou meio a meio, um kalzone ou uma bebida.
+            Tamanhos, bordas e adicionais aparecem antes de adicionar ao
+            carrinho.
+          </p>
+        </header>
+        <div className="menu__toolbar reveal">
+          <div
+            className="menu__filters"
+            role="group"
+            aria-label="Filtrar cardápio por categoria"
+          >
+            {[{ id: "all", name: "Todas" }, ...categories].map((item) => (
+              <button
+                key={item.id}
+                className={`menu__filter ${category === item.id ? "menu__filter--active" : ""}`}
+                aria-pressed={category === item.id}
+                onClick={() => setCategory(item.id)}
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+          <div className="field menu__search">
+            <label htmlFor="menu-search" className="visually-hidden">
+              Buscar sabor
+            </label>
+            <Icon name="search" className="field__icon" />
+            <input
+              id="menu-search"
+              className="field__input"
+              type="search"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              placeholder="Buscar sabor ou ingrediente"
+            />
+          </div>
         </div>
-        <div className="menu__search">
-          <label htmlFor="menu-search" className="visually-hidden">
-            Buscar sabor
-          </label>
-          <span className="menu__search-icon" aria-hidden="true">
-            ⌕
-          </span>
-          <input
-            id="menu-search"
-            className="menu__search-input"
-            type="search"
-            value={search}
-            onChange={(event) => setSearch(event.target.value)}
-            placeholder="Buscar sabor ou ingrediente"
-          />
-        </div>
-      </div>
-      <div className="menu__grid">
-        {visible.map((product) => (
-          <article key={product.id} className="menu-item">
-            <header className="menu-item__head">
-              <h3 className="menu-item__name">{product.name}</h3>
-              <span className="menu-item__dots" aria-hidden="true" />
-              <span className="menu-item__price">
+        <div className="menu__grid">
+          {visible.map((product) => (
+            <article key={product.id} className="product product--menu reveal">
+              <header className="product__head">
+                <h3 className="product__name">{product.name}</h3>
+                <span className="product__dots" aria-hidden="true" />
+              </header>
+              <span className="product__price">
                 {getStartingPrice(product, sizes).hasSizes ? (
                   <small>A partir de</small>
                 ) : null}
                 {formatPrice(getStartingPrice(product, sizes).cents)}
               </span>
-            </header>
-            <p className="menu-item__description">{product.description}</p>
-            <footer className="menu-item__footer">
-              <span className="menu-item__tag">{product.tag}</span>
-              <button
-                className="menu-item__add"
-                disabled={!product.available}
-                aria-label={`Personalizar ${product.name}`}
-                onClick={() => configure(product)}
-              >
-                {product.available ? "Personalizar" : "Indisponível"}
-              </button>
-            </footer>
-          </article>
-        ))}
+              <p className="product__ingredients">{product.description}</p>
+              <footer className="product__footer">
+                <span className="tag">{product.tag}</span>
+                <button
+                  className="button button--outline button--sm product__add"
+                  disabled={!product.available}
+                  aria-label={`Personalizar ${product.name}`}
+                  onClick={() => configure(product)}
+                >
+                  {product.available ? "Personalizar" : "Indisponível"}
+                </button>
+              </footer>
+            </article>
+          ))}
+        </div>
+        {visible.length === 0 ? (
+          <p className="menu__empty" role="status">
+            Nenhum sabor encontrado.
+          </p>
+        ) : null}
       </div>
-      {visible.length === 0 ? (
-        <p className="menu__empty" role="status">
-          Nenhum sabor encontrado.
-        </p>
-      ) : null}
     </section>
   );
 }
