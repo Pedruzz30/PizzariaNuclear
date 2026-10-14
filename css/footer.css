@@ -80,8 +80,8 @@
 
     background: var(--text-primary);
 
-    -webkit-mask: url("../assets/logo/NuclearLogo.png") center / contain no-repeat;
-    mask: url("../assets/logo/NuclearLogo.png") center / contain no-repeat;
+    -webkit-mask: url("/assets/logo/NuclearLogo.png") center / contain no-repeat;
+    mask: url("/assets/logo/NuclearLogo.png") center / contain no-repeat;
 }
 
 .footer__tagline {

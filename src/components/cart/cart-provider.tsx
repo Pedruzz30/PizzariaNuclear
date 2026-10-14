@@ -25,6 +25,7 @@ import { brazilianWhatsAppNumber } from "@/lib/contact";
 import { ProductConfigurator } from "./product-configurator";
 import { CheckoutForm } from "./checkout-form";
 import type { CheckoutAvailability } from "@/server/checkout-availability";
+import type { DeliveryZone } from "@/server/delivery-zones";
 
 const CartContext = createContext<{
   configure: (product: Product) => void;
@@ -40,10 +41,12 @@ export function useCart() {
 export function CartProvider({
   catalog,
   checkoutAvailability,
+  deliveryZones,
   children,
 }: {
   catalog: Catalog;
   checkoutAvailability: CheckoutAvailability;
+  deliveryZones: DeliveryZone[];
   children: ReactNode;
 }) {
   const [state, dispatch] = useReducer(
@@ -259,6 +262,8 @@ export function CartProvider({
                 }),
               )}
               availability={checkoutAvailability}
+              deliveryZones={deliveryZones}
+              subtotalCents={total}
             />
             <button
               className="button button--primary cart-checkout"

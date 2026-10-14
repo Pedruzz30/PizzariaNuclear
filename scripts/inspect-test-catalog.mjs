@@ -59,7 +59,7 @@ assert.deepEqual(counts, {
 const { data: contact, error: contactError } = await db
   .from("store_settings")
   .select(
-    "phone,whatsapp,address,ordering_enabled,pickup_enabled,delivery_enabled,pix_enabled,card_enabled",
+    "phone,whatsapp,address,ordering_enabled,pickup_enabled,delivery_enabled,pix_enabled,card_enabled,minimum_order_cents",
   )
   .eq("store_id", storeId)
   .single();
@@ -70,9 +70,36 @@ if (contactError)
 assert.equal(contact.whatsapp, "5524999192282");
 assert.equal(contact.ordering_enabled, false);
 assert.equal(contact.pickup_enabled, true);
-assert.equal(contact.delivery_enabled, false);
+assert.equal(contact.delivery_enabled, true);
+assert.equal(contact.minimum_order_cents, 3000);
 assert.equal(contact.pix_enabled, true);
 assert.equal(contact.card_enabled, true);
+const { data: zones, error: zonesError } = await db
+  .from("delivery_zones")
+  .select("name,fee_cents,cep_start,cep_end,city,state")
+  .eq("store_id", storeId)
+  .eq("active", true);
+if (zonesError)
+  throw new Error(`delivery_zones: ${zonesError.code || zonesError.message}`);
+assert.deepEqual(
+  Object.fromEntries(zones.map((zone) => [zone.name, zone.fee_cents])),
+  {
+    Centro: 500,
+    Estação: 600,
+    "Morro do Querosene": 400,
+    Itaoca: 800,
+    "Passa Quatro": 900,
+  },
+);
+assert.ok(
+  zones.every(
+    (zone) =>
+      zone.cep_start === "27475000" &&
+      zone.cep_end === "27475000" &&
+      zone.city === "Rio Claro" &&
+      zone.state === "RJ",
+  ),
+);
 const checkoutProbe = await db.rpc("create_checkout_order", {
   p_store_id: storeId,
   p_session_hash: "a".repeat(64),
@@ -124,7 +151,7 @@ assert.deepEqual(
 );
 console.log(
   JSON.stringify(
-    { project: expectedRef, store, counts, contact, prices, sizes },
+    { project: expectedRef, store, counts, contact, zones, prices, sizes },
     null,
     2,
   ),
