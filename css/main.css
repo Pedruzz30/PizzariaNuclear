@@ -448,19 +448,19 @@ section[id] {
 ========================================================== */
 
 .reveal {
-    opacity: 0;
-
-    transform: translateY(24px);
+    /* Conteúdo permanece visível caso o JavaScript não seja carregado. */
+    opacity: 1;
+    transform: none;
 
     transition:
         opacity var(--duration-editorial) var(--ease-out),
         transform var(--duration-editorial) var(--ease-out);
 }
 
-.reveal.is-visible {
-    opacity: 1;
-
-    transform: none;
+/* Progressivamente ativado somente quando o observador está disponível. */
+html.has-scroll-reveal .reveal:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(24px);
 }
 
 /* =========================================================

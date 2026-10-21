@@ -14,6 +14,8 @@ export function LandingEffects() {
       return;
     }
 
+    document.documentElement.classList.add("has-scroll-reveal");
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry, index) => {
@@ -28,7 +30,10 @@ export function LandingEffects() {
     );
 
     targets.forEach((target) => observer.observe(target));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("has-scroll-reveal");
+    };
   }, []);
 
   return null;
