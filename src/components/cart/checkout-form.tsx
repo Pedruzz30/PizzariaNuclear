@@ -3,34 +3,67 @@
 import { useRef, useState, type FormEvent } from "react";
 import type { CartLine } from "@/lib/cart";
 import type { CheckoutAvailability } from "@/server/checkout-availability";
+import type { DeliveryZone } from "@/server/delivery-zones";
+import { formatPrice } from "@/lib/catalog-schema";
 
 export function CheckoutForm({
   items,
   availability,
+  deliveryZones,
+  subtotalCents,
 }: {
   items: CartLine[];
   availability: CheckoutAvailability;
+  deliveryZones: DeliveryZone[];
+  subtotalCents: number;
 }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [notes, setNotes] = useState("");
+  const [orderType, setOrderType] = useState<"pickup" | "delivery">("pickup");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
+  const [complement, setComplement] = useState("");
+  const [reference, setReference] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const retry = useRef<{ fingerprint: string; key: string } | null>(null);
+  const selectedZone = deliveryZones.find((zone) => zone.name === neighborhood);
+  const canCheckout =
+    orderType === "pickup" ? availability.pickup : availability.delivery;
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!availability.pickup || !items.length || busy) return;
+    if (
+      !canCheckout ||
+      !items.length ||
+      busy ||
+      (orderType === "delivery" && !selectedZone)
+    )
+      return;
     setBusy(true);
     setError("");
     const order = {
       customerName: name.trim(),
       customerPhone: phone,
       customerEmail: email.trim(),
-      orderType: "pickup" as const,
+      orderType,
       customerNotes: notes.trim(),
-      address: null,
+      address:
+        orderType === "delivery" && selectedZone
+          ? {
+              cep: selectedZone.cep,
+              street: street.trim(),
+              number: number.trim(),
+              complement: complement.trim(),
+              neighborhood: selectedZone.name,
+              city: selectedZone.city,
+              state: selectedZone.state,
+              reference: reference.trim(),
+            }
+          : null,
       items: items.map(({ productId, sizeId, optionIds, notes, quantity }) => ({
         productId,
         sizeId,
@@ -84,9 +117,99 @@ export function CheckoutForm({
           {availability.pickup ? "— disponível" : "— aguardando ativação"}
         </span>
         <span>
-          Entrega {availability.delivery ? "" : "— aguardando área e taxa"}
+          Entrega{" "}
+          {availability.delivery
+            ? "— disponível"
+            : "— aguardando ativação do pagamento"}
         </span>
       </div>
+      <fieldset className="checkout-form__fulfillment">
+        <legend>Como deseja receber?</legend>
+        <label>
+          <input
+            type="radio"
+            name="orderType"
+            value="pickup"
+            checked={orderType === "pickup"}
+            onChange={() => setOrderType("pickup")}
+          />
+          Retirar no balcão (sem taxa)
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="orderType"
+            value="delivery"
+            checked={orderType === "delivery"}
+            onChange={() => setOrderType("delivery")}
+            disabled={!deliveryZones.length}
+          />
+          Receber em casa
+        </label>
+      </fieldset>
+      {orderType === "delivery" ? (
+        <div className="checkout-form__address">
+          <label>
+            Bairro
+            <select
+              value={neighborhood}
+              onChange={(event) => setNeighborhood(event.target.value)}
+              required
+            >
+              <option value="">Selecione o bairro</option>
+              {deliveryZones.map((zone) => (
+                <option key={zone.name} value={zone.name}>
+                  {zone.name} — taxa {formatPrice(zone.feeCents)}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p>CEP atendido: 27475-000 · Rio Claro/RJ</p>
+          <label>
+            Rua
+            <input
+              value={street}
+              onChange={(event) => setStreet(event.target.value)}
+              minLength={2}
+              maxLength={120}
+              autoComplete="street-address"
+              required
+            />
+          </label>
+          <label>
+            Número
+            <input
+              value={number}
+              onChange={(event) => setNumber(event.target.value)}
+              maxLength={20}
+              required
+            />
+          </label>
+          <label>
+            Complemento (opcional)
+            <input
+              value={complement}
+              onChange={(event) => setComplement(event.target.value)}
+              maxLength={120}
+            />
+          </label>
+          <label>
+            Referência (opcional)
+            <input
+              value={reference}
+              onChange={(event) => setReference(event.target.value)}
+              maxLength={120}
+            />
+          </label>
+          <p>Pedido mínimo: {formatPrice(3000)} (sem a taxa de entrega).</p>
+          {selectedZone ? (
+            <strong>
+              Total estimado:{" "}
+              {formatPrice(subtotalCents + selectedZone.feeCents)}
+            </strong>
+          ) : null}
+        </div>
+      ) : null}
       <label>
         Nome completo
         <input
@@ -138,11 +261,16 @@ export function CheckoutForm({
       <button
         type="submit"
         className="button button--primary"
-        disabled={!availability.pickup || !items.length || busy}
+        disabled={
+          !canCheckout ||
+          !items.length ||
+          busy ||
+          (orderType === "delivery" && (!selectedZone || subtotalCents < 3000))
+        }
       >
         {busy ? "Preparando pagamento…" : "Pagar com Pix ou cartão"}
       </button>
-      {!availability.pickup ? (
+      {!canCheckout ? (
         <small>
           O checkout será liberado após configurar e validar o ambiente de
           teste.

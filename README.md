@@ -14,16 +14,16 @@ Fundação do delivery em **Next.js 16.3.8 / React 19.3 / TypeScript**, com cat�
 - Fontes locais e `next/image`; carrinho/menu com dialog nativo, foco e Escape.
 - Cliente Supabase tipado, limitado à chave pública; validação Zod da resposta; sem fallback silencioso quando o banco falha.
 - Migração de 21 tabelas, valores em centavos, snapshots, constraints, índices, RLS e grants explícitos.
-- Checkout de retirada preparado para Mercado Pago Checkout Pro em teste (Pix/cartão): valida contato, opções, horários e preço no PostgreSQL; grava pedido, itens e pagamento em uma transação com idempotência.
+- Checkout de retirada e entrega preparado para Mercado Pago Checkout Pro em teste (Pix/cartão): valida contato, opções, horários, bairro, taxa e preço no PostgreSQL; grava pedido, itens e pagamento em uma transação com idempotência.
 - Página privada por sessão para acompanhar o pedido. O retorno do Mercado Pago consulta a API do provedor; webhook assinado também consulta a API antes de mudar o estado do pagamento. A URL de retorno nunca é aceita como prova de pagamento.
-- Migração aplicada somente ao projeto de teste. **A abertura de pedidos permanece desabilitada** até credenciais de teste, URL HTTPS pública e compra de teste estarem validadas. Entrega permanece desabilitada até cadastrar bairros/CEPs, taxa e pedido mínimo.
+- Sete migrações aplicadas somente ao projeto de teste. **A abertura de pedidos permanece desabilitada** até credenciais de teste e compra de teste estarem validadas. A entrega está configurada para o CEP 27475-000: Centro R$ 5, Estação R$ 6, Morro do Querosene R$ 4, Itaoca R$ 8 e Passa Quatro R$ 9; pedido mínimo R$ 30 antes da taxa.
 - Testes unitários e SQL/RLS com PostgreSQL embarcado (PGlite); types gerados por introspecção.
 
-**Ainda não recebe pagamentos reais.** O checkout criado está restrito ao ambiente de teste e fechado pela configuração da loja. Autenticação da equipe, painel de pedidos, entrega e homologação de uma compra de teste ainda são necessários. O WhatsApp permanece como consulta da lista, sem registrar pedido no banco.
+**Ainda não recebe pedidos ou pagamentos pelo site.** O checkout criado está restrito ao ambiente de teste e fechado pela configuração da loja. Autenticação da equipe, painel de pedidos e homologação de uma compra de teste ainda são necessários. O WhatsApp permanece como consulta da lista, sem registrar pedido no banco.
 
 Os preços mostrados no navegador são estimativas. O checkout recalcula os valores a partir das tabelas do banco dentro da mesma transação que cria o pedido; não aceita preço ou total enviados pelo cliente.
 
-Em 03/10/2026, o projeto Supabase de **teste** `vtadejzspvolvhkcvvxv` recebeu as migrações de catálogo, contato e checkout. A API pública confirmou 1 unidade, 3 categorias ativas, 28 produtos ativos, 84 preços por tamanho, 29 opções e 7 horários de funcionamento. Os 14 produtos do catálogo antigo permanecem inativos para preservar histórico. O `ordering_enabled` continua `false`; nenhuma cobrança foi iniciada. Endereço, horário e telefone foram informados pelo responsável, mas a apresentação final do cardápio ainda está em homologação.
+Em 13/10/2026, o projeto Supabase de **teste** `vtadejzspvolvhkcvvxv` continha as sete migrações de catálogo, contato, checkout, conciliação e entrega. A API pública confirmou 1 unidade, 3 categorias ativas, 28 produtos ativos, 84 preços por tamanho, 29 opções, 7 horários de funcionamento e 5 bairros. Os 14 produtos do catálogo antigo permanecem inativos para preservar histórico. O `ordering_enabled` continua `false`; nenhuma cobrança foi iniciada. Endereço, horário e telefone foram informados pelo responsável, mas a apresentação final do cardápio ainda está em homologação.
 
 ## Desenvolvimento
 
@@ -33,7 +33,7 @@ Node.js 22.15 ou superior (validado com 24.11.0) e npm. Instalar com `npm ci`. O
 2. Execute `npm run dev`.
 3. Abra `http://localhost:3000`.
 
-`demo` é um modo explícito de homologação, identificado na página. Em desenvolvimento sem variável configurada, ele é o padrão. Em build/runtime de produção, o padrão é `supabase`. A produção da Vercel rejeita `demo`.
+`demo` é um modo explícito de homologação, identificado na página. Em desenvolvimento sem variável configurada, ele é o padrão. Em build/runtime de produção, o padrão é `supabase` e o modo `demo` é rejeitado.
 
 Não sobrescreva um `.env`/`.env.local` existente com o exemplo. `.env.local` tem precedência sobre `.env`. Nunca commite credenciais ou as envie pelo chat. O catálogo usa apenas a chave pública; o checkout utiliza chave privilegiada somente no servidor.
 
@@ -52,9 +52,9 @@ STORE_ID=10000000-0000-4000-8000-000000000001
 
 Antes de qualquer alteração remota, confira o nome do projeto e se está em TESTE. Inspecione tabelas e migrações existentes; não executar reset remoto. A migração contém CREATE TABLE e falhará em caso de colisões; nesse caso, reconciliar o schema existente.
 
-No projeto de teste configurado acima, as cinco primeiras migrações em `supabase/migrations/` **já foram aplicadas**. Não as executar novamente pelo SQL Editor. A migração `20261005012008_reconcile_checkout_payment_transitions.sql` corrige a conciliação de pagamentos e **ainda precisa ser aplicada ao projeto de teste antes da compra de homologação**. A migração de catálogo registra os preços informados para a Nuclear, preserva os produtos antigos como inativos e usa IDs estáveis. O seed SQL é gerado da mesma fonte para novos ambientes locais; não aplicá-lo em produção sem revisão comercial.
+No projeto de teste configurado acima, as sete migrações em `supabase/migrations/` **já foram aplicadas**. Não as execute novamente pelo SQL Editor. A migração `20261006222519_delivery_neighborhood_fees.sql` registra bairros, taxas e mínimo, e atualiza o checkout para entrega. A migração de catálogo registra os preços informados para a Nuclear, preserva os produtos antigos como inativos e usa IDs estáveis. O seed SQL é gerado da mesma fonte para novos ambientes locais; não aplicá-lo em produção sem revisão comercial.
 
-Para novos projetos de teste administrados pela CLI, preferir `supabase login`, `supabase link --project-ref ...`, revisar `supabase db push --dry-run --include-seed` e só então `supabase db push --include-seed`. No projeto atual, o histórico remoto registra a migração inicial. Não aplicar pela CLI uma migração já executada no SQL Editor sem reconciliar o histórico. Consulte `--help` da versão instalada antes de operar o ambiente remoto.
+Para novos projetos de teste administrados pela CLI, preferir `supabase login`, `supabase link --project-ref ...`, revisar `supabase db push --dry-run --include-seed` e só então `supabase db push --include-seed`. No projeto atual, o histórico remoto já registra as sete migrações. Não aplicar pela CLI uma migração já executada no SQL Editor sem reconciliar o histórico. Consulte `--help` da versão instalada antes de operar o ambiente remoto.
 
 Neste Windows, a CLI instalada precisou de `$env:BUN_OPTIONS='--use-system-ca'` no terminal antes de acessar a API de gerenciamento. Isso mantém a validação TLS ativa.
 
@@ -74,7 +74,7 @@ O fluxo é: carrinho → `POST /api/checkout` → `create_checkout_order` no ban
 
 O Checkout Pro pode incluir saldo em conta Mercado Pago além de Pix/cartão, pois esse meio não pode ser excluído na preferência. Boleto e cartões de débito/pré-pagos estão excluídos. Confira os meios mostrados na compra de teste. A integração recusa URLs de checkout fora de `sandbox.mercadopago.com` e pagamentos marcados `live_mode=true`.
 
-**Para habilitar depois da homologação:** configurar aplicação e webhook de teste no Mercado Pago, fornecer as credenciais pelo arquivo local/ambiente da hospedagem, apontar `APP_URL` para preview HTTPS, testar compra com comprador de teste, validar retorno/webhook e só então alterar `store_settings.ordering_enabled` para `true` no projeto de teste. `pickup_enabled`, `pix_enabled` e `card_enabled` já estão preparados; `delivery_enabled=false` até receber área, taxa e mínimo. Não usar credenciais de produção nesta fase.
+**Para habilitar depois da homologação:** configurar aplicação e webhook de teste no Mercado Pago, fornecer as credenciais pelo arquivo local/ambiente da hospedagem, apontar `APP_URL` para preview HTTPS, testar Pix e cartão com comprador de teste, validar retorno/webhook e só então alterar `store_settings.ordering_enabled` para `true` no projeto de teste. `pickup_enabled`, `delivery_enabled`, `pix_enabled` e `card_enabled` já estão preparados. Não usar credenciais de produção nesta fase.
 
 ## Banco local e segurança
 
@@ -84,7 +84,7 @@ O Checkout Pro pode incluir saldo em conta Mercado Pago além de Pix/cartão, po
 
 Tabelas públicas de catálogo permitem apenas SELECT de registros ativos vinculados a unidade/categoria ativas. Indisponível é diferente de desativado: permanece visível com botão bloqueado. Tabelas de clientes, pedidos, pagamentos, tokens e eventos não têm grants públicos. Usuário autenticado comum não é administrador. Equipe só pode ler seu vínculo; escrita de admin será projetada na fase de autenticação. O RPC de checkout não usa `SECURITY DEFINER`; um auxiliar legado que usa essa opção teve sua execução revogada para `anon` e `authenticated`.
 
-O RPC de checkout é `SECURITY INVOKER` e tem `EXECUTE` apenas para `service_role`. Ele valida o horário, a modalidade, os preços e opções do catálogo, o mínimo e a zona de entrega (quando cadastrada), e grava pedido/itens/pagamento atomicamente. O webhook só altera estado após consulta ao provedor; nenhum usuário anônimo ou autenticado recebe acesso direto às tabelas privadas. Ainda faltam regras comerciais de entrega, política de reembolsos, tratamento operacional de pedidos e proteção adicional contra abuso antes de habilitar pedidos para clientes.
+O RPC de checkout é `SECURITY INVOKER` e tem `EXECUTE` apenas para `service_role`. Ele valida o horário, a modalidade, os preços e opções do catálogo, o mínimo e a zona de entrega, e grava pedido/itens/pagamento atomicamente. O webhook só altera estado após consulta ao provedor; nenhum usuário anônimo ou autenticado recebe acesso direto às tabelas privadas. Ainda faltam política de reembolsos, tratamento operacional de pedidos e proteção adicional contra abuso antes de habilitar pedidos para clientes.
 
 ## Comandos
 
@@ -129,7 +129,7 @@ Carrinho legado `nuclear-cart` armazenava nomes/preços sem IDs: não é importa
 ## Próximas fases
 
 1. Revisar a transcrição dos ingredientes da foto, disponibilidade de cada item e dados comerciais antes de sair da homologação.
-2. Receber bairros/CEPs, taxas e pedido mínimo; implementar a cotação e o formulário de entrega antes de habilitá-la.
+2. Homologar a cotação e o formulário de entrega já implementados com os cinco bairros e as taxas comerciais.
 3. Configurar credenciais de teste e preview HTTPS; executar compra de teste Pix/cartão e simulação de webhook.
 4. Painel da equipe com autenticação, autorização e transições operacionais de pedidos.
 5. Gestão de catálogo/pedidos/configurações, notificações, reembolsos e operação.
@@ -139,9 +139,9 @@ Plano completo e critérios: [auditoria](docs/AUDITORIA-DELIVERY.md).
 
 ## Deploy
 
-Em 06/10/2026, o catálogo Next.js foi publicado no projeto Vercel separado `pizzaria-nuclear-site`, em `https://pizzaria-nuclear-site.vercel.app/`. O antigo endereço `https://pedruzz30.github.io/PizzariaNuclear/` usa GitHub Pages a partir da raiz da `main`; o novo `index.html` redireciona para a Vercel e `index.legacy.html` preserva a página estática anterior. O GitHub Pages não executa as rotas `/api` nem a página dinâmica `/pedido/[id]` do Next.js.
+O projeto Netlify `pizzarianuclear`, conectado a `Pedruzz30/PizzariaNuclear`, é o destino da aplicação Next.js: `https://pizzarianuclear.netlify.app/`. A Netlify executa as páginas dinâmicas e as rotas `/api` com seu adaptador Next.js. O antigo endereço `https://pedruzz30.github.io/PizzariaNuclear/` usa GitHub Pages a partir da raiz da `main`; `index.html` redireciona para a Netlify e `index.legacy.html` preserva a página estática anterior. O GitHub Pages não executa as rotas `/api` nem a página dinâmica `/pedido/[id]`.
 
-O novo projeto Vercel usa a raiz deste repositório (`PizzariaNuclear`), preset Next.js, `npm ci` e `npm run build`. Preview e produção usam somente URL/chave pública do Supabase de teste, `STORE_ID` e `CATALOG_SOURCE=supabase`; nenhuma chave privilegiada ou credencial Mercado Pago foi configurada. A URL de produção mostra o catálogo em homologação, com `noindex` e pedidos desativados. Não habilitar pagamentos antes de aplicar a migração pendente, configurar credenciais de teste e validar uma compra.
+Para publicar o catálogo, configurar no projeto Netlify `CATALOG_SOURCE=supabase`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e `STORE_ID` com os valores do projeto Supabase de **teste**, nos escopos **Builds** e **Functions** dos contextos **Deploy previews** e **Production**, e iniciar um novo deploy após salvar. Conferir o Preview antes de mesclar a branch; depois conferir a URL de produção. A configuração ainda precisa ser validada no painel: até lá, `pizzarianuclear.netlify.app` pode mostrar “Cardápio indisponível”. Nenhuma credencial Mercado Pago foi configurada. O catálogo permanece em homologação, com `noindex` e pedidos desativados.
 
 Esta fase mantém `noindex` e aviso de homologação. Não retirar até validar dados empresariais, preços e checkout. Não definir secrets usando `next.config.env`; variáveis privilegiadas pertencem somente ao ambiente server-side.
 

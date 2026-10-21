@@ -46,6 +46,16 @@ try {
   await check("select count(*)::int n from option_groups", 3);
   await check("select count(*)::int n from product_options", 29);
   await check("select count(*)::int n from product_option_relations", 588);
+  await check("select count(*)::int n from delivery_zones where active", 5);
+  await check(
+    "select fee_cents::int n from delivery_zones where name='Morro do Querosene'",
+    400,
+  );
+  await check("select minimum_order_cents::int n from store_settings", 3000);
+  await check(
+    "select count(*)::int n from store_settings where delivery_enabled",
+    1,
+  );
   await check(
     "select count(*)::int n from store_hours where opens_at='17:00' and closes_at='23:00'",
     7,
@@ -215,6 +225,51 @@ try {
   await check("select total_cents::int n from orders", 5500);
   await check("select count(*)::int n from order_items", 1);
   await check("select count(*)::int n from order_item_options", 3);
+  await db.query("savepoint delivery_checkout");
+  const deliverySql = checkoutSql
+    .replace(
+      "10000000-0000-4000-8000-000000000090",
+      "10000000-0000-4000-8000-000000000091",
+    )
+    .replace("'pickup'", "'delivery'")
+    .replace("$3::jsonb,null", "$3::jsonb,$4::jsonb");
+  const deliveryAddress = {
+    cep: "27475000",
+    street: "Rua Teste",
+    number: "10",
+    complement: "",
+    neighborhood: "Morro do Querosene",
+    city: "Rio Claro",
+    state: "RJ",
+    reference: "",
+  };
+  const delivery = (
+    await db.query(deliverySql, [...args, JSON.stringify(deliveryAddress)])
+  ).rows[0].result;
+  await check(
+    `select delivery_fee_cents::int n from orders where id='${delivery.order_id}'`,
+    400,
+  );
+  await check(
+    `select total_cents::int n from orders where id='${delivery.order_id}'`,
+    5900,
+  );
+  await db.query("rollback to savepoint delivery_checkout");
+  await db.query("savepoint outside_zone");
+  try {
+    await db.query(deliverySql, [
+      ...args,
+      JSON.stringify({
+        ...deliveryAddress,
+        neighborhood: "Bairro fora da área",
+      }),
+    ]);
+    assert.fail("Bairro não atendido deveria falhar");
+  } catch (error) {
+    assert.equal(error.code, "P0001");
+  } finally {
+    await db.query("rollback to savepoint outside_zone");
+  }
   await db.query(
     "select public.record_checkout_preference($1::uuid,'pref-1','https://sandbox.mercadopago.com/checkout/pay?id=1')",
     [created.payment_id],
