@@ -7,10 +7,8 @@ export function getCatalogSource() {
     (process.env.NODE_ENV === "development" ? "demo" : "supabase");
   if (source !== "demo" && source !== "supabase")
     throw new Error("CATALOG_SOURCE inválido.");
-  if (source === "demo" && process.env.VERCEL_ENV === "production") {
-    throw new Error(
-      "Catálogo demonstrativo não permitido na produção da Vercel.",
-    );
+  if (source === "demo" && process.env.NODE_ENV === "production") {
+    throw new Error("Catálogo demonstrativo não permitido em produção.");
   }
   return source;
 }

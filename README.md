@@ -33,7 +33,7 @@ Node.js 22.15 ou superior (validado com 24.11.0) e npm. Instalar com `npm ci`. O
 2. Execute `npm run dev`.
 3. Abra `http://localhost:3000`.
 
-`demo` é um modo explícito de homologação, identificado na página. Em desenvolvimento sem variável configurada, ele é o padrão. Em build/runtime de produção, o padrão é `supabase`. A produção da Vercel rejeita `demo`.
+`demo` é um modo explícito de homologação, identificado na página. Em desenvolvimento sem variável configurada, ele é o padrão. Em build/runtime de produção, o padrão é `supabase` e o modo `demo` é rejeitado.
 
 Não sobrescreva um `.env`/`.env.local` existente com o exemplo. `.env.local` tem precedência sobre `.env`. Nunca commite credenciais ou as envie pelo chat. O catálogo usa apenas a chave pública; o checkout utiliza chave privilegiada somente no servidor.
 
@@ -139,9 +139,9 @@ Plano completo e critérios: [auditoria](docs/AUDITORIA-DELIVERY.md).
 
 ## Deploy
 
-Em 06/10/2026, o catálogo Next.js foi publicado no projeto Vercel separado `pizzaria-nuclear-site`, em `https://pizzaria-nuclear-site.vercel.app/`. O antigo endereço `https://pedruzz30.github.io/PizzariaNuclear/` usa GitHub Pages a partir da raiz da `main`; o novo `index.html` redireciona para a Vercel e `index.legacy.html` preserva a página estática anterior. O GitHub Pages não executa as rotas `/api` nem a página dinâmica `/pedido/[id]` do Next.js.
+O projeto Netlify `pizzarianuclear`, conectado a `Pedruzz30/PizzariaNuclear`, é o destino da aplicação Next.js: `https://pizzarianuclear.netlify.app/`. A Netlify executa as páginas dinâmicas e as rotas `/api` com seu adaptador Next.js. O antigo endereço `https://pedruzz30.github.io/PizzariaNuclear/` usa GitHub Pages a partir da raiz da `main`; `index.html` redireciona para a Netlify e `index.legacy.html` preserva a página estática anterior. O GitHub Pages não executa as rotas `/api` nem a página dinâmica `/pedido/[id]`.
 
-O projeto Vercel usa a raiz deste repositório (`PizzariaNuclear`), preset Next.js, `npm ci` e `npm run build`. Preview e produção usam URL/chave pública do Supabase de teste, `STORE_ID` e `CATALOG_SOURCE=supabase`; nenhuma credencial Mercado Pago foi configurada. A URL de produção mostra o catálogo em homologação, com `noindex` e pedidos desativados. Testar esta branch no Preview e configurar os segredos de teste somente nele antes de habilitar pedidos.
+Para publicar o catálogo, configurar no projeto Netlify `CATALOG_SOURCE=supabase`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` e `STORE_ID` com os valores do projeto Supabase de **teste**, nos escopos **Builds** e **Functions** dos contextos **Deploy previews** e **Production**, e iniciar um novo deploy após salvar. Conferir o Preview antes de mesclar a branch; depois conferir a URL de produção. A configuração ainda precisa ser validada no painel: até lá, `pizzarianuclear.netlify.app` pode mostrar “Cardápio indisponível”. Nenhuma credencial Mercado Pago foi configurada. O catálogo permanece em homologação, com `noindex` e pedidos desativados.
 
 Esta fase mantém `noindex` e aviso de homologação. Não retirar até validar dados empresariais, preços e checkout. Não definir secrets usando `next.config.env`; variáveis privilegiadas pertencem somente ao ambiente server-side.
 
