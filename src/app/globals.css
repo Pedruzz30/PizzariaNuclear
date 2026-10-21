@@ -25,17 +25,10 @@ button:disabled {
 }
 .environment-note {
   margin: 0;
-  padding: 14px var(--page-padding);
+  padding: 14px var(--gutter);
   background: #fff2d5;
   font-size: 13px;
   text-align: center;
-}
-.reveal {
-  opacity: 1;
-  transform: none;
-}
-.hero__title {
-  font-size: clamp(60px, 7.5vw, 128px);
 }
 .menu__toolbar,
 .menu__filters,

@@ -2,6 +2,7 @@ import { Header } from "@/components/landing/header";
 import { Hero } from "@/components/landing/hero";
 import { Marquee } from "@/components/landing/marquee";
 import { Story } from "@/components/landing/story";
+import { LandingEffects } from "@/components/landing/landing-effects";
 import { Footer } from "@/components/landing/footer";
 import { CartProvider } from "@/components/cart/cart-provider";
 import { Menu } from "@/components/menu/menu";
@@ -22,11 +23,13 @@ export default async function Home() {
       checkoutAvailability={checkoutAvailability}
       deliveryZones={deliveryZones}
     >
-      <Header />
+      <LandingEffects />
+      <Header contact={catalog.storeContact} />
       <main id="conteudo">
         <Hero
           featured={catalog.products.filter((product) => product.featured)}
           sizes={catalog.sizes}
+          contact={catalog.storeContact}
         />
         <Marquee />
         <p className="environment-note" role="status">
