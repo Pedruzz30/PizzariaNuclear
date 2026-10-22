@@ -76,7 +76,7 @@ export function Menu({
         </div>
         <div className="menu__grid">
           {visible.map((product) => (
-            <article key={product.id} className="product product--menu reveal">
+            <article key={product.id} className="product product--menu">
               <header className="product__head">
                 <h3 className="product__name">{product.name}</h3>
                 <span className="product__dots" aria-hidden="true" />
