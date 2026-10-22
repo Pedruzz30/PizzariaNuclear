@@ -218,6 +218,9 @@ button:disabled {
 }
 .cart-checkout {
   width: 100%;
+  min-width: 0;
+  white-space: normal;
+  text-align: center;
 }
 .menu-item__price small {
   display: block;
@@ -281,7 +284,6 @@ button:disabled {
   font-variant-numeric: tabular-nums;
 }
 .cart-dialog .cart-item__remove {
-  grid-column: 2;
   align-self: center;
   justify-self: end;
   color: var(--text-accent);
@@ -290,8 +292,12 @@ button:disabled {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.cart-dialog .cart-item .cart-item__remove {
+  grid-column: 2;
+}
 .cart-dialog .drawer__footer {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
   background: var(--color-surface);
 }
