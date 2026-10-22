@@ -41,6 +41,12 @@ export function Story({ catalog }: { catalog: Catalog }) {
       ? catalog.storeHours[0]
       : null;
 
+  const storeAddress = catalog.storeContact?.address?.trim() ?? "";
+  const directionsUrl = storeAddress
+    ? "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent(storeAddress)
+    : null;
+
   return (
     <>
       <section className="section flavors theme-dark" id="sabores">
@@ -160,60 +166,120 @@ export function Story({ catalog }: { catalog: Catalog }) {
               A Nuclear em <em>Lídice</em>
             </h2>
             <p className="section__lead">
-              Confira o endereço e o horário da unidade. Pedidos e pagamentos
-              online ainda estão em preparação.
+              Saiba onde nos encontrar, confira o horário e entre em contato
+              diretamente com a unidade.
             </p>
           </header>
-          <div className="stores__grid">
-            <article className="store reveal">
-              <span className="label store__index">01</span>
+          <div className="stores__layout">
+            <article className="store store--featured reveal">
               <header className="store__head">
-                <h3 className="store__name">Nuclear Lídice</h3>
-                <span className="store__status">Todos os dias</span>
+                <div>
+                  <span className="store__eyebrow">Nossa unidade</span>
+                  <h3 className="store__name">Nuclear Lídice</h3>
+                </div>
+                <span className="store__status">
+                  <span className="store__status-dot" aria-hidden="true" />
+                  {dailyHours ? "Todos os dias" : "Horário sob consulta"}
+                </span>
               </header>
               <dl className="store__rows">
-                <div className="store__row">
-                  <Icon name="location" />
+                <div className="store__row store__row--address">
+                  <span className="store__icon">
+                    <Icon name="location" />
+                  </span>
                   <div>
-                    <dt>Endereço</dt>
+                    <dt>Onde estamos</dt>
                     <dd>
-                      {catalog.storeContact?.address ||
-                        "Endereço em confirmação"}
+                      {storeAddress || "Endereço em confirmação"}
                     </dd>
                   </div>
+                  {directionsUrl ? (
+                    <a
+                      className="store__directions"
+                      href={directionsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Ver no mapa
+                      <Icon name="arrow-right" />
+                    </a>
+                  ) : null}
                 </div>
                 <div className="store__row">
-                  <Icon name="clock" />
+                  <span className="store__icon">
+                    <Icon name="clock" />
+                  </span>
                   <div>
-                    <dt>Horário</dt>
+                    <dt>Funcionamento</dt>
                     <dd>
                       {dailyHours
-                        ? `Todos os dias, das ${dailyHours.opens_at.slice(0, 2)}h às ${dailyHours.closes_at.slice(0, 2)}h`
-                        : "Em confirmação"}
+                        ? "Todos os dias, " +
+                          dailyHours.opens_at.slice(0, 2) +
+                          "h às " +
+                          dailyHours.closes_at.slice(0, 2) +
+                          "h"
+                        : "Consulte o horário com a equipe"}
                     </dd>
                   </div>
                 </div>
                 <div className="store__row">
-                  <Icon name="phone" />
+                  <span className="store__icon">
+                    <Icon name="phone" />
+                  </span>
                   <div>
                     <dt>Telefone</dt>
-                    <dd>{catalog.storeContact?.phone || "Em confirmação"}</dd>
+                    <dd>
+                      {catalog.storeContact?.phone ? (
+                        <a
+                          href={
+                            "tel:" +
+                            catalog.storeContact.phone.replace(/[^\d+]/g, "")
+                          }
+                        >
+                          {catalog.storeContact.phone}
+                        </a>
+                      ) : (
+                        "Em confirmação"
+                      )}
+                    </dd>
                   </div>
                 </div>
               </dl>
-              {whatsappNumber ? (
-                <div className="store__actions">
-                  <a
-                    className="button button--primary button--sm"
-                    href={`https://wa.me/${whatsappNumber}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    WhatsApp
-                  </a>
-                </div>
-              ) : null}
             </article>
+            <aside className="stores__contact reveal" aria-label="Contato da unidade">
+              <div className="stores__contact-top">
+                <span className="stores__contact-label">Fale com a Nuclear</span>
+                <Icon name="spark" />
+              </div>
+              <div className="stores__contact-content">
+                <h3 className="display stores__contact-title">
+                  Precisou? <em>Chama a gente.</em>
+                </h3>
+                <p className="stores__contact-copy">
+                  Tem alguma dúvida sobre nossos sabores ou atendimento?
+                  Estamos a uma mensagem de distância.
+                </p>
+              </div>
+              {whatsappNumber ? (
+                <a
+                  className="button button--primary stores__contact-action"
+                  href={"https://wa.me/" + whatsappNumber}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Icon name="whatsapp" />
+                  Conversar no WhatsApp
+                  <Icon name="arrow-right" />
+                </a>
+              ) : (
+                <p className="stores__contact-unavailable">
+                  WhatsApp em confirmação
+                </p>
+              )}
+              <p className="stores__contact-note">
+                Pedidos e pagamentos pelo site ainda estão em preparação.
+              </p>
+            </aside>
           </div>
         </div>
       </section>
